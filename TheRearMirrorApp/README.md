@@ -1,4 +1,4 @@
-# The Rear Mirror up
+# The Rear Mirror app
 
 ## Team EDU at Computer Interaction Course, Politecnico di Torino
 Serena Aprano
