@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+
+.highlighted-button {
+  border: 1px solid #0b4fa9; /* Change to the color you want */
+  border-radius: 5px; /* Adjust as needed */
+}
+
+.h1 {
+  color:  #0b4fa9 ; /* Change to the color you want */
+}
