@@ -1,12 +1,15 @@
-# React + Vite
+# The Rear Mirror up
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Team EDU at Computer Interaction Course, Politecnico di Torino
+Serena Aprano
+Lorenzo Mongile
+Federico Maffeo
+Luca di Giacomo
 
-Currently, two official plugins are available:
+## How to run the application locally
+1. (good practice) delete package.json and package-lock.jason before running the app
+2. in the terminal, access your repository directory
+3. run npm install
+4. run npm run dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-
-
-ciao
+   
