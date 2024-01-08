@@ -202,3 +202,493 @@
   margin-bottom: 20px;
 }
 
+.planning {
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.planning .div {
+  background: linear-gradient(180deg, rgb(54.91, 192.1, 175.4) 0%, rgba(42, 157, 143, 0.6) 100%);
+  background-color: rgba(255, 255, 255, 1);
+  height: 844px;
+  position: relative;
+  width: 390px;
+}
+
+.planning .planed-distance {
+  height: 46px;
+  left: 18px;
+  position: absolute;
+  top: 188px;
+  width: 362px;
+}
+
+.planning .rectangle {
+  background-color: #faf9f6;
+  border: 3px solid;
+  border-color: #000000;
+  border-radius: 20px;
+  height: 46px;
+  left: 214px;
+  position: absolute;
+  top: 0;
+  width: 146px;
+}
+
+.planning .text-wrapper {
+  color: #000000;
+  font-family: "Roboto-Bold", Helvetica;
+  font-size: 24px;
+  font-weight: 700;
+  height: 34px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 6px;
+  width: 212px;
+}
+
+.planning .untested-scenarios {
+  height: 187px;
+  left: 20px;
+  position: absolute;
+  top: 470px;
+  width: 358px;
+}
+
+.planning .overlap-group {
+  height: 187px;
+  position: relative;
+}
+
+.planning .untested-scenarios-2 {
+  background-color: #faf9f6;
+  border: 3px solid;
+  border-color: #000000;
+  height: 159px;
+  left: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: absolute;
+  top: 28px;
+  width: 358px;
+}
+
+.planning .MUI-button-instance {
+  border-radius: 50px !important;
+  left: 24px !important;
+  position: absolute !important;
+  top: 19px !important;
+}
+
+.planning .design-component-instance-node {
+  left: 37px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-2 {
+  border-radius: 50px !important;
+  left: 188px !important;
+  position: absolute !important;
+  top: 19px !important;
+}
+
+.planning .MUI-button-3 {
+  text-align: center !important;
+}
+
+.planning .MUI-button-4 {
+  border-radius: 50px !important;
+  left: 24px !important;
+  position: absolute !important;
+  top: 89px !important;
+}
+
+.planning .MUI-button-5 {
+  left: 32px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-6 {
+  border-radius: 50px !important;
+  left: 188px !important;
+  position: absolute !important;
+  top: 89px !important;
+}
+
+.planning .MUI-button-7 {
+  left: 23px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-8 {
+  border-radius: 50px !important;
+  left: 24px !important;
+  position: absolute !important;
+  top: 159px !important;
+}
+
+.planning .MUI-button-9 {
+  left: 12px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-10 {
+  border-radius: 50px !important;
+  left: 188px !important;
+  position: absolute !important;
+  top: 159px !important;
+}
+
+.planning .MUI-button-11 {
+  left: 45px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-12 {
+  border-radius: 50px !important;
+  left: 24px !important;
+  position: absolute !important;
+  top: 229px !important;
+}
+
+.planning .MUI-button-13 {
+  left: 22px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-14 {
+  border-radius: 50px !important;
+  left: 188px !important;
+  position: absolute !important;
+  top: 229px !important;
+}
+
+.planning .untested-scenarios-wrapper {
+  height: 187px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 358px;
+}
+
+.planning .untested-scenarios-3 {
+  color: #000000;
+  font-family: "Roboto-SemiBold", Helvetica;
+  font-size: 24px;
+  font-weight: 600;
+  height: 28px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -1px;
+  white-space: nowrap;
+  width: 226px;
+}
+
+.planning .l-mistakes {
+  height: 187px;
+  left: 20px;
+  position: absolute;
+  top: 246px;
+  width: 358px;
+}
+
+.planning .text-wrapper-2 {
+  color: #000000;
+  font-family: "Roboto-SemiBold", Helvetica;
+  font-size: 24px;
+  font-weight: 600;
+  height: 28px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -1px;
+  white-space: nowrap;
+  width: 193px;
+}
+
+.planning .latest-mistakes {
+  background-color: #faf9f6;
+  border: 3px solid;
+  border-color: #000000;
+  height: 158px;
+  left: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: absolute;
+  top: 28px;
+  width: 358px;
+}
+
+.planning .MUI-button-15 {
+  left: 29px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-16 {
+  left: 30px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-17 {
+  left: 51px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-18 {
+  left: 34px !important;
+  text-align: center !important;
+}
+
+.planning .MUI-button-19 {
+  left: 17px !important;
+  text-align: center !important;
+}
+
+.planning .header-planning {
+  background: linear-gradient(180deg, rgb(225.66, 121.86, 0) 0%, rgba(255, 255, 255, 0.89) 100%);
+  border: 3px solid;
+  border-color: #000000;
+  height: 162px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 390px;
+}
+
+.planning .overlap {
+  height: 170px;
+  position: relative;
+}
+
+.planning .rectangle-2 {
+  border-color: #000000;
+  border-top-style: solid;
+  border-top-width: 2px;
+  height: 81px;
+  left: 0;
+  position: absolute;
+  top: 84px;
+  width: 390px;
+}
+
+.planning .text-wrapper-3 {
+  color: #000000;
+  font-family: "Roboto-Bold", Helvetica;
+  font-size: 36px;
+  font-weight: 700;
+  height: 89px;
+  left: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 81px;
+  width: 358px;
+}
+
+.planning .save {
+  background: linear-gradient(180deg, rgb(233, 196, 106) 0%, rgba(248.61, 219.4, 148.34, 0.8) 100%);
+  border: 3px solid;
+  border-color: #000000;
+  border-radius: 17px;
+  height: 60px;
+  left: 318px;
+  overflow: hidden;
+  position: absolute;
+  top: 98px;
+  width: 60px;
+}
+
+.planning .overlap-group-2 {
+  height: 48px;
+  left: 6px;
+  position: relative;
+  top: 6px;
+  width: 48px;
+}
+
+.planning .union {
+  height: 1px;
+  left: 8px;
+  position: absolute;
+  top: 8px;
+  width: 1px;
+}
+
+.planning .icon-import-download-instance {
+  left: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.planning .frame {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #000000;
+  height: 84px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 390px;
+}
+
+.planning .THE-REAR-MIRROR {
+  height: 42px;
+  left: 15px;
+  position: absolute;
+  top: 41px;
+  width: 358px;
+}
+
+.planning .back {
+  background: linear-gradient(180deg, rgb(233, 196, 106) 0%, rgba(248.61, 219.4, 148.34, 0.8) 100%);
+  border: 3px solid;
+  border-color: #000000;
+  border-radius: 11px;
+  height: 60px;
+  left: 12px;
+  position: absolute;
+  top: 98px;
+  width: 60px;
+}
+
+.planning .img {
+  height: 1px;
+  left: 17px;
+  position: absolute;
+  top: 27px;
+  width: 20px;
+}
+
+.planning .bottom-buttons {
+  border-radius: 15px;
+  height: 80px;
+  left: 0;
+  position: fixed;
+  top: 764px;
+  width: 390px;
+}
+
+.planning .overlap-2 {
+  border-radius: 10px;
+  height: 91px;
+  position: relative;
+  top: -11px;
+}
+
+.planning .folder {
+  height: 49px;
+  left: 119px;
+  position: absolute;
+  top: 21px;
+  width: 56px;
+}
+
+.planning .home {
+  height: 49px;
+  left: 28px;
+  position: absolute;
+  top: 21px;
+  width: 47px;
+}
+
+.planning .review {
+  height: 58px;
+  left: 308px;
+  position: absolute;
+  top: 17px;
+  width: 59px;
+}
+
+.planning .bottom-cloud {
+  background-color: #faf9f6;
+  border: 4px solid;
+  border-color: #000000;
+  border-radius: 10px;
+  height: 91px;
+  left: 0;
+  mix-blend-mode: multiply;
+  position: absolute;
+  top: 0;
+  width: 390px;
+}
+
+.planning .review-2 {
+  border: 4px solid;
+  border-color: #000000;
+  border-radius: 25px;
+  height: 80px;
+  left: 294px;
+  position: absolute;
+  top: 6px;
+  width: 87px;
+}
+
+.planning .new-lesson {
+  background: linear-gradient(180deg, rgb(227, 135, 25) 2.6%, rgba(226, 132, 21, 0.7) 100%);
+  border: 4px solid;
+  border-color: #000000;
+  border-radius: 25px;
+  height: 80px;
+  left: 199px;
+  position: absolute;
+  top: 6px;
+  width: 87px;
+}
+
+.planning .new-lesson-2 {
+  height: 55px;
+  left: 215px;
+  position: absolute;
+  top: 18px;
+  width: 55px;
+}
+
+.planning .folder-2 {
+  border: 4px solid;
+  border-color: #000000;
+  border-radius: 25px;
+  height: 80px;
+  left: 103px;
+  position: absolute;
+  top: 6px;
+  width: 87px;
+}
+
+.planning .home-2 {
+  border: 4px solid;
+  border-color: #000000;
+  border-radius: 25px;
+  height: 80px;
+  left: 8px;
+  position: absolute;
+  top: 6px;
+  width: 87px;
+}
+
+.icon-import-download {
+  height: 48px;
+  position: relative;
+  width: 48px;
+}
+
+.icon-import-download .icon {
+  height: 24px;
+  left: 12px;
+  position: absolute;
+  top: 12px;
+  width: 24px;
+}
+
+
