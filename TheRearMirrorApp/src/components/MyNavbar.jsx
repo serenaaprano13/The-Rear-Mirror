@@ -9,8 +9,8 @@ import { faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 
 const MyNavbar = () => {
   return (
-    <div className="navbar">
-      <div className="nav-item">
+    <div className="downNavbar">
+      <div className="down-nav-item">
         <Link to="*">
         <div>
         <FontAwesomeIcon icon={faHouseUser} size="lg"/>
@@ -23,7 +23,7 @@ const MyNavbar = () => {
         
       
 
-      <div className="nav-item">
+      <div className="down-nav-item">
       <Link to="/planning">
         <div>
       <FontAwesomeIcon icon={faFileCirclePlus} size="lg" />
@@ -32,7 +32,7 @@ const MyNavbar = () => {
       </Link>
       </div>
 
-      <div className="nav-item">
+      <div className="down-nav-item">
       <Link to="*">
         <div>
         <FontAwesomeIcon icon={faCalendar} size="lg"/>
@@ -41,7 +41,7 @@ const MyNavbar = () => {
       </div>
       
 
-      <div className="nav-item">
+      <div className="down-nav-item">
       <Link to="*">
         <div>
         <FontAwesomeIcon icon={faStarHalfStroke}size="lg"/>

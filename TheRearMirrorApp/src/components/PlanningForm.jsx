@@ -3,22 +3,30 @@
 
 import React from 'react';
 import  MyNavbar  from './MyNavbar';
+import  Title  from './Title';
+
 
 const PlanningForm = () => {
   return (
-    <div className="smartphone-component">
-      <header className="header">
-        <h1>Planning page: WIP</h1>
+
+    <div>
+      <header>
+        <Title titolo="Planning"></Title>
       </header>
 
-      <main>
-        {/* Content goes here */}
-      </main>
-
-      <footer className="navbar">
+      
+      <footer className="myNavbar">
         <MyNavbar></MyNavbar>
       </footer>
+
     </div>
+   
+      
+        
+      
+
+      
+      
   );
 };
 

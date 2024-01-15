@@ -1,5 +1,5 @@
 body {
-  font-family:Verdana, Geneva, Tahoma, sans-serif
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
 }
 
@@ -203,12 +203,12 @@ body {
 
 
 
-.navbar a {
+.downNavbar a {
   text-decoration: none;
-  color: #333;
+  color: #0a0000;
 }
 
-.navbar {
+.downNavbar {
   height: 60px; /* Adjust this value as needed */
   display: flex;
   justify-content: space-around;
@@ -220,6 +220,7 @@ body {
   margin-left: 0;
   padding-left: 0;
   align-items: center;
+  background-color: #f1af5f;
 }
 
 
@@ -229,7 +230,7 @@ body {
 }
 
 
-  .nav-item {
+  .down-nav-item {
     height: 34px;
     display: flex;
     flex-direction: column;
@@ -237,18 +238,63 @@ body {
     font-size: 17px; /* Adjust as needed */
     padding: 10px; /* Adjust as needed */
     border-radius: 5%; /* Adjust as needed */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
   }
 
   
-  .nav-item > div {
+  .down-nav-item > div {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
 
-  .nav-item > a > div {
+  .down-nav-item > a > div {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
   }
+
+  .down-nav-item:hover {
+    background-color: white;
+  }
+
+  .navbar{
+    background-color: #f1af5f;
+    display: flex;
+    justify-content: space-between;
+    top:0;
+    width: 100%;
+    position:fixed;
+    height: 70px;
+    align-items: center;
+    
+  }
+
+  .navbar .navbar-brand{
+    font-size:30px;
+    line-height: 70px;
+    color: black;
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+    margin:auto;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+
+  .navbar .btn{
+    margin:auto;
+    margin-left:10px;
+    background-color: #e6c499;
+  }
+
+  .navbar .btn:hover{
+    background-color: #f1af5f;
+    border-color: #ededed;
+
+  }
+ 
+
+  
