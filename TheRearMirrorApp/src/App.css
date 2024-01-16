@@ -16,21 +16,6 @@ body {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
   padding: 2em;
 }
@@ -209,7 +194,7 @@ body {
 }
 
 .downNavbar {
-  height: 60px; /* Adjust this value as needed */
+  height: 60px; 
   display: flex;
   justify-content: space-around;
   position: fixed;
@@ -235,9 +220,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 17px; /* Adjust as needed */
-    padding: 10px; /* Adjust as needed */
-    border-radius: 5%; /* Adjust as needed */
+    font-size: 17px; 
+    padding: 10px; 
+    border-radius: 5%; 
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
   }
 
@@ -265,6 +250,7 @@ body {
     display: flex;
     justify-content: space-between;
     top:0;
+    left:0;
     width: 100%;
     position:fixed;
     height: 70px;
@@ -295,6 +281,8 @@ body {
     border-color: #ededed;
 
   }
+
+
  
 
   
