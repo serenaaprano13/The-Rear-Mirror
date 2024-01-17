@@ -8,19 +8,16 @@ import { Form, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 const Evaluation = () => {
-
-  const [selectedDate, setSelectedDate] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+  const [date, setDate] = useState(new Date());
+
 
   return (
 
@@ -28,20 +25,30 @@ const Evaluation = () => {
       <header>
         <Title titolo="Evaluations"></Title>
       </header>
-      <Form>
+      <Container>
+        <Form>
+          <div>
 
-        <Col md={6}>
-          <Col>
-            <Form.Group controlId="datePicker">
-              <Form.Label className='fw-light'>Date Picker</Form.Label>
-            </Form.Group>
-            
-          </Col>
-          <Col>
-            <Form.Group controlId="validateChk">
-              <Form.Label className='fw-light'>Validated</Form.Label>
-            </Form.Group>
-            <Form.Group controlId="formCheckbox">
+            <Row>
+              <Col>
+                <Form.Group controlId="datePicker">
+                  <Form.Label className='fw-light'>Date</Form.Label>
+                </Form.Group>
+                <Form.Group controlId="duedate">
+                  <Form.Control
+                    type="date"
+                    name="duedate"
+                    placeholder="Date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group controlId="validateChk">
+                  <Form.Label className='fw-light'>Validated</Form.Label>
+                </Form.Group>
+                <Form.Group controlId="formCheckbox">
                   <Form.Check
                     type="checkbox"
                     label=""
@@ -49,12 +56,15 @@ const Evaluation = () => {
                     onChange={handleCheckboxChange}
                   />
                 </Form.Group>
-          </Col>
-        </Col>
-
-      </Form>
+              </Col>
 
 
+            </Row>
+          </div>
+        </Form>
+
+
+      </Container>
 
 
 
