@@ -42,7 +42,7 @@ const MyNavbar = () => {
       
 
       <div className="down-nav-item">
-      <Link to="*">
+      <Link to="/evaluation">
         <div>
         <FontAwesomeIcon icon={faStarHalfStroke}size="lg"/>
         Evaluation

@@ -10,12 +10,14 @@ import { BrowserRouter } from 'react-router-dom'
 import { Routes, Route } from 'react-router'
 import MyNavbar  from './components/MyNavbar'
 import { PageNotFound } from './components/PageNotFound'  
+import Evaluation from './components/Evaluation'
 function App() {
   return <BrowserRouter>
   <Routes>
     <Route path="/" element={<LoadingPage />} />
     <Route path="/planning" element={<PlanningForm />} />
     <Route path='*' element={<PageNotFound></PageNotFound>} />
+    <Route path='/evaluation' element={<Evaluation></Evaluation>} />
   </Routes>
   <MyNavbar/>
   </BrowserRouter>
