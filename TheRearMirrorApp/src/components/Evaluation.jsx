@@ -5,46 +5,95 @@ import React from 'react';
 import MyNavbar from './MyNavbar';
 import Title from './Title';
 import { Form, Row } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
-import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import { Lesson } from './lessonDefine';
+import { Link } from 'react-router-dom';
 
-function LessonElement(lesson) {
+const myLesson = [];
+myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true));
+myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true));
+myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false));
+
+
+function LessonElement(wrap) {
+  const lesson = wrap.lesson;
   const bToEvaluate = lesson.evaluated;
   if (bToEvaluate) {
-    <div className="label">
-      <div className="text-wrapper">LESSON lesson.date</div>
-      <div className="lesson-scenarios">
-        lesson.scenario1
-        <br />
-        lesson.scenario2
-        <br />
-        lesson.scenario3
-      </div>
-      <div className="stars">
-        {/* <todo: eval stars> */}
-        <div className="overlap-group">
+    return <div className="label">
+      <div className="scroll-element">
+
+
+        <Container>
+          <Row>
+            <Col>
+              <div className="text-wrapper">
+                <b>LESSON {lesson.date}</b>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={7}>{lesson.scenario1}</Col>
+            <Col sm={5}></Col>
+          </Row>
+          <Row>
+            <Col sm={7}>{lesson.scenario2}</Col>
+            <Col sm={5}></Col>
+          </Row>
+          <Row>
+            <Col sm={7}>{lesson.scenario3}</Col>
+            <Col sm={5}> <div>Grade: {lesson.grade}</div></Col>
+          </Row>
+
+
+          <div className="stars">
+            {/* <todo: eval stars> */}
+            {/* <div className="overlap-group">
           <img className="review" alt="Review" src="review.svg" />
           <img className="img" alt="Review" src="image.svg" />
           <img className="review-2" alt="Review" src="review-2.svg" />
           <img className="review-3" alt="Review" src="review-3.svg" />
           <img className="review-4" alt="Review" src="review-4.svg" />
-        </div>
+        </div> */}
+          </div>
+
+
+        </Container>
+        <br />
       </div>
     </div>
   }
   else {
-    <div className="label">
-      <div className="text-wrapper">LESSON lesson.date</div>
-      <div className="lesson-scenarios">
-        lesson.scenario1
+    return <div className="label">
+      <div className="scroll-element">
+        <Container>
+          <Row>
+            <Col>
+              <div className="text-wrapper">
+                <b>LESSON {lesson.date}</b>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={7}>{lesson.scenario1}</Col>
+            <Col sm={5}></Col>
+          </Row>
+          <Row>
+            <Col sm={7}>{lesson.scenario2}</Col>
+            <Col sm={5}></Col>
+          </Row>
+          <Row>
+            <Col sm={7}>{lesson.scenario3}</Col>
+            <Col sm={5}><Link to="/evaluating"><button>Evaluate</button></Link></Col>
+          </Row>
+
+        </Container>
         <br />
-        lesson.scenario2
-        <br />
-        lesson.scenario3
       </div>
-      <Button variant="outlined">Evaluate</Button>
     </div>
   }
 }
@@ -56,10 +105,7 @@ const Evaluation = () => {
     setIsChecked(!isChecked);
   };
   const [date, setDate] = useState(new Date());
-
-  var React = require('react');
-  var ReactDOM = require('react-dom');
-  var ScrollArea = require('react-scrollbar');
+  // console.log(typeof myLesson.at(1).scenario1);
   return (
 
     <div>
@@ -68,8 +114,6 @@ const Evaluation = () => {
       </header>
       <Container>
         <Form>
-
-
           <Row>
             <Col>
               <Form.Group controlId="datePicker">
@@ -99,7 +143,15 @@ const Evaluation = () => {
               </Form.Group>
             </Col>
           </Row>
+          <br /><br />
+          <div className="scroll-container">
+            <Form.Group controlId="LessonElements">
+              {myLesson.map((a, i) => <LessonElement key={i} lesson={myLesson.at(i)} />)}
+            </Form.Group>
+          </div>
+
         </Form>
+
       </Container>
 
       <footer className="myNavbar">
@@ -107,12 +159,6 @@ const Evaluation = () => {
       </footer>
 
     </div>
-
-
-
-
-
-
 
   );
 };

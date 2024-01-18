@@ -18,6 +18,7 @@ function App() {
     <Route path="/planning" element={<PlanningForm />} />
     <Route path='*' element={<PageNotFound></PageNotFound>} />
     <Route path='/evaluation' element={<Evaluation></Evaluation>} />
+    <Route path='/evaluating' element={<PageNotFound></PageNotFound>} />
   </Routes>
   <MyNavbar/>
   </BrowserRouter>
