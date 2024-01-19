@@ -1,6 +1,5 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
+  font-family: 'Archivo', sans-serif;
 }
 
 .logo {
@@ -20,9 +19,7 @@ body {
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
-}
+
 
 .highlighted-button {
   border: 1px solid #0b4fa9; /* Change to the color you want */
@@ -86,7 +83,7 @@ body {
 
 .loading-page .developed-by-gruppo {
   color: #000000;
-  font-family: "Roboto-SemiBoldItalic", Helvetica;
+  font-family: 'Archivo', sans-serif;
   font-size: 12px;
   font-style: italic;
   font-weight: 600;
@@ -119,7 +116,9 @@ body {
 
 .loading-page .text-wrapper {
   color: #000000;
-  font-family: "Roboto Serif-BlackItalic", Helvetica;
+  font-family: 'Archivo', sans-serif;
+
+
   font-size: 64px;
   font-style: italic;
   font-weight: 900;
@@ -153,7 +152,7 @@ body {
 
 .loading-page .p {
   color: #000000;
-  font-family: "Roboto-MediumItalic", Helvetica;
+  font-family: 'Archivo', sans-serif;
   font-size: 32px;
   font-style: italic;
   font-weight: 500;
@@ -170,7 +169,7 @@ body {
 
 .loading-page .text-wrapper-2 {
   color: #000000;
-  font-family: "Roboto-SemiBoldItalic", Helvetica;
+  font-family: 'Archivo', sans-serif;
   font-size: 32px;
   font-style: italic;
   font-weight: 600;
@@ -220,10 +219,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 17px; 
+    font-size: 15px; 
     padding: 10px; 
     border-radius: 5%; 
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-family: 'Archivo', sans-serif;
   }
 
   
@@ -266,7 +265,7 @@ body {
     left:50%;
     transform: translateX(-50%);
     margin:auto;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Archivo', sans-serif;
   }
 
 
@@ -281,6 +280,26 @@ body {
     border-color: #ededed;
 
   }
+
+  .planning{
+    margin-bottom: 200px;
+  }
+
+  .planning .form-group{
+    margin-bottom: 10px  !important ;
+  }
+
+  .planningMultiSelect .searchBox {
+    min-height: 40px;
+  }
+ 
+
+  .planningMultiSelect .optionContainer {
+    border: 2px solid;
+  }
+
+ 
+ 
 
 
  
