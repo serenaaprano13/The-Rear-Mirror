@@ -1,0 +1,12 @@
+.position-absolute {
+    position: absolute;
+  }
+  
+  .top-0 {
+    top: 0;
+  }
+
+.title-row {
+    margin-bottom: 1rem; /* Aumenta questo valore per più spazio */
+    margin-top: 1rem;
+  }

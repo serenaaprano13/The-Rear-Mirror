@@ -33,11 +33,11 @@ const MyNavbar = () => {
       </div>
 
       <div className="down-nav-item">
-      <Link to="*">
+      <Link to="/lookback">
         <div>
         <FontAwesomeIcon icon={faCalendar} size="lg"/>
         Look Back
-        </div></Link> {/* TO DO: create the lookback page */}
+        </div></Link>
       </div>
       
 

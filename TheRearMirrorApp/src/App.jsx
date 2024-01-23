@@ -11,7 +11,12 @@ import { Routes, Route } from 'react-router'
 import MyNavbar  from './components/MyNavbar'
 import { PageNotFound } from './components/PageNotFound'  
 import Evaluation from './components/Evaluation'
+import { LookBack } from './components/LookBack'
+
+
+
 function App() {
+
   return <BrowserRouter>
   <Routes>
     <Route path="/" element={<LoadingPage />} />
@@ -19,6 +24,7 @@ function App() {
     <Route path='*' element={<PageNotFound></PageNotFound>} />
     <Route path='/evaluation' element={<Evaluation></Evaluation>} />
     <Route path='/evaluating' element={<PageNotFound></PageNotFound>} />
+    <Route path='/lookback' element={<LookBack></LookBack>} />
   </Routes>
   <MyNavbar/>
   </BrowserRouter>
