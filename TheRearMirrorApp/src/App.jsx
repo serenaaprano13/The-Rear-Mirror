@@ -11,6 +11,7 @@ import { Routes, Route } from 'react-router'
 import MyNavbar  from './components/MyNavbar'
 import { PageNotFound } from './components/PageNotFound'  
 import Evaluation from './components/Evaluation'
+import Evaluating from './components/Evaluating'
 function App() {
   return <BrowserRouter>
   <Routes>
@@ -18,7 +19,7 @@ function App() {
     <Route path="/planning" element={<PlanningForm />} />
     <Route path='*' element={<PageNotFound></PageNotFound>} />
     <Route path='/evaluation' element={<Evaluation></Evaluation>} />
-    <Route path='/evaluating' element={<PageNotFound></PageNotFound>} />
+    <Route path='/evaluating' element={<Evaluating></Evaluating>} />
   </Routes>
   <MyNavbar/>
   </BrowserRouter>

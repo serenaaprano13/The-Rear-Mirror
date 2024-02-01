@@ -72,3 +72,9 @@ button:focus-visible {
   overflow: auto;
   border:none;
 }
+.scroll-element {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #999; /* Add a border to each element */
+}
