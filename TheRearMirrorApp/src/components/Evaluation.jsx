@@ -11,11 +11,13 @@ import RangeSlider from 'react-bootstrap-range-slider';
 import Container from 'react-bootstrap/Container';
 import { Lesson } from './lessonDefine';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const myLesson = [];
-myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true));
-myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true));
-myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false));
+myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true,5));
+myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true,4));
+myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false,6));
 
 
 function LessonElement(wrap) {
@@ -45,21 +47,12 @@ function LessonElement(wrap) {
           </Row>
           <Row>
             <Col sm={7}>{lesson.scenario3}</Col>
-            <Col sm={5}> <div>Grade: {lesson.grade}</div></Col>
+            <Col sm={5}>
+              {Array.from({ length: lesson.grade }, (_, key) => (
+                <FontAwesomeIcon icon={faStar} size="1x" key={key}/>
+              ))}
+            </Col>
           </Row>
-
-
-          <div className="stars">
-            {/* <todo: eval stars> */}
-            {/* <div className="overlap-group">
-          <img className="review" alt="Review" src="review.svg" />
-          <img className="img" alt="Review" src="image.svg" />
-          <img className="review-2" alt="Review" src="review-2.svg" />
-          <img className="review-3" alt="Review" src="review-3.svg" />
-          <img className="review-4" alt="Review" src="review-4.svg" />
-        </div> */}
-          </div>
-
 
         </Container>
         <br />

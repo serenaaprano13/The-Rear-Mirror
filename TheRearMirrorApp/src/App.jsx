@@ -15,6 +15,7 @@ import { LookBack } from './components/LookBack'
 
 
 
+import Evaluating from './components/Evaluating'
 function App() {
 
   return <BrowserRouter>
@@ -25,6 +26,7 @@ function App() {
     <Route path='/evaluation' element={<Evaluation></Evaluation>} />
     <Route path='/evaluating' element={<PageNotFound></PageNotFound>} />
     <Route path='/lookback' element={<LookBack></LookBack>} />
+    <Route path='/evaluating' element={<Evaluating></Evaluating>} />
   </Routes>
   <MyNavbar/>
   </BrowserRouter>

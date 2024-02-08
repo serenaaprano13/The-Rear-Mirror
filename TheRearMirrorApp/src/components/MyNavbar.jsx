@@ -11,7 +11,7 @@ const MyNavbar = () => {
   return (
     <div className="downNavbar">
       <div className="down-nav-item">
-        <Link to="*">
+        <Link to="">
         <div>
         <FontAwesomeIcon icon={faHouseUser} size="lg"/>
         Home
