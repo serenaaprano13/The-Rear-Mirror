@@ -1,6 +1,6 @@
 
 
-function Lesson(date,scenario1,scenario2,scenario3,grade,bEvaluated)
+function Lesson(date,scenario1,scenario2,scenario3,grade,bEvaluated,distance)
 {
     this.date=date;
     this.scenario1=scenario1;
@@ -8,6 +8,7 @@ function Lesson(date,scenario1,scenario2,scenario3,grade,bEvaluated)
     this.scenario3=scenario3;
     this.grade=grade;
     this.evaluated=bEvaluated;
+    this.distance=distance;
 }
 
   

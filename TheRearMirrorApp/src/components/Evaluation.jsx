@@ -15,17 +15,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const myLesson = [];
-myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true));
-myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true));
-myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false));
+myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true,5));
+myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true,4));
+myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false,6));
 
-function GetStars(n)
-{
-  return
-   for (let i = 0; i < n; i++) {
-    <FontAwesomeIcon icon={faStar} size="lg"/>
-} 
-}
+
 function LessonElement(wrap) {
   const lesson = wrap.lesson;
   const bToEvaluate = lesson.evaluated;
@@ -55,7 +49,7 @@ function LessonElement(wrap) {
             <Col sm={7}>{lesson.scenario3}</Col>
             <Col sm={5}>
               {Array.from({ length: lesson.grade }, (_, key) => (
-                <FontAwesomeIcon icon={faStar} size="1x"/>
+                <FontAwesomeIcon icon={faStar} size="1x" key={key}/>
               ))}
             </Col>
           </Row>

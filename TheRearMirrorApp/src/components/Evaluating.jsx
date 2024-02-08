@@ -12,20 +12,21 @@ import Container from 'react-bootstrap/Container';
 import { Lesson } from './lessonDefine';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 const myLesson = [];
-myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true));
-myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true));
-myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false));
+
+myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
+
+
+const handleDistanceChange = (e) => {
+  // Handle the distance value here
+  console.log(e.target.value);
+};
 
 
 const Evaluating = () => {
-  const [isChecked, setIsChecked] = useState(false);
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
   const [date, setDate] = useState(new Date());
   // console.log(typeof myLesson.at(1).scenario1);
   return (
@@ -34,10 +35,75 @@ const Evaluating = () => {
       <header>
         <Title titolo="Evaluating"></Title>
       </header>
-      <Container>
-    
+      <div className="scroll-element">
+        <Container>
+          <Row>
+            <Col>
+              <b>Distance</b>
+            </Col>
 
-      </Container>
+            <Col>
+              <FontAwesomeIcon icon={faCalendarAlt} size="2x" />
+            </Col>
+          </Row>
+
+          <Row>
+
+            <Col>
+              <Form.Group controlId="distance">
+                <Form.Control
+                  type="text"
+                  name="distance"
+                  placeholder="Enter distance"
+                  onChange={handleDistanceChange}
+                />
+              </Form.Group>
+            </Col>
+            <Form.Group controlId="duedate">
+              <Form.Control
+                type="date"
+                name="duedate"
+                placeholder="Date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </Form.Group>
+
+          </Row>
+          <Row>
+            <Col>
+              <b>Driving Scenarios</b>
+            </Col>
+          </Row>
+          <Row>
+            <div className="scroll-element"></div>
+          </Row>
+          <Row>
+            <Col>
+              <b>Mistakes</b>
+            </Col>
+          </Row>
+          <Row>
+            <div className="scroll-element"></div>
+          </Row>
+          <Row>
+            <Col>
+              <b>Mistakes</b>
+            </Col>
+          </Row>
+          <Row>
+            <div className="scroll-element"></div>
+          </Row>
+          <Row>
+            <Col>
+              <b>Grade</b>
+            </Col>
+          </Row>
+          <Row>
+            <div className="scroll-element"></div>
+          </Row>
+        </Container>
+      </div>
 
       <footer className="myNavbar">
         <MyNavbar></MyNavbar>
