@@ -73,8 +73,17 @@ button:focus-visible {
   border:none;
 }
 .scroll-element {
+  width: 100%; /* Set width to 100% */
+  margin: 0;
   margin-bottom: 20px;
   padding: 10px;
   background-color: #f0f0f0;
   border: 1px solid #999; /* Add a border to each element */
+}
+.evaluating-element {
+  width: 80%;
+  margin: 0;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #000;
 }
