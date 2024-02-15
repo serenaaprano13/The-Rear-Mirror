@@ -98,8 +98,28 @@ exports.insertPlanning = async(req, res)=>{
 };
 
 
-    
-  
+//Get Lessons
+exports.getLessons=(validated)=>{
+    return new Promise( (resolve,reject)=>{
+        if(validated)
+        {
+            const sql = ` SELECT * FROM LESSONS WHERE rif_evaluation<>-1 ORDER BY lessonDate ASC ;`;
+        }
+        else
+        {
+
+            const sql = ` SELECT * FROM LESSONS  ORDER BY lessonDate ASC  ;`;
+        }
+        db.all(sql,[],(err,rows)=>{
+            if(err){
+                reject(err);
+                return;
+            }
+            const plannings = rows.map((p) => new Planning(p.planning_id, p.creation_date, p.distance));
+            resolve(plannings[0]);
+        });
+    });
+};
 
  
 

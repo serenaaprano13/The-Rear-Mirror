@@ -387,9 +387,28 @@ header {
   }
 
  
- 
+  .scroll-container {
+    width: 300px;
+    height: 800px;
+    overflow: auto;
+    border: none; /* Set outer container border to none */
+  }
 
+  .scroll-element {
+    width: 100%; /* Set width to 100% */
+    margin: 10;
+    padding: 0px;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+  }
 
+  .evaluating-element{
+    width: 90%; /* Set width to 100% */
+    margin: 10; 
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+  }
  
 
   

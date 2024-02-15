@@ -72,4 +72,64 @@ VALUES
 
 
 
+CREATE TABLE IF NOT EXISTS "LESSONS" (lesson_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,rif_evaluation INTEGER, lessonDate TIMESTAMP,
+FOREIGN KEY (rif_evaluation) REFERENCES EVALUATION(idRow));
+
+INSERT INTO LESSONS(lesson_id,rif_evaluation,lessonDate)
+VALUES
+(1, 1, '2024-02-13 10:30:00'),
+(2, 2, '2024-02-14 15:45:00'),
+(3, -1, '2024-02-15 08:00:00' );
+
+
+
+
+CREATE TABLE IF NOT EXISTS "ROUTES" (route_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, routeName TEXT, distanceInKm FLOAT);
+
+INSERT INTO ROUTES(route_id,routeName,distanceInKm)
+VALUES
+(1,'Corso Ferrucci',3),
+(2,'Corso Trapani',2),
+(3,'Via Virle',1);
+
+
+CREATE TABLE IF NOT EXISTS "LINKLessonScenario" (idRow INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,rif_lesson INTEGER,scenario_id INTEGER, scenario_is_mistake BOOL,
+	 FOREIGN KEY (rif_lesson) REFERENCES LESSONS(lesson_id),
+    FOREIGN KEY (scenario_id) REFERENCES DRIVINGSCENARIOS(id));
+		--scenario_is_mistake (BOOL -> FALSE=DrivingScenario,TRUE=Mistake)
+
+INSERT INTO LINKLessonScenario(idRow,rif_lesson,scenario_id)
+VALUES
+(1,1,1),
+(2,1,3),
+(3,1,5),
+(4,2,2),
+(5,2,4),
+(6,2,6),
+(7,3,7),
+(8,3,8),
+(9,3,9);
+
+CREATE TABLE IF NOT EXISTS "LINKLessonRoute" (idRow INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, rif_lesson INTEGER, rif_route INTEGER
+	FOREIGN KEY (rif_lesson) REFERENCES LESSONS(lesson_id),
+	FOREIGN KEY (rif_route) REFERENCES ROUTES(route_id));
+
+
+INSERT INTO LINKLessonRoute(idRow,rif_lesson,rif_route)
+VALUES
+(1,1,1),
+(2,1,2),
+(3,2,3),
+(4,2,1),
+(5,3,3);
+
+CREATE TABLE IF NOT EXISTS "EVALUATION" (idRow INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,rif_lesson INTEGER, grade INTEGER, evaluationDate TIMESTAMP,
+	FOREIGN KEY (rif_lesson) REFERENCES LESSONS(lesson_id));
+
+INSERT INTO EVALUATION(idRow,rif_lesson,grade,evaluationDate)
+VALUES
+(1,1,4,'2024-02-13 14:40:00'),
+(2,2,5,'2024-02-18 10:00:00');
+
+
 COMMIT;
