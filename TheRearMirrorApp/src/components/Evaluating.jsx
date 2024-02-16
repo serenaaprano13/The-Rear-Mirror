@@ -9,11 +9,11 @@ import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
 import Container from 'react-bootstrap/Container';
-import { Lesson, Route } from './lessonDefine';
+import { Lesson, Route } from '../../server/lessonDefine';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';
-
+import { useNavigate } from 'react-router-dom';
 
 const myLesson = [];
 myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
@@ -65,6 +65,11 @@ const Evaluating = () => {
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
+
+  const navigate = useNavigate();
+  const handleSave = () => {
+    navigate('/Evaluation');
+  };
   const initialDistance = myLesson.length > 0 ? myLesson[0].distance : 0;
   const [date, setDate] = useState(new Date());
   const [inputValue, setInputValue] = useState(initialDistance);
@@ -74,15 +79,18 @@ const Evaluating = () => {
       <header>
         <Title titolo="Evaluating"></Title>
       </header>
-      <div className="scroll-element">
+      <div className="scroll-container">
         <Container>
           <Row>
             <Col>
-              <b>Distance</b>
+
+              <Form.Label className='custom-label'>Distance</Form.Label>
             </Col>
 
             <Col>
-              <FontAwesomeIcon icon={faCalendarAlt} size="2x" />
+              <FontAwesomeIcon icon={faCalendarAlt} size="1x" />
+              <Form.Label className='custom-label'> Date</Form.Label>
+              
             </Col>
           </Row>
 
@@ -112,7 +120,7 @@ const Evaluating = () => {
 
           <Row>
             <Col>
-              <b>Route</b>
+              <Form.Label className='custom-label'>Route</Form.Label>
             </Col>
           </Row>
           <Row >
@@ -130,11 +138,11 @@ const Evaluating = () => {
           </Row>
           <Row>
             <Col>
-              <b>Driving Scenarios</b>
+              <Form.Label className='custom-label'>Driving Scenarios</Form.Label>
             </Col>
           </Row>
           <Row>
-          <div className="evaluating-element">
+            <div className="evaluating-element">
               <Row >{scenarios[0]}</Row>
               <Row>{scenarios[0]}</Row>
               <Row>{scenarios[0]}</Row>
@@ -142,11 +150,12 @@ const Evaluating = () => {
           </Row>
           <Row>
             <Col>
-              <b>Mistakes</b>
+              
+            <Form.Label className='custom-label'>Mistakes</Form.Label>
             </Col>
           </Row>
           <Row>
-          <div className="evaluating-element">
+            <div className="evaluating-element">
               <Row>{mistakes[0]}</Row>
               <Row>{mistakes[0]}</Row>
               <Row>{mistakes[0]}</Row>
@@ -154,7 +163,8 @@ const Evaluating = () => {
           </Row>
           <Row>
             <Col>
-              <b>Grade</b>
+              
+            <Form.Label className='custom-label'>Grade</Form.Label>
             </Col>
           </Row>
           <Row>
@@ -162,9 +172,12 @@ const Evaluating = () => {
               <StarRating rating={rating} onRatingChange={handleRatingChange} />
             </Col>
           </Row>
+          <Form.Group className="d-flex justify-content-center ">
+            <button className="save-btn" onClick={(event) => handleSave(event)}>CONFIRM</button>
+          </Form.Group>
         </Container>
       </div>
-
+      <br /><br /><br /><br />
       <footer className="myNavbar">
         <MyNavbar></MyNavbar>
       </footer>

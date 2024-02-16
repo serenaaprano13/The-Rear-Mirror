@@ -1,8 +1,87 @@
-body {
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
   font-family: 'Archivo', sans-serif;
 }
 
-.logo {
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	padding: 0 2rem;
+	background-color:rgb(251, 178, 42);
+	color: black;
+}
+.header-title{
+  text-align: center;
+  flex-grow: 1;
+
+}
+
+.back-btn {
+  background-color: #f1af5f ;
+  border-radius:5px;
+  font-size: 20px;
+ margin-top: 20px;
+}
+
+.form-group{
+  margin: 20px;
+}
+
+.custom-label{
+  color: rgb(125, 125, 199); 
+  font-weight: bold; 
+  border-bottom: 2px solid #5a6268; 
+  padding-bottom: 5px; 
+  margin-bottom: 10px; 
+}
+
+.range{
+  margin-left:15px;
+  margin-right:20px;
+
+}
+.discard-btn{
+  background-color: grey ;
+  border-radius:4px;
+  border-width: 0cap;
+  width:120px;
+  height:40px;
+  font-size: 15px;
+  line-height: 40px;
+  text-align:center;
+  margin-top: 20px;
+  margin-left: 5px;
+  margin-right:20px;
+ 
+}
+.save-btn{
+  background-color:rgb(125, 125, 199) ;
+  border-radius:4px;
+  border-color: aliceblue;
+  border-width: 0cap;
+  width:120px;
+  height:40px;
+  font-size: 15px;
+  line-height: 40px;
+  text-align:center;
+  margin-top: 20px;
+  margin-right: 5px;
+  margin-left:20px;
+}
+
+
+
+
+
+
+
+
+
+/*.logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -19,18 +98,28 @@ body {
   padding: 2em;
 }
 
+*/
+
+/*
+
+
+
+
 
 
 .highlighted-button {
-  border: 1px solid #0b4fa9; /* Change to the color you want */
-  border-radius: 5px; /* Adjust as needed */
+  border: 1px solid #0b4fa9;
+  border-radius: 5px; 
 }
 
 .h1 {
-  color:  #0b4fa9 ; /* Change to the color you want */
+  color:  #0b4fa9 ; 
 }
 
-.loading-page {
+
+*/
+
+/*.loading-page {
   background-color: rgba(255, 255, 255, 1);
   display: flex;
   flex-direction: row;
@@ -185,15 +274,16 @@ body {
 }
 
 
-
+*/
 
 .downNavbar a {
   text-decoration: none;
-  color: #0a0000;
+  color: black;
+ 
 }
 
 .downNavbar {
-  height: 60px; 
+  height: 50px; 
   display: flex;
   justify-content: space-around;
   position: fixed;
@@ -208,14 +298,9 @@ body {
 }
 
 
-body {
-  margin: 0;
-  padding: 0;
-}
 
 
   .down-nav-item {
-    height: 34px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -225,12 +310,14 @@ body {
     font-family: 'Archivo', sans-serif;
   }
 
+
   
-  .down-nav-item > div {
+  /*.down-nav-item > div {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+  */
 
 
   .down-nav-item > a > div {
@@ -239,21 +326,23 @@ body {
     align-items: center;
     
   }
+  
 
   .down-nav-item:hover {
-    background-color: white;
+    background-color: rgb(251, 178, 42);
   }
 
   .navbar{
     background-color: #f1af5f;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     top:0;
     left:0;
-    width: 100%;
+    width: 100vw;
     position:fixed;
     height: 70px;
     align-items: center;
+    box-sizing: border-box;
     
   }
 
@@ -261,7 +350,6 @@ body {
     font-size:30px;
     line-height: 70px;
     color: black;
-    position: absolute;
     left:50%;
     transform: translateX(-50%);
     margin:auto;
@@ -286,7 +374,7 @@ body {
   }
 
   .planning .form-group{
-    margin-bottom: 10px  !important ;
+    margin-bottom: 10px ;
   }
 
   .planningMultiSelect .searchBox {
@@ -299,9 +387,28 @@ body {
   }
 
  
- 
+  .scroll-container {
+    width: 300px;
+    height: 800px;
+    overflow: auto;
+    border: none; /* Set outer container border to none */
+  }
 
+  .scroll-element {
+    width: 100%; /* Set width to 100% */
+    margin: 10;
+    padding: 0px;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+  }
 
+  .evaluating-element{
+    width: 90%; /* Set width to 100% */
+    margin: 10; 
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+  }
  
 
   

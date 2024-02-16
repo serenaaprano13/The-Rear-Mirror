@@ -9,87 +9,17 @@ import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
 import Container from 'react-bootstrap/Container';
-import { Lesson } from './lessonDefine';
+import { Lesson } from '../../server/lessonDefine';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import {useNavigate} from 'react-router-dom';
 
 const myLesson = [];
-myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true,5));
-myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true,4));
-myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false,6));
+myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true, 5));
+myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true, 4));
+myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
 
-
-function LessonElement(wrap) {
-  const lesson = wrap.lesson;
-  const bToEvaluate = lesson.evaluated;
-  if (bToEvaluate) {
-    return <div className="label">
-      <div className="scroll-element">
-
-
-        <Container>
-          <Row>
-            <Col>
-              <div className="text-wrapper">
-                <b>LESSON {lesson.date}</b>
-              </div>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col sm={7}>{lesson.scenario1}</Col>
-            <Col sm={5}></Col>
-          </Row>
-          <Row>
-            <Col sm={7}>{lesson.scenario2}</Col>
-            <Col sm={5}></Col>
-          </Row>
-          <Row>
-            <Col sm={7}>{lesson.scenario3}</Col>
-            <Col sm={5}>
-              {Array.from({ length: lesson.grade }, (_, key) => (
-                <FontAwesomeIcon icon={faStar} size="1x" key={key}/>
-              ))}
-            </Col>
-          </Row>
-
-        </Container>
-        <br />
-      </div>
-    </div>
-  }
-  else {
-    return <div className="label">
-      <div className="scroll-element">
-        <Container>
-          <Row>
-            <Col>
-              <div className="text-wrapper">
-                <b>LESSON {lesson.date}</b>
-              </div>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col sm={7}>{lesson.scenario1}</Col>
-            <Col sm={5}></Col>
-          </Row>
-          <Row>
-            <Col sm={7}>{lesson.scenario2}</Col>
-            <Col sm={5}></Col>
-          </Row>
-          <Row>
-            <Col sm={7}>{lesson.scenario3}</Col>
-            <Col sm={5}><Link to="/evaluating"><button>Evaluate</button></Link></Col>
-          </Row>
-
-        </Container>
-        <br />
-      </div>
-    </div>
-  }
-}
 
 const Evaluation = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -98,6 +28,8 @@ const Evaluation = () => {
     setIsChecked(!isChecked);
   };
   const [date, setDate] = useState(new Date());
+
+  
   // console.log(typeof myLesson.at(1).scenario1);
   return (
 
@@ -109,10 +41,8 @@ const Evaluation = () => {
         <Form>
           <Row>
             <Col>
-              <Form.Group controlId="datePicker">
-                <Form.Label className='fw-light'>Date</Form.Label>
-              </Form.Group>
               <Form.Group controlId="duedate">
+              <Form.Label className='custom-label'>Date</Form.Label>
                 <Form.Control
                   type="date"
                   name="duedate"
@@ -123,9 +53,7 @@ const Evaluation = () => {
               </Form.Group>
             </Col>
             <Col>
-              <Form.Group controlId="validateChk">
-                <Form.Label className='fw-light'>Validated</Form.Label>
-              </Form.Group>
+            <Form.Label className='custom-label'>Validated</Form.Label>
               <Form.Group controlId="formCheckbox">
                 <Form.Check
                   type="checkbox"
@@ -156,4 +84,84 @@ const Evaluation = () => {
   );
 };
 
+
+function LessonElement(wrap) {
+  const lesson = wrap.lesson;
+  const bToEvaluate = lesson.evaluated;
+  
+  const navigate = useNavigate();
+  const handleEvaluate = () => {
+    navigate('/evaluating');
+  };
+  if (bToEvaluate) {
+    return <div className="label">
+      <div className="scroll-element">
+
+
+        <Container>
+          <Row>
+            <Col>
+              <div className="text-wrapper">
+                <b>LESSON {lesson.date}</b>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col >{lesson.scenario1}</Col>
+            <Col ></Col>
+          </Row>
+          <Row>
+            <Col >{lesson.scenario2}</Col>
+            <Col >Grade</Col>
+          </Row>
+          <Row>
+            <Col >{lesson.scenario3}</Col>
+            <Col >
+              {Array.from({ length: lesson.grade }, (_, key) => (
+                <FontAwesomeIcon icon={faStar} size="1x" key={key} />
+              ))}
+            </Col>
+          </Row>
+
+        </Container>
+        <br />
+      </div>
+    </div>
+  }
+  else {
+    return <div className="label">
+      <div className="scroll-element">
+        <Container>
+          <Row>
+            <Col>
+              <div className="text-wrapper">
+                <b>LESSON {lesson.date}</b>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col >{lesson.scenario1}</Col>
+            <Col ></Col>
+          </Row>
+          <Row>
+            <Col >{lesson.scenario2}</Col>
+            <Col ></Col>
+          </Row>
+          <Row>
+            <Col >{lesson.scenario3}</Col>
+            <Col >
+              <Form.Group className="d-flex justify-content-center ">
+                <button className="save-btn" onClick={(event) => handleEvaluate(event)}>EVALUATE</button>
+              </Form.Group>
+            </Col>
+          </Row>
+
+        </Container>
+        <br />
+      </div>
+    </div>
+  }
+}
 export default Evaluation;

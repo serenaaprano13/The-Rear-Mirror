@@ -1,30 +1,31 @@
 import React from 'react';
-import { Col, Navbar, Row } from 'react-bootstrap';
-import { Container } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 const Title = ({titolo}) => {
+
+  const navigate= useNavigate();
+  const location=useLocation();
+
+
+  const returnBack = () => {
+    navigate(-1);
+  }
+
+
   return (
-    
-    <Navbar className="bg-body-tertiary">
-      <Container fluid>
-        <Row>
-      
-        <Button variant="primary" size="lg" active className="mr-auto" >
-        
+
+    <header>
+      <button className="back-btn" onClick={returnBack}>
         <FontAwesomeIcon icon={faChevronLeft} /> {" "}
           Back
-
-        </Button>
-      
-        
-        </Row>
-        <Navbar.Brand className="mx-auto">{titolo}</Navbar.Brand>
-      </Container>
-    </Navbar>
+      </button>
+			<h3 className="header-title">{titolo}</h3>
+		</header>
+    
+   
 );
     
   

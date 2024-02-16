@@ -1,0 +1,6 @@
+@APIURL=http://localhost:3000/api
+
+// GET MOST RECENT PLANNING
+GET {{APIURL}}/latestPlanning 
+
+###
