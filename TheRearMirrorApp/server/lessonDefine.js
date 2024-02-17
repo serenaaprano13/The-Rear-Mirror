@@ -1,6 +1,6 @@
 
 
-function Lesson(date, scenario1, scenario2, scenario3, grade, rifEvaluation, distance) {
+function Lesson(date, scenario1, scenario2, scenario3, grade, rifEvaluation, distance, to_evaluate) {
     this.date = date;
     this.scenario1 = scenario1;
     this.scenario2 = scenario2;
@@ -8,11 +8,11 @@ function Lesson(date, scenario1, scenario2, scenario3, grade, rifEvaluation, dis
     this.grade = grade;
     this.evaluated = rifEvaluation;
     this.distance = distance;
+    this.to_evaluate = to_evaluate;
 }
 
-function Route(street,distance)
-{
-    this.street=street;
-    this.distance=distance;
+function Route(street, distance) {
+    this.street = street;
+    this.distance = distance;
 }
-export { Lesson ,Route};
+export { Lesson, Route };
