@@ -10,14 +10,18 @@ function LookBack() {
       gridTemplateRows: 'auto auto auto 1fr',
       height: '100vh'
     }}>
-      <Container fluid className="top-bar">
+      
+      <header>
+        <Title titolo="Look Back"></Title>
+      </header>
+      {/* <Container fluid className="top-bar">
         <Row>
           <h2>THE REAR MIRROR</h2>
         </Row>
-      </Container>
+      </Container> */}
       <Container fluid className="back-button-bar">
         <Row className="mb-3">
-          <Title />
+          
         </Row>
       </Container>
       <Container fluid className="date-keyword-bar">
