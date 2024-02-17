@@ -12,6 +12,7 @@ import MyNavbar  from './components/MyNavbar'
 import { PageNotFound } from './components/PageNotFound'  
 import Evaluation from './components/Evaluation'
 import { LookBack } from './components/LookBack'
+import { SaveLesson } from './components/SaveLesson'
 
 
 
@@ -27,6 +28,7 @@ function App() {
     <Route path='/evaluating' element={<PageNotFound></PageNotFound>} />
     <Route path='/lookback' element={<LookBack></LookBack>} />
     <Route path='/evaluating' element={<Evaluating></Evaluating>} />
+    <Route path='/savelesson' element={<SaveLesson></SaveLesson>}/>
   </Routes>
   <MyNavbar/>
   </BrowserRouter>
