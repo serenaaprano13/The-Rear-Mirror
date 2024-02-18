@@ -73,6 +73,18 @@ header {
   margin-left:20px;
 }
 
+.form-group-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+.form-group-row > .form-control {
+  width: 25%; 
+  margin-right:30px;
+}
 
 
 

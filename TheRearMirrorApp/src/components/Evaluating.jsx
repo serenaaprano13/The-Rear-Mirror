@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
 import Container from 'react-bootstrap/Container';
-import { Lesson, Route } from '../../server/lessonDefine';
+import { Lesson, Route } from './lessonDefine';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';

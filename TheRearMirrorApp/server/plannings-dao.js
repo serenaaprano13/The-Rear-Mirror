@@ -13,7 +13,7 @@ const db = new sqlite.Database('theRearMirrorDB.db', (err) => {
 //TO DO: get latest planning
 exports.getLatestPlanning=()=>{
     return new Promise( (resolve,reject)=>{
-        const sql = ` SELECT * FROM PLANNINGS ORDER BY creation_date DESC LIMIT 1;`;
+        const sql = ` SELECT * FROM PLANNINGS ORDER BY planning_id DESC LIMIT 1;`;
         db.all(sql,[],(err,rows)=>{
             if(err){
                 reject(err);
@@ -42,7 +42,7 @@ exports.getLatestPlanning=()=>{
 
 
 
-exports.insertPlanning = async(req, res)=>{
+/*exports.insertPlanning = async(req, res)=>{
 
     try{
         const {
@@ -57,7 +57,7 @@ exports.insertPlanning = async(req, res)=>{
         const values=[req.session.clock.time, distance];
         const result = await db.query(query, values);
         if (!result || !result.rows) {
-            return res.status(500).json({ msg: "Error inserting the proposal." });
+            return res.status(500).json({ msg: "Error inserting the planning." });
           }
         const newId = result.rows[0].id; //this is the id of the new planning just created 
         
@@ -69,7 +69,7 @@ exports.insertPlanning = async(req, res)=>{
             const values=[newId, recentMistakes[i]];
             const result = await db.query(query, values);
             if (!result || !result.rows) {
-                return res.status(500).json({ msg: "Error inserting the proposal." });
+                return res.status(500).json({ msg: "Error inserting the planning." });
               }
         }
 
@@ -96,7 +96,49 @@ exports.insertPlanning = async(req, res)=>{
     }
 
 
+};*/
+
+exports.insertPlanning = async(formData) => {
+
+    const distance = formData.distance;
+    console.log("ciao " + distance);
+    const { selectedOptions } = formData;
+    const selectedOptionNames = selectedOptions.map(option => option.name);
+    console.log("ciao2 " + selectedOptionNames);
+
+    db.run('INSERT INTO PLANNINGS (distance) VALUES (?)', [distance], function(err)  {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        const newId = this.lastID;
+        console.log('New planning id: ' + newId);
+        selectedOptionNames.forEach(optionName => {
+            db.run('INSERT INTO PLANNEDSCENARIO (planning_id, scenario_name) VALUES (?, ?)', [newId, optionName], function(err) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                console.log('New planned scenario id: ' + this.lastID);
+            });
+        });
+    });
+
+
+
+    
+   
+/*
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO PLANNING (distance) VALUES (?)';
+        db.run(sql, [formData.distance], function(err)  {
+            if (err) reject(err)
+            
+        });
+    });
+*/
 };
+
 
 
 

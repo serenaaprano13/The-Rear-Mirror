@@ -16,4 +16,4 @@ function Route(street, distance) {
     this.distance = distance;
 }
 
-module.exports =  { Lesson, Route };
+export { Lesson, Route };

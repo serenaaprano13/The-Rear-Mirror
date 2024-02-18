@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { LoadingPage } from './components/Loadingpage'
 import  PlanningForm  from './components/PlanningForm'
+import  PlanningSummary from './components/PlanningSummary'
 import { BrowserRouter } from 'react-router-dom'
 import { Routes, Route } from 'react-router'
 import MyNavbar  from './components/MyNavbar'
@@ -29,6 +30,8 @@ function App() {
     <Route path='/lookback' element={<LookBack></LookBack>} />
     <Route path='/evaluating' element={<Evaluating></Evaluating>} />
     <Route path='/savelesson' element={<SaveLesson></SaveLesson>}/>
+    <Route path='/summaryOfPlanning' element={<PlanningSummary></PlanningSummary>}/>
+
   </Routes>
   <MyNavbar/>
   </BrowserRouter>

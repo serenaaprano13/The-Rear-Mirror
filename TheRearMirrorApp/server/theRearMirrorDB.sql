@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 --Creating the plannings table
 CREATE TABLE IF NOT EXISTS "PLANNINGS" (
     "planning_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "creation_date" TIMESTAMP,
+    --"creation_date" TIMESTAMP,
     "distance" DOUBLE
 );
 
