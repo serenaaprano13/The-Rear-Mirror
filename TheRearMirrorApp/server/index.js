@@ -9,6 +9,9 @@ const bodyParser = require('body-parser');
 const PlanningDAO = require('./plannings-dao.js');
 const { Planning } = require('./planning.js');
 
+const LessonDAO = require('./lessons-dao.js');
+const { Lesson } = require('./lessonDefine.js');
+
 const app = express();
 //app.use(morgan('combined'));
 app.use(express.json());
@@ -51,11 +54,15 @@ app.post('/api/questions/:questionId/answers', async (req, res) => {
         res.status(500).send(error.message);
     }
 });
-
-
-
-
 */
+
+app.get('/api/getLessonsToEvaluate', (req, res) => {
+    LessonDAO.getLessonsToEvaluate().then((result) => {
+        res.json(result);
+    }).catch((error) => {
+        res.status(500).send(error.message);
+    })
+})
 
  
 app.listen(PORT, 
