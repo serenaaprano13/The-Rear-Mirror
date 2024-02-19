@@ -23,13 +23,12 @@ function PlanningSummary() {
   return (
     <div>
     <Title titolo="Planning"></Title>
-    <Card>
-      <Card.Header>It's time to get in the car!</Card.Header>
+    <Card className='summary'>
       <Card.Body>
-        <Card.Title> Your latest planning</Card.Title>
-        <Card.Text>
-        <p>Distance: {data.planning.distance}</p>
-        <p>Scenario Names:</p>
+        <Card.Title className='summary-title'> YOUR LATEST PLANNING</Card.Title>
+        <Card.Text className='summary-text'>
+        <p className='label-summary'>Distance: {data.planning.distance} km</p>
+        <p className='label-summary'>Driving Scenarios to tackle:</p>
         {data.scenarioNames.map((scenario, index) => (
           <p key={index}>{scenario.name}</p>
          ))}
@@ -37,7 +36,7 @@ function PlanningSummary() {
         
        
         </Card.Text>
-        <Button variant="primary">Lesson performed!</Button>
+        <button className='lesson-performed'>LESSON PERFORMED</button>
       </Card.Body>
     </Card>
     </div>
