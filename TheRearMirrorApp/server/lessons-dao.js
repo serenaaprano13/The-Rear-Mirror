@@ -90,17 +90,15 @@ exports.insertEvaluation = async(formData) => {
             console.error(err);
             return;
         }
-        const newId = this.lastID;
-        console.log('New planning id: ' + newId);
-        selectedOptionNames.forEach(optionName => {
-            db.run('INSERT INTO PLANNEDSCENARIO (planning_id, scenario_name) VALUES (?, ?)', [newId, optionName], function(err) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                console.log('New planned scenario id: ' + this.lastID);
-            });
-        });
+        
+    });
+    
+    db.run("UPDATE LESSON SET grade=? WHERE  )", [lesson_id,grade], function(err)  {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        
     });
 }
 
