@@ -14,12 +14,12 @@ import { Lesson } from './lessonDefine';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const myLesson = [];
-myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true, 5));
-myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true, 4));
-myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
+// myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true, 5));
+// myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true, 4));
+myLesson.push(new Lesson(1,'2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
 
 
 const Evaluation = () => {
@@ -29,8 +29,23 @@ const Evaluation = () => {
     setIsChecked(!isChecked);
   };
   const [date, setDate] = useState(new Date());
+  async function getAPILessonsToEvaluate() {
+    const response = await fetch(APIURL + '/getLessonsToEvaluate', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formState)
+    });
 
-  
+    if (response.ok) {
+      console.log('getLessonsToEvaluate - data get from server successfully');
+      myLesson.push(respone);
+    } else {
+      console.error('Failed to get Lesson data to the server');
+    }
+  }
+
   // console.log(typeof myLesson.at(1).scenario1);
   return (
 
@@ -42,11 +57,11 @@ const Evaluation = () => {
         <Form>
           <Row>
             <Col>
-              <Form.Group controlId="duedate">
-              <Form.Label className='custom-label'>Date</Form.Label>
+              <Form.Group controlId="date">
+                <Form.Label className='custom-label'>Date</Form.Label>
                 <Form.Control
                   type="date"
-                  name="duedate"
+                  name="date"
                   placeholder="Date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
@@ -54,7 +69,7 @@ const Evaluation = () => {
               </Form.Group>
             </Col>
             <Col>
-            <Form.Label className='custom-label'>Validated</Form.Label>
+              <Form.Label className='custom-label'>Validated</Form.Label>
               <Form.Group controlId="formCheckbox">
                 <Form.Check
                   type="checkbox"
@@ -89,10 +104,10 @@ const Evaluation = () => {
 function LessonElement(wrap) {
   const lesson = wrap.lesson;
   const bToEvaluate = lesson.evaluated;
-  
+
   const navigate = useNavigate();
-  const handleEvaluate = () => {
-    navigate('/evaluating');
+  const handleEvaluate = (e,id) => {
+    navigate('/evaluating?l='+id);
   };
   if (bToEvaluate) {
     return <div className="label">
@@ -154,7 +169,7 @@ function LessonElement(wrap) {
             <Col >{lesson.scenario3}</Col>
             <Col >
               <Form.Group className="d-flex justify-content-center ">
-                <button className="save-btn" onClick={(event) => handleEvaluate(event)}>EVALUATE</button>
+                <button className="save-btn" onClick={(event) => handleEvaluate(event,lesson.id)}>EVALUATE</button>
               </Form.Group>
             </Col>
           </Row>

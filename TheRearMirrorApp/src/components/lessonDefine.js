@@ -1,6 +1,7 @@
-'use strict' ;
+'use strict';
 
-function Lesson(date, scenario1, scenario2, scenario3, grade, rifEvaluation, distance, to_evaluate) {
+function Lesson(id, date, scenario1, scenario2, scenario3, grade, rifEvaluation, distance, to_evaluate) {
+    this.id = id;
     this.date = date;
     this.scenario1 = scenario1;
     this.scenario2 = scenario2;
