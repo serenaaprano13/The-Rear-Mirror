@@ -57,13 +57,21 @@ app.post('/api/questions/:questionId/answers', async (req, res) => {
 */
 
 app.get('/api/getLessonsToEvaluate', (req, res) => {
-    LessonDAO.getLessonsToEvaluate().then((result) => {
+    
+    LessonDAO.getLessonsToEvaluate(req).then((result) => {
         res.json(result);
     }).catch((error) => {
         res.status(500).send(error.message);
     })
 })
 
+app.get('/api/getLessons', (req, res) => {
+    LessonDAO.getLessons().then((result) => {
+        res.json(result);
+    }).catch((error) => {
+        res.status(500).send(error.message);
+    })
+})
  
 app.listen(PORT, 
     () => { console.log(`Server started on http://localhost:${PORT}/`) });

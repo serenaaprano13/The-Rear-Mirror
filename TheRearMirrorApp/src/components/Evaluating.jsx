@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const myLesson = [];
 myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6, true));
@@ -66,9 +67,30 @@ const Evaluating = () => {
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
-
   const navigate = useNavigate();
+
+  const APIURL = 'http://localhost:3000/api'
+  async function Save() {
+    event.preventDefault();
+
+    const response = await fetch(APIURL + '/insertEvaluation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(lesson_id,rating)
+    });
+
+    if (response.ok) {
+      console.log('Planning data sent to server successfully');
+      // navigate('/summaryOfPlanning');
+    } else {
+      console.error('Failed to send Planning data to the server');
+    }
+  }
   const handleSave = () => {
+    Save()
+
     navigate('/Evaluation');
   };
   const initialDistance = myLesson.length > 0 ? myLesson[0].distance : 0;

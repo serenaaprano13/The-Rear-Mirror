@@ -6,7 +6,7 @@ import MyNavbar from './MyNavbar';
 import Title from './Title';
 import { Form, Row } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
 import Container from 'react-bootstrap/Container';
 //import { Lesson } from '../../server/lessonDefine';
@@ -16,12 +16,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-const myLesson = [];
 // myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true, 5));
 // myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true, 4));
-myLesson.push(new Lesson(1,'2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
+// myLesson.push(new Lesson(1,'2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
 
 
+const APIURL = 'http://localhost:3000/api'
+async function getLessonsToEvaluate(validated,date) {
+
+  const apiUrl = APIURL + '/getLessonsToEvaluate';
+
+  // Create a URLSearchParams object to handle query parameters
+  const params = new URLSearchParams();
+  params.append('validated', validated);
+  params.append('date', date.toISOString().split('T')[0]);//formatta come piace a sqlite);
+
+  // Append the parameters to the URL
+  const urlWithParams = apiUrl + '?' + params.toString();
+  
+  const response = await fetch(APIURL + '/getLessons');
+  // const response = await fetch(urlWithParams);
+  if (response.status !== 200 && response.status !== 304) return [];
+  const lessonsJson = await response.json();
+  return lessonsJson.map((l) => ({id: l.id, date: l.date, scenario1: l.scenario1, scenario2: l.scenario2,
+       scenario3: l.scenario3, grade: l.grade, evaluated: l.evaluated, distance: l.distance, to_evaluate: l.to_evaluate  }) )
+}
+
+
+
+function getFirstToEvaluate(validated,date)
+{
+  return  (new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true, 5)) 
+}
+
+//-----------------------------------------------------------------------
 const Evaluation = () => {
   const [isChecked, setIsChecked] = useState(false);
 
@@ -29,24 +57,28 @@ const Evaluation = () => {
     setIsChecked(!isChecked);
   };
   const [date, setDate] = useState(new Date());
-  async function getAPILessonsToEvaluate() {
-    const response = await fetch(APIURL + '/getLessonsToEvaluate', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formState)
-    });
 
-    if (response.ok) {
-      console.log('getLessonsToEvaluate - data get from server successfully');
-      myLesson.push(respone);
-    } else {
-      console.error('Failed to get Lesson data to the server');
-    }
-  }
+  const [myLesson, setLessons] = useState(null);
+  //All'inizio carico le lezioni nell'array lezioni
+  // useEffect(() => {
+  //   getFirstToEvaluate(isChecked,date)
+  //     .then(myLesson => setLessons(myLesson))
+  // }, []);
 
-  // console.log(typeof myLesson.at(1).scenario1);
+  useEffect(() => {
+    getLessonsToEvaluate(isChecked,date)
+      .then(myLesson => setLessons(myLesson))
+  }, []);
+
+  // const [lessons, setLessons] = useState([]);
+
+  // //All'inizio carico le lezioni nell'array lezioni
+  // useEffect(() => {
+  //   getAllLessons()
+  //     .then(lessons => setLessons(lessons))
+  //    // .catch(() => { setMessage('errore nella comunicazione col database'); setshowMessage(true) })
+  // }, []);
+  
   return (
 
     <div>
@@ -103,13 +135,13 @@ const Evaluation = () => {
 
 function LessonElement(wrap) {
   const lesson = wrap.lesson;
-  const bToEvaluate = lesson.evaluated;
+  const grade = lesson.grade;
 
   const navigate = useNavigate();
-  const handleEvaluate = (e,id) => {
-    navigate('/evaluating?l='+id);
+  const handleEvaluate = (e, id) => {
+    navigate('/evaluating?l=' + id);
   };
-  if (bToEvaluate) {
+  if (grade>0) {
     return <div className="label">
       <div className="scroll-element">
 
@@ -169,7 +201,7 @@ function LessonElement(wrap) {
             <Col >{lesson.scenario3}</Col>
             <Col >
               <Form.Group className="d-flex justify-content-center ">
-                <button className="save-btn" onClick={(event) => handleEvaluate(event,lesson.id)}>EVALUATE</button>
+                <button className="save-btn" onClick={(event) => handleEvaluate(event, lesson.id)}>EVALUATE</button>
               </Form.Group>
             </Col>
           </Row>
