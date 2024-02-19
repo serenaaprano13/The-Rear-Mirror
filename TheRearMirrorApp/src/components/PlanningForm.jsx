@@ -52,7 +52,7 @@ const PlanningForm = () => {
   
     if (response.ok) {
       console.log('Planning data sent to server successfully');
-     // navigate('/summaryOfPlanning');
+      navigate('/summaryOfPlanning');
     } else {
       console.error('Failed to send Planning data to the server');
     }

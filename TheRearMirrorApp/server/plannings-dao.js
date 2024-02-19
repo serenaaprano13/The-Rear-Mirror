@@ -2,7 +2,7 @@
 
 const sqlite = require('sqlite3');
 const dayjs = require('dayjs');
-const { Planning} = require('./planning.js');
+const { Planning, DrivingScenario} = require('./planning.js');
 const { Lesson } = require('./lessonDefine.js');
 
 const db = new sqlite.Database('theRearMirrorDB.db', (err) => {
@@ -19,9 +19,29 @@ exports.getLatestPlanning=()=>{
                 reject(err);
                 return;
             }
-            const plannings = rows.map((p) => new Planning(p.planning_id, p.creation_date, p.distance));
-            resolve(plannings[0]);
+        const plannings = rows.map((p) => new Planning(p.planning_id, p.creation_date, p.distance));
+        const planning = plannings[0];
+        const planningId=planning.id;
+        console.log("planning id" + planningId);
+
+
+        const sql2 = `SELECT * FROM PLANNEDSCENARIO WHERE planning_id = ?;`;
+        db.all(sql2, [planningId], (err, rows) => {
+            if (err) {
+            reject(err);
+            return;
+            }
+            const scenarioNames = rows.map((d) => new DrivingScenario(d.scenario_name));
+            
+            resolve({ planning, scenarioNames });
+            //console.log("rows" + +JSON.stringify(rows));
+            /*const scenarioNames = rows.map(row => row.scenario_name);
+            console.log("scenario names" + scenarioNames); */
+            //resolve({ planning, scenarioNames });
         });
+      });
+
+        
     });
 };
 
