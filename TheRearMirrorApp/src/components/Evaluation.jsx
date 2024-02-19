@@ -21,7 +21,10 @@ import { useNavigate } from 'react-router-dom';
 // myLesson.push(new Lesson(1,'2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
 
 
-const APIURL = 'http://localhost:3000/api'
+
+
+
+/*const APIURL = 'http://localhost:3000/api'
 async function getLessonsToEvaluate(validated,date) {
 
   const apiUrl = APIURL + '/getLessonsToEvaluate';
@@ -34,7 +37,7 @@ async function getLessonsToEvaluate(validated,date) {
   // Append the parameters to the URL
   const urlWithParams = apiUrl + '?' + params.toString();
   
-  const response = await fetch(APIURL + '/getLessons');
+  const response = await fetch(urlWithParams);
   // const response = await fetch(urlWithParams);
   if (response.status !== 200 && response.status !== 304) return [];
   const lessonsJson = await response.json();
@@ -42,6 +45,8 @@ async function getLessonsToEvaluate(validated,date) {
        scenario3: l.scenario3, grade: l.grade, evaluated: l.evaluated, distance: l.distance, to_evaluate: l.to_evaluate  }) )
 }
 
+
+*/
 
 
 function getFirstToEvaluate(validated,date)
@@ -52,23 +57,37 @@ function getFirstToEvaluate(validated,date)
 //-----------------------------------------------------------------------
 const Evaluation = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const[lessons, setLessons] = useState([]);
+
+  useEffect(() => {
+    getLessonsToEvaluate(true, new Date())
+      .then(lessons => {
+        setLessons(lessons);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
+
+
+
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
   const [date, setDate] = useState(new Date());
 
-  const [myLesson, setLessons] = useState(null);
+  
   //All'inizio carico le lezioni nell'array lezioni
   // useEffect(() => {
   //   getFirstToEvaluate(isChecked,date)
   //     .then(myLesson => setLessons(myLesson))
   // }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     getLessonsToEvaluate(isChecked,date)
       .then(myLesson => setLessons(myLesson))
-  }, []);
+  }, []); */
 
   // const [lessons, setLessons] = useState([]);
 
@@ -114,9 +133,16 @@ const Evaluation = () => {
           </Row>
           <br /><br />
           <div className="scroll-container">
-            <Form.Group controlId="LessonElements">
+           {/* <Form.Group controlId="LessonElements">
               {myLesson.map((a, i) => <LessonElement key={i} lesson={myLesson.at(i)} />)}
-            </Form.Group>
+            </Form.Group>*/}
+             <div>
+            {lessons.map((lesson, index) => (
+              <p key={index}>{lesson.id}</p>
+            ))}
+          </div>
+
+            
           </div>
 
         </Form>
