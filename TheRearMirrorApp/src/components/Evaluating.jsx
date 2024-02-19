@@ -16,7 +16,7 @@ import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 const myLesson = [];
-myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
+myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6, true));
 const mistakes = [];
 mistakes.push(("Roundabout"))
 mistakes.push(("Speeding"))
@@ -60,6 +60,7 @@ const handleDistanceChange = (e) => {
 
 
 const Evaluating = () => {
+  const { lesson_id } = useParams();
   const [rating, setRating] = useState(0);
 
   const handleRatingChange = (newRating) => {
@@ -90,7 +91,7 @@ const Evaluating = () => {
             <Col>
               <FontAwesomeIcon icon={faCalendarAlt} size="1x" />
               <Form.Label className='custom-label'> Date</Form.Label>
-              
+
             </Col>
           </Row>
 
@@ -150,8 +151,8 @@ const Evaluating = () => {
           </Row>
           <Row>
             <Col>
-              
-            <Form.Label className='custom-label'>Mistakes</Form.Label>
+
+              <Form.Label className='custom-label'>Mistakes</Form.Label>
             </Col>
           </Row>
           <Row>
@@ -163,8 +164,8 @@ const Evaluating = () => {
           </Row>
           <Row>
             <Col>
-              
-            <Form.Label className='custom-label'>Grade</Form.Label>
+
+              <Form.Label className='custom-label'>Grade</Form.Label>
             </Col>
           </Row>
           <Row>

@@ -26,7 +26,6 @@ function App() {
     <Route path="/planning" element={<PlanningForm />} />
     <Route path='*' element={<PageNotFound></PageNotFound>} />
     <Route path='/evaluation' element={<Evaluation></Evaluation>} />
-    <Route path='/evaluating' element={<PageNotFound></PageNotFound>} />
     <Route path='/lookback' element={<LookBack></LookBack>} />
     <Route path='/evaluating' element={<Evaluating></Evaluating>} />
     <Route path='/savelesson' element={<SaveLesson></SaveLesson>}/>
