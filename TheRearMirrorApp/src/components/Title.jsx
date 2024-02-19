@@ -21,10 +21,10 @@ const Title = ({titolo}) => {
       <button className="back-btn" onClick={returnBack}>
         <FontAwesomeIcon icon={faChevronLeft} /> {" "}
           Back
-      </button>
+    </button>
 			<h3 className="header-title">{titolo}</h3>
-		</header>
-    
+    </header>
+	
    
 );
     
