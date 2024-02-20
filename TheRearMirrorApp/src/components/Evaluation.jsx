@@ -41,7 +41,11 @@ const Evaluation = () => {
   const [lessons, setLessons] = useState([]);
   const [startDate, setStartDate] = useState(null);
 
-
+  const errorMessageStyle = {
+    color: 'red',
+    fontSize: '18px',
+    marginTop: '10px',
+  };
 
   // Function to fetch all lessons
   const fetchAllLessons = () => {
@@ -71,10 +75,26 @@ const Evaluation = () => {
 
     setLessons(filteredLessons);
   }
-
+  const DisplayErrorMessage = ({ lessons }) => {
+    const errorMessage = "No lessons available.";
+  
+    if (!lessons || lessons.length === 0) {
+      return (
+        <div style={{ textAlign: 'center', marginTop: '20px', ...errorMessageStyle}}>
+          <p>{errorMessage}</p>
+        </div>
+      );
+    }
+    return null; 
+  };
   return (
 
-    <div>
+    <div style={{
+      display: 'grid',
+      gridTemplateRows: 'auto auto auto 1fr',
+      height: '100vh'
+    }}>
+
       <header>
         <Title titolo="Evaluations"></Title>
       </header>
@@ -103,6 +123,7 @@ const Evaluation = () => {
           <br /><br />
           <div className="scroll-container">
             <Form.Group controlId="LessonElements">
+              {DisplayErrorMessage(lessons)}
               {lessons.map((a, i) => <LessonElement key={i} lesson={a} index={i} />)}
             </Form.Group>
             <div>
@@ -132,34 +153,49 @@ function LessonElement(wrap, index) {
     e.preventDefault();
     navigate('/evaluating', { state: { lesson } });
   };
+  if (lesson.length > 0) {
+    return <div>
+      <div className="scroll-element">
+        <Card key={index} className="w-100">
+          <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
+          <Card.Body className="d-flex align-items-center">
+            <div>
+              <Card.Text>{lesson.scenario1}</Card.Text>
+              <Card.Text>{lesson.scenario2}</Card.Text>
+              <Card.Text>{lesson.scenario3}</Card.Text>
+            </div>
+            <div className="ml-auto">
+              {lesson.grade !== -1 ? (
+                Array.from({ length: lesson.grade }).map((_, i) => (
+                  <FontAwesomeIcon key={i} icon={faStar} size="1x" />
+                ))
+              ) : (
+                <button className="save-btn" onClick={(event) => handleEvaluate(event, lesson)}>
+                  EVALUATE
+                </button>
+              )}
+            </div>
+          </Card.Body>
+        </Card>
 
-  return <div>
-    <div className="scroll-element">
-      <Card key={index} className="w-100">
-        <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
-        <Card.Body className="d-flex align-items-center">
-          <div>
-            <Card.Text>{lesson.scenario1}</Card.Text>
-            <Card.Text>{lesson.scenario2}</Card.Text>
-            <Card.Text>{lesson.scenario3}</Card.Text>
-          </div>
-          <div className="ml-auto">
-            {lesson.grade !== -1 ? (
-              Array.from({ length: lesson.grade }).map((_, i) => (
-                <FontAwesomeIcon key={i} icon={faStar} size="1x" />
-              ))
-            ) : (
-              <button className="save-btn" onClick={(event) => handleEvaluate(event, lesson)}>
-              EVALUATE
-            </button>
-            )}
-          </div>
-        </Card.Body>
-      </Card>
-
-      <br />
+        <br />
+      </div>
     </div>
-  </div>
 
+  }
+  else
+  {
+    return 
+    <Container>
+      <Row>
+        
+      </Row>
+      <Row>
+        <div className="ErrorMessage">
+          <b>No Lessons found</b>
+        </div>
+      </Row>
+    </Container>
+  }
 }
 export default Evaluation;
