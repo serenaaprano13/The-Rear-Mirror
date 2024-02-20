@@ -106,45 +106,54 @@ function LookBack() {
         </Row>
       </Container>
       <Container key={key} fluid style={{ overflowY: 'auto' }}>
-        <Row>
-          {startDate && (
-            <Col className="d-flex justify-content-center">
-              <Button variant="primary" onClick={fetchAllLessons}>Show all lessons</Button>
-            </Col>
-          )}
-          {lessons.map((lesson, index) => (
-            <Card key={index} className="w-100">
-              <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
-              <Card.Body className="d-flex align-items-center">
-                <div>
-                  <Card.Text>{lesson.scenario1}</Card.Text>
-                  <Card.Text>{lesson.scenario2}</Card.Text>
-                  <Card.Text>{lesson.scenario3}</Card.Text>
-                </div>
-                <div className="ml-auto">
-                  {lesson.grade !== -1 ? (
-                    Array.from({ length: lesson.grade }).map((_, i) => (
-                      <FontAwesomeIcon key={i} icon={faStar} size="1x" />
-                    ))
-                  ) : (
-                    lesson.to_evaluate === 1 ? (
-                      <span>waiting for evaluation</span>
-                    ) : (
-                      <Button variant="primary" onClick={() => handleEvaluateClick(lesson)}>
-                        ask to evaluate
-                      </Button>
-                    )
-                  )}
-                </div>
-              </Card.Body>
-            </Card>
-          ))}
-        </Row>
-        <Row style={{ height: '4rem' }}></Row>
-        <Row>
-          <MyNavbar />
-        </Row>
-      </Container>
+  <Row>
+    {lessons.map((lesson, index) => (
+      <Card key={index} className="w-100">
+        <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
+        <Card.Body className="d-flex align-items-center">
+          <div>
+            <Card.Text>{lesson.scenario1}</Card.Text>
+            <Card.Text>{lesson.scenario2}</Card.Text>
+            <Card.Text>{lesson.scenario3}</Card.Text>
+          </div>
+          <div className="ml-auto">
+            {lesson.grade !== -1 ? (
+              Array.from({ length: lesson.grade }).map((_, i) => (
+                <FontAwesomeIcon key={i} icon={faStar} size="1x" />
+              ))
+            ) : (
+              lesson.to_evaluate === 1 ? (
+                <span>waiting for evaluation</span>
+              ) : (
+                <Button variant="primary" onClick={() => handleEvaluateClick(lesson)}>
+                  ask to evaluate
+                </Button>
+              )
+            )}
+          </div>
+        </Card.Body>
+      </Card>
+    ))}
+  </Row>
+  {lessons.length === 0 && (
+    <Row>
+      <Col className="d-flex justify-content-center">
+        <p>No lessons matching your requirements</p>
+      </Col>
+    </Row>
+  )}
+  {startDate && (
+    <Row>
+      <Col className="d-flex justify-content-center">
+        <Button variant="primary" onClick={fetchAllLessons}>Show all lessons</Button>
+      </Col>
+    </Row>
+  )}
+  <Row style={{ height: '4rem' }}></Row>
+  <Row>
+    <MyNavbar />
+  </Row>
+</Container>
     </div>
   )
 }
