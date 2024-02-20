@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const PlanningDAO = require('./plannings-dao.js');
 const { Planning } = require('./planning.js');
 
-const LessonDAO = require('./lessons-dao.js');
+const LessonDAO = require('./lessonDAO.js');
 const { Lesson } = require('./lessonDefine.js');
 
 const app = express();
@@ -57,8 +57,7 @@ app.post('/api/questions/:questionId/answers', async (req, res) => {
 */
 
 app.get('/api/getLessonsToEvaluate', (req, res) => {
-    
-    LessonDAO.getLessonsToEvaluate(req).then((result) => {
+    LessonDAO.getLessonsToEvaluate().then((result) => {
         res.json(result);
     }).catch((error) => {
         res.status(500).send(error.message);
@@ -72,6 +71,7 @@ app.get('/api/getLessons', (req, res) => {
         res.status(500).send(error.message);
     })
 })
+
  
 app.listen(PORT, 
     () => { console.log(`Server started on http://localhost:${PORT}/`) });
