@@ -22,6 +22,14 @@ async function getAllLessons(date) {
     return fetch(URL + '/updateLesson', requestOptions);
 }
 
+async function insertEvaluation(grade,date){
+    const requestOptions = {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({grade:grade, date: date })
+    };
+    return fetch(URL + '/insertEvaluation', requestOptions);
+}
 
 async function saveLesson(lesson) {
 
@@ -35,6 +43,6 @@ async function saveLesson(lesson) {
 
 
 
-  const API = { getAllLessons , updateLesson};
+  const API = { getAllLessons , updateLesson,insertEvaluation};
 
   export default API;

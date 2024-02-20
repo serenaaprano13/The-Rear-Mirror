@@ -16,22 +16,8 @@ import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import API from "./lessonsAPI";
 
-const myLesson = [];
-//id, date, scenario1, scenario2, scenario3, grade, rifEvaluation, distance, to_evaluate
-myLesson.push(new Lesson(1, '2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, -1, 6, true));
-const mistakes = [];
-mistakes.push(("Roundabout"))
-mistakes.push(("Speeding"))
-mistakes.push(("Lights off"))
-const scenarios = [];
-scenarios.push(("Uphill Start"));
-scenarios.push(("S Parking"));
-scenarios.push(("Nightime Driving"));
-const routes = [];
-routes.push(new Route("Corso Ferrucci", 3));
-routes.push(new Route("Corso Trapani", 2));
-routes.push(new Route("Via Virle", 1));
 
 
 const StarRating = ({ rating, onRatingChange }) => {
@@ -72,20 +58,11 @@ const Evaluating = () => {
   };
   const navigate = useNavigate();
 
-  const APIURL = 'http://localhost:3000/api'
-  async function Save() {
-    const response = await fetch(APIURL + '/insertEvaluation', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(lesson.date, rating)
-    });
-  }
-  const handleSave = () => {
-    Save()
-
-    // navigate('/Evaluation');
+  const handleSave = async (lesson) => {
+    if (rating > 0) {
+      API.insertEvaluation(rating, lesson.date);
+      navigate('/Evaluation');
+    } 
   };
 
   const initialDistance = lesson.distance;
@@ -194,7 +171,7 @@ const Evaluating = () => {
             </Col>
           </Row>
           <Form.Group className="d-flex justify-content-center ">
-            <button className="save-btn" onClick={(event) => handleSave(event)}>CONFIRM</button>
+            <button className="save-btn" onClick={() => handleSave(lesson)}>CONFIRM</button>
           </Form.Group>
         </Container>
       </div>

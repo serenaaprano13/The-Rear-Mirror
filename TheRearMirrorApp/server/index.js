@@ -77,6 +77,9 @@ app.put('/api/updateLesson', async (req, res) => {
     await LessonDAO.updateLesson(req.body).catch(err => res.status(500).json(err));
 })
 
+app.put('/api/insertEvaluation', async (req, res) => {
+    await LessonDAO.insertEvaluation(req.body).catch(err => res.status(500).json(err));
+})
 
 app.post('/api/saveLesson', async (req, res) => {
 
@@ -86,22 +89,6 @@ app.post('/api/saveLesson', async (req, res) => {
     res.json();
 }
 );
-app.post('/api/insertEvaluation', async (req, res) => {
-    try {
-        
-        const lessonDate=req.date;
-        const grade=req.grade;
-        console.log(lessonDate)
-        console.log(grade)
-        const result= await LessonDAO.insertEvaluation(lessonDate,grade);
-        // const formData = req.body;
-        // console.log(formData);
-        // const result = await PlanningDAO.insertPlanning(formData);
-        res.json(result);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
 
 
 app.listen(PORT,
