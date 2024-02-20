@@ -15,9 +15,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const myLesson = [];
-myLesson.push(new Lesson('2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6, true));
+//id, date, scenario1, scenario2, scenario3, grade, rifEvaluation, distance, to_evaluate
+myLesson.push(new Lesson(1, '2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, -1, 6, true));
 const mistakes = [];
 mistakes.push(("Roundabout"))
 mistakes.push(("Speeding"))
@@ -61,7 +63,8 @@ const handleDistanceChange = (e) => {
 
 
 const Evaluating = () => {
-  const { lesson_id } = useParams();
+  const location = useLocation();
+  const lesson = location.state.lesson;
   const [rating, setRating] = useState(0);
 
   const handleRatingChange = (newRating) => {
@@ -78,7 +81,7 @@ const Evaluating = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(lesson_id,rating)
+      body: JSON.stringify(lesson_id, rating)
     });
 
     if (response.ok) {
@@ -93,8 +96,10 @@ const Evaluating = () => {
 
     navigate('/Evaluation');
   };
-  const initialDistance = myLesson.length > 0 ? myLesson[0].distance : 0;
+  const initialDistance = lesson.distance;
+  console.log(initialDistance)
   const [date, setDate] = useState(new Date());
+  const dateStr = lesson.date;
   const [inputValue, setInputValue] = useState(initialDistance);
   return (
 
@@ -131,13 +136,7 @@ const Evaluating = () => {
               </Form.Group>
             </Col>
             <Form.Group controlId="duedate">
-              <Form.Control
-                type="date"
-                name="duedate"
-                placeholder="Date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
+              <input type="text" value={dateStr} readOnly />
             </Form.Group>
           </Row>
 
@@ -149,13 +148,13 @@ const Evaluating = () => {
           <Row >
             <div className="evaluating-element">
               <Row>
-                {routes[0].street}, Km {routes[0].distance}
+                {lesson.route_1}
               </Row>
               <Row>
-                {routes[1].street}, Km {routes[1].distance}
+                {lesson.route_2}
               </Row>
               <Row>
-                {routes[2].street}, Km {routes[2].distance}
+                {lesson.route_3}
               </Row>
             </div>
           </Row>
@@ -166,9 +165,9 @@ const Evaluating = () => {
           </Row>
           <Row>
             <div className="evaluating-element">
-              <Row >{scenarios[0]}</Row>
-              <Row>{scenarios[0]}</Row>
-              <Row>{scenarios[0]}</Row>
+              <Row >{lesson.scenario1}</Row>
+              <Row>{lesson.scenario2}</Row>
+              <Row>{lesson.scenario3}</Row>
             </div>
           </Row>
           <Row>
@@ -179,9 +178,9 @@ const Evaluating = () => {
           </Row>
           <Row>
             <div className="evaluating-element">
-              <Row>{mistakes[0]}</Row>
-              <Row>{mistakes[0]}</Row>
-              <Row>{mistakes[0]}</Row>
+              <Row>{lesson.mistake_1}</Row>
+              <Row>{lesson.mistake_2}</Row>
+              <Row>{lesson.mistake_3}</Row>
             </div>
           </Row>
           <Row>

@@ -69,7 +69,9 @@ exports.getLessonsToEvaluate = (validated) => {
 
 exports.getLessons = (date) => {
     return new Promise((resolve, reject) => {
-        let sql = ` SELECT lesson_id,rif_evaluation,lessonDate,scenario_1,scenario_2,scenario_3,grade,distance,to_evaluate FROM LESSONS WHERE 1=1 `;
+        let sql = ` SELECT rif_evaluation,lessonDate,scenario_1,scenario_2,scenario_3,grade,distance,to_evaluate,
+        route_1,route_2,route_3,mistake_1,mistake_2,mistake_3
+        FROM LESSONS WHERE 1=1 `;
         
         if (date) {
             let dateStr = date.toISOString().split('T')[0]; // formatta come piace a sqlite
@@ -79,13 +81,15 @@ exports.getLessons = (date) => {
         }
         sql += ` ORDER BY lessonDate ASC ;`;
         console.log(sql);
+    
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
                 return;
             }
             const lessons = rows.map((l) => new Lesson(l.lessonDate, l.scenario_1, l.scenario_2,
-                l.scenario_3, l.grade, l.rif_evaluation, l.distance, l.to_evaluate));
+                l.scenario_3, l.grade, l.rif_evaluation, l.distance, l.to_evaluate,
+                l.route_1,l.route_2,l.route_3,l.mistake_1,l.mistake_2,l.mistake_3));
 
             resolve(lessons);
         });
