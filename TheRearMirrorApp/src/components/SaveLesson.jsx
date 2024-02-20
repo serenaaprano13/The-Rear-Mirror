@@ -2,6 +2,23 @@ import MyNavbar from "./MyNavbar";
 import { Container, Row, Col, InputGroup, FormControl, Card, Button, Form } from 'react-bootstrap';
 import Title from "./Title";
 import React, { useState } from 'react';
+import { Lesson } from "./lessonDefine";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
+
+
+
+// Calcola la data corrente qui
+const today = new Date();
+const day = String(today.getDate()).padStart(2, '0');
+const month = String(today.getMonth() + 1).padStart(2, '0'); // Gennaio è 0!
+const year = today.getFullYear();
+const currentDate = `${day}/${month}/${year}`;
+
+
+
+
 
 
 function SaveLesson() {
@@ -17,10 +34,69 @@ function SaveLesson() {
         sParkingP: false,
     });
 
+    const [startDate, setStartDate] = useState(new Date());
+
+
+
+    const navigate = useNavigate();
+    const returnBack = () => {
+        navigate(-1);
+    }
 
 
     const toggleButton = (button) => {
-        setActiveButtons({ ...activeButtons, [button]: !activeButtons[button] });
+        // Trova il pulsante corrispondente
+        const correspondingButton = button.endsWith('P') ? button.slice(0, -1) : button + 'P';
+
+        // Se il pulsante corrispondente è attivo, allora possiamo attivare questo pulsante
+        // indipendentemente dal numero di pulsanti attualmente attivi
+        if (activeButtons[correspondingButton]) {
+            setActiveButtons({
+                ...activeButtons,
+                [button]: true,
+                [correspondingButton]: false
+            });
+        } else {
+            // Conta il numero di pulsanti attualmente attivi
+            const activeCount = Object.values(activeButtons).filter(value => value).length;
+
+            // Se ci sono già 3 pulsanti attivi e stiamo cercando di attivare un altro pulsante,
+            // allora non fare nulla
+            if (activeCount >= 3 && !activeButtons[button]) {
+                return;
+            }
+
+            // Attiva o disattiva il pulsante e disattiva il pulsante corrispondente
+            setActiveButtons({
+                ...activeButtons,
+                [button]: !activeButtons[button],
+                [correspondingButton]: false
+            });
+        }
+    };
+
+    // Creare un oggetto Lesson basato sullo stato corrente dei pulsanti
+    const createLesson = () => {
+        // Trova i primi tre pulsanti attivati
+        const scenarios = Object.entries(activeButtons)
+            .filter(([key, value]) => value)
+            .map(([key]) => key)
+            .slice(0, 3);
+
+        // Crea un oggetto Lesson
+        const lesson = new Lesson(
+            currentDate, // Usa la data corrente nel formato YYYY-MM-DD
+            scenarios[0],
+            scenarios[1],
+            scenarios[2],
+            -1, // grade
+            false, // rifEvaluation
+            0, // distance
+            true // to_evaluate
+        );
+
+        // Fai qualcosa con l'oggetto lesson (ad esempio, invialo a un server o salvalo in locale)
+        console.log(lesson);
     };
 
 
@@ -53,11 +129,13 @@ function SaveLesson() {
 
                 {/* INSERISCI QUI text input   */}
 
-                <div style={{ textAlign: 'right' }}>
-                    17/09/23
+
+
+
+                <div>
+                    <label style={{ marginRight: '10px' }}>Date: </label>
+                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                 </div>
-
-
 
 
                 <>
@@ -66,6 +144,8 @@ function SaveLesson() {
                         <Form.Control as="textarea" rows={3} placeholder="Enter route" />
                     </Form.Group>
 
+
+                    <h5>Select no more than 3 elements below:</h5>
 
                     <Form.Label className="mt-3">Mistakes</Form.Label>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -141,10 +221,10 @@ function SaveLesson() {
 
                     <Row className="mt-5">
                         <Col>
-                            <Button variant="secondary" className="mr-2 w-100 ">Cancel</Button>
+                            <Button variant="secondary" className="mr-2 w-100 " onClick={returnBack}>Cancel</Button>
                         </Col>
                         <Col>
-                            <Button variant="primary" className="w-100">Save Lesson</Button>
+                            <Button variant="primary" className="w-100" onClick={createLesson}>Save Lesson</Button>
                         </Col>
                     </Row>
                 </>

@@ -40,6 +40,33 @@ exports.getLessonsToEvaluate = (validated, date) => {
     });
 };
 
+
+exports.getLessons = (date) => {
+    return new Promise((resolve, reject) => {
+        let sql = ` SELECT lesson_id,rif_evaluation,lessonDate,scenario_1,scenario_2,scenario_3,grade,distance,to_evaluate FROM LESSONS WHERE 1=1 `;
+        
+        if (date) {
+            let dateStr = date.toISOString().split('T')[0]; // formatta come piace a sqlite
+            if (isDateValid(dateStr)) {
+                sql += ` AND lessonDate= ` + dateStr;
+            }
+        }
+        sql += ` ORDER BY lessonDate ASC ;`;
+        console.log(sql);
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const lessons = rows.map((l) => new Lesson(l.lessonDate, l.scenario_1, l.scenario_2,
+                l.scenario_3, l.grade, l.rif_evaluation, l.distance, l.to_evaluate));
+
+            resolve(lessons);
+        });
+    });
+};
+
+
 exports.getLessonByID = (id) => {
     return new Promise((resolve, reject) => {
 
@@ -103,3 +130,30 @@ exports.insertEvaluation = async(formData) => {
 }
 
 
+//DA MODIFICARE
+exports.insertLesson = async(formData) => {
+
+    const distance = formData.distance;
+    console.log("ciao " + distance);
+    const { selectedOptions } = formData;
+    const selectedOptionNames = selectedOptions.map(option => option.name);
+    console.log("ciao2 " + selectedOptionNames);
+
+    db.run('INSERT INTO PLANNINGS (distance) VALUES (?)', [distance], function(err)  {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        const newId = this.lastID;
+        console.log('New planning id: ' + newId);
+        selectedOptionNames.forEach(optionName => {
+            db.run('INSERT INTO PLANNEDSCENARIO (planning_id, scenario_name) VALUES (?, ?)', [newId, optionName], function(err) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                console.log('New planned scenario id: ' + this.lastID);
+            });
+        });
+    });
+}
