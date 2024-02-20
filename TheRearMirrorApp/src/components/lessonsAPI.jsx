@@ -35,6 +35,6 @@ async function saveLesson(lesson) {
 
 
 
-  const API = { getAllLessons , updateLesson};
+  const API = { getAllLessons , updateLesson, saveLesson};
 
   export default API;

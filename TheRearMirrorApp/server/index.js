@@ -80,7 +80,10 @@ app.put('/api/updateLesson', async (req, res) => {
 
 app.post('/api/saveLesson', async (req, res) => {
 
-    await dao.addPlan(req)
+   // console.log("Valore ricevuto dalla post:");
+   // console.log(req.body);
+
+    await LessonDAO.saveLesson(req.body)
       .catch(err => res.status(500).json(err));
   
     res.json();

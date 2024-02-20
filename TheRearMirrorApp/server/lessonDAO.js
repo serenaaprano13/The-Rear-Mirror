@@ -176,29 +176,19 @@ exports.insertEvaluation = async(lesson_id,grade) => {
 
 
 //DA MODIFICARE
-exports.insertLesson = async(formData) => {
+exports.saveLesson = (lesson) => {
 
-    const distance = formData.distance;
-    console.log("ciao " + distance);
-    const { selectedOptions } = formData;
-    const selectedOptionNames = selectedOptions.map(option => option.name);
-    console.log("ciao2 " + selectedOptionNames);
+console.log("valore da mettere nel db:")
+console.log(lesson)
 
-    db.run('INSERT INTO LESSONS (distance) VALUES (?)', [distance], function(err)  {
+    return new Promise((resolve, reject) => {
+      const sql = 'INSERT INTO LESSONS(rif_evaluation, lessonDate, scenario_1, scenario_2, scenario_3, grade, distance, to_evaluate, route_1, route_2, route_3, mistake_1, mistake_2, mistake_3) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      db.run(sql, [lesson.evaluated, lesson.date, lesson.scenario1, lesson.scenario2, lesson.scenario3, lesson.grade, lesson.distance, lesson.to_evaluate, lesson.route_1, lesson.route_2, lesson.route_3, lesson.mistake_1, lesson.mistake_2, lesson.mistake_3], function (err) {
         if (err) {
-            console.error(err);
-            return;
+          reject(err);
+          return;
         }
-        const newId = this.lastID;
-        console.log('New planning id: ' + newId);
-        selectedOptionNames.forEach(optionName => {
-            db.run('INSERT INTO PLANNEDSCENARIO (planning_id, scenario_name) VALUES (?, ?)', [newId, optionName], function(err) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                console.log('New planned scenario id: ' + this.lastID);
-            });
-        });
+        resolve("lesson successfully added");
+      });
     });
-}
+  };
