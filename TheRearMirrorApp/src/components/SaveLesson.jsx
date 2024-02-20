@@ -168,7 +168,7 @@ function SaveLesson() {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicSlider" className="mb-3">
-                        <Form.Label>Route 1 distance</Form.Label>
+                        <Form.Label>Route 1 distance (in km)</Form.Label>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Form.Control type="range" min="1" max="10" value={sliderValue} onChange={e => setSliderValue(e.target.value)} style={{ marginRight: '10px' }} />
                             <span>{sliderValue}</span>
@@ -181,7 +181,7 @@ function SaveLesson() {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicSlider" className="mb-3">
-                        <Form.Label>Route 2 distance</Form.Label>
+                        <Form.Label>Route 2 distance (in km)</Form.Label>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Form.Control type="range" min="1" max="10" value={sliderValue2} onChange={e => setSliderValue2(e.target.value)} style={{ marginRight: '10px' }} />
                             <span>{sliderValue2}</span>
@@ -194,7 +194,7 @@ function SaveLesson() {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicSlider" className="mb-3">
-                        <Form.Label>Route 3 distance</Form.Label>
+                        <Form.Label>Route 3 distance (in km)</Form.Label>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Form.Control type="range" min="1" max="10" value={sliderValue3} onChange={e => setSliderValue3(e.target.value)} style={{ marginRight: '10px' }} />
                             <span>{sliderValue3}</span>
