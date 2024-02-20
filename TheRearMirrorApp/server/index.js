@@ -1,6 +1,6 @@
 'use strict';
 
-const PORT = 3000 ;
+const PORT = 3000;
 
 const express = require('express');
 //const morgan = require('morgan');
@@ -30,14 +30,14 @@ app.get('/api/latestPlanning', (req, res) => {
 
 app.post('/api/createPlanning', async (req, res) => {
     try {
-        const formData= req.body;
+        const formData = req.body;
         console.log(formData);
         const result = await PlanningDAO.insertPlanning(formData);
         res.json(result);
-      } catch (error) {
+    } catch (error) {
         res.status(500).send(error.message);
-      }
-    });
+    }
+});
 
 /*
 app.post('/api/questions/:questionId/answers', async (req, res) => {
@@ -81,13 +81,28 @@ app.put('/api/updateLesson', async (req, res) => {
 app.post('/api/saveLesson', async (req, res) => {
 
     await dao.addPlan(req)
-      .catch(err => res.status(500).json(err));
-  
+        .catch(err => res.status(500).json(err));
+
     res.json();
-  }
-  );
+}
+);
+app.post('/api/insertEvaluation', async (req, res) => {
+    try {
+        
+        const lessonDate=req.date;
+        const grade=req.grade;
+        console.log(lessonDate)
+        console.log(grade)
+        const result= await LessonDAO.insertEvaluation(lessonDate,grade);
+        // const formData = req.body;
+        // console.log(formData);
+        // const result = await PlanningDAO.insertPlanning(formData);
+        res.json(result);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
 
 
- 
-app.listen(PORT, 
+app.listen(PORT,
     () => { console.log(`Server started on http://localhost:${PORT}/`) });

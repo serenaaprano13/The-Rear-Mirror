@@ -74,28 +74,20 @@ const Evaluating = () => {
 
   const APIURL = 'http://localhost:3000/api'
   async function Save() {
-    event.preventDefault();
-
     const response = await fetch(APIURL + '/insertEvaluation', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(lesson_id, rating)
+      body: JSON.stringify(lesson.date, rating)
     });
-
-    if (response.ok) {
-      console.log('Planning data sent to server successfully');
-      // navigate('/summaryOfPlanning');
-    } else {
-      console.error('Failed to send Planning data to the server');
-    }
   }
   const handleSave = () => {
     Save()
 
-    navigate('/Evaluation');
+    // navigate('/Evaluation');
   };
+
   const initialDistance = lesson.distance;
   console.log(initialDistance)
   const [date, setDate] = useState(new Date());

@@ -151,27 +151,29 @@ exports.getRouteByLesson = (lesson_id) => {
 };
 
 
-exports.insertEvaluation = async(lesson_id,grade) => {
+exports.insertEvaluation = async(lesson_date,grade) => {
 
+    console.log("update eval grade" + grade + "  id" +lesson_date );
+    db.run("UPDATE LESSONS SET grade=? WHERE lessonDate=? ", [grade,lesson_date], function(err)  {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        
+    });
+
+    
     // const grade = formData.grade;
     // const lesson_id = formData.lesson_id;
-    console.log("update eval grade" + grade + "  id" +lesson_id );
 
-    db.run("INSERT INTO EVALUATION(rif_lesson,grade,evaluationDate) VALUES (?,DATE('now'))", [lesson_id,grade], function(err)  {
-        if (err) {
-            console.error(err);
-            return;
-        }
+    // db.run("INSERT INTO EVALUATION(rif_lesson,grade,evaluationDate) VALUES (?,DATE('now'))", [lesson_id,grade], function(err)  {
+    //     if (err) {
+    //         console.error(err);
+    //         return;
+    //     }
         
-    });
+    // });
     
-    db.run("UPDATE LESSON SET grade=? WHERE lesson_id=? ", [grade,lesson_id], function(err)  {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        
-    });
 }
 
 
