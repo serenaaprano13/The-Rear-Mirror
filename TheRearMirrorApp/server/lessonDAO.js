@@ -93,6 +93,21 @@ exports.getLessons = (date) => {
 };
 
 
+exports.updateLesson = (requestBody) => {
+    return new Promise((resolve, reject) => {
+      const sql = 'UPDATE LESSONS SET to_evaluate = 1 WHERE lessonDate = ?';
+  
+      db.run(sql, [requestBody.date], function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve("lesson successfully updated");
+      });
+    });
+  };
+
+
 exports.getLessonByID = (id) => {
     return new Promise((resolve, reject) => {
 

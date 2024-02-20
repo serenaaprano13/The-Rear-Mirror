@@ -11,6 +11,16 @@ async function getAllLessons(date) {
   }
 
 
-  const API = { getAllLessons };
+  async function updateLesson(date){
+    const requestOptions = {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ date: date })
+    };
+    return fetch(URL + '/updateLesson', requestOptions);
+}
+
+
+  const API = { getAllLessons , updateLesson};
 
   export default API;
