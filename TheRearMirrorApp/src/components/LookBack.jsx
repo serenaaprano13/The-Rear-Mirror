@@ -17,6 +17,8 @@ function LookBack() {
   const [lessons, setLessons] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [key, setKey] = useState(Math.random());
+  const [searchKeyword, setSearchKeyword] = useState('');
+  
 
 
 
@@ -46,6 +48,20 @@ function LookBack() {
       return lessonDate.getDate() === date.getDate() &&
         lessonDate.getMonth() === date.getMonth() &&
         lessonDate.getFullYear() === date.getFullYear();
+    });
+
+    setLessons(filteredLessons);
+  }
+
+  const handleSearchChange = (event) => {
+    const keyword = event.target.value;
+    setSearchKeyword(keyword);
+
+    const filteredLessons = lessons.filter(lesson => {
+      const keywordLower = keyword.toLowerCase();
+      return lesson.scenario1.toLowerCase().includes(keywordLower) ||
+        lesson.scenario2.toLowerCase().includes(keywordLower) ||
+        lesson.scenario3.toLowerCase().includes(keywordLower);
     });
 
     setLessons(filteredLessons);
@@ -95,7 +111,7 @@ function LookBack() {
           </Col>
           <Col>
             <InputGroup>
-              <FormControl type="text" placeholder="Keyword" aria-label="keyword" />
+            <FormControl type="text" placeholder="Keyword" aria-label="keyword" value={searchKeyword} onChange={handleSearchChange} />
               <InputGroup.Text>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -142,13 +158,13 @@ function LookBack() {
       </Col>
     </Row>
   )}
-  {startDate && (
-    <Row>
-      <Col className="d-flex justify-content-center">
-        <Button variant="primary" onClick={fetchAllLessons}>Show all lessons</Button>
-      </Col>
-    </Row>
-  )}
+  { (startDate || searchKeyword) && (
+  <Row>
+    <Col className="d-flex justify-content-center">
+      <Button variant="primary" onClick={fetchAllLessons}>Show all lessons</Button>
+    </Col>
+  </Row>
+)}
   <Row style={{ height: '4rem' }}></Row>
   <Row>
     <MyNavbar />
