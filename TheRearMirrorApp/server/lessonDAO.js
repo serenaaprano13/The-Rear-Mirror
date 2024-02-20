@@ -180,7 +180,7 @@ exports.insertLesson = async(formData) => {
     const selectedOptionNames = selectedOptions.map(option => option.name);
     console.log("ciao2 " + selectedOptionNames);
 
-    db.run('INSERT INTO PLANNINGS (distance) VALUES (?)', [distance], function(err)  {
+    db.run('INSERT INTO LESSONS (distance) VALUES (?)', [distance], function(err)  {
         if (err) {
             console.error(err);
             return;

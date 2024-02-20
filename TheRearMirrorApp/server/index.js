@@ -78,6 +78,16 @@ app.put('/api/updateLesson', async (req, res) => {
 })
 
 
+app.post('/api/saveLesson', async (req, res) => {
+
+    await dao.addPlan(req)
+      .catch(err => res.status(500).json(err));
+  
+    res.json();
+  }
+  );
+
+
  
 app.listen(PORT, 
     () => { console.log(`Server started on http://localhost:${PORT}/`) });

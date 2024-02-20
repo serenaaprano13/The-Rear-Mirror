@@ -21,6 +21,18 @@ async function getAllLessons(date) {
 }
 
 
+async function saveLesson(lesson) {
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(lesson)
+    };
+    return fetch(URL + '/saveLesson', requestOptions);
+  }
+
+
+
   const API = { getAllLessons , updateLesson};
 
   export default API;
