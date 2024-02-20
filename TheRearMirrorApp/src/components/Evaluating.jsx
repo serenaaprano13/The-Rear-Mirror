@@ -128,7 +128,14 @@ const Evaluating = () => {
               </Form.Group>
             </Col>
             <Form.Group controlId="duedate">
-              <input type="text" value={dateStr} readOnly />
+              <Form.Control
+                type="string"
+                name="distance"
+                placeholder="Date"
+                defaultValue={dateStr}
+
+              />
+
             </Form.Group>
           </Row>
 
