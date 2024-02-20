@@ -73,40 +73,45 @@ BEGIN TRANSACTION;
 -- (14, 3, 'Night driving'),
 -- (15, 3, 'Uphill start');
 
-
+DROP TABLE "LESSONS";
 
 CREATE TABLE IF NOT EXISTS "LESSONS" (lesson_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,rif_evaluation INTEGER, lessonDate DATE,
     scenario_1 TEXT,scenario_2 TEXT,scenario_3 TEXT,grade INTEGER,distance FLOAT,to_evaluate BOOL,
+    route_1 TEXT,route_2 TEXT,route_3 TEXT,mistake_1 TEXT,mistake_2 TEXT,mistake_3 TEXT,
     FOREIGN KEY (rif_evaluation) REFERENCES EVALUATION(idRow));
 
 
 
-INSERT INTO LESSONS(lesson_id,rif_evaluation,lessonDate,scenario_1,scenario_2,scenario_3,grade,distance,to_evaluate)
+INSERT INTO LESSONS(lesson_id,rif_evaluation,lessonDate,scenario_1,scenario_2,scenario_3,grade,distance,to_evaluate,
+ route_1,route_2,route_3,mistake_1,mistake_2,mistake_3)
 VALUES
-(1, 1, '2024-02-13','Parallel Parking','Three-Point Turn','Uphill start',-1,6,TRUE),
-(2, 2, '2024-02-14','Emergency Stop','S-Parking','Stop',4,2,TRUE),
-(3, -1, '2024-02-15' ,'Obey Traffic Signals','U-Turn','Speed limit',-1,1,FALSE);
+(1, 1, '2024-02-13','Parallel Parking','Three-Point Turn','Uphill start',1,6,TRUE,
+'Via Roma','Corso Francia','Via Milano','Emergency Stop','S-Parking','Stop'),
+(2, 2, '2024-02-14','Emergency Stop','S-Parking','Stop',4,2,TRUE,
+'Via Asti','Corso Trapani','Corso Allamano','Obey Traffic Signals','U-Turn','Speed limit'),
+(3, -1, '2024-02-15' ,'Obey Traffic Signals','U-Turn','Speed limit',-1,1,FALSE,
+'Corso Trapani','Corso Allamano','Via Catania','Parallel Parking','Three-Point Turn','Uphill start');
 
 
-CREATE TABLE IF NOT EXISTS "ROUTES" (route_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,rif_lesson INTEGER, routeName TEXT, distanceInKm FLOAT,
-    FOREIGN KEY (rif_lesson) REFERENCES EVALUATION(lesson_id));
+-- CREATE TABLE IF NOT EXISTS "ROUTES" (route_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,rif_lesson INTEGER, routeName TEXT, distanceInKm FLOAT,
+--     FOREIGN KEY (rif_lesson) REFERENCES EVALUATION(lesson_id));
 
-INSERT INTO ROUTES(route_id,rif_lesson,routeName,distanceInKm)
-VALUES
-(1,1,'Corso Ferrucci',3),
-(2,2,'Corso Trapani',2),
-(3,1,'Corso Trapani',2),
-(4,1,'Via Virle',1),
-(5,3,'Via Virle',1);
+-- INSERT INTO ROUTES(route_id,rif_lesson,routeName,distanceInKm)
+-- VALUES
+-- (1,1,'Corso Ferrucci',3),
+-- (2,2,'Corso Trapani',2),
+-- (3,1,'Corso Trapani',2),
+-- (4,1,'Via Virle',1),
+-- (5,3,'Via Virle',1);
 
 
-CREATE TABLE IF NOT EXISTS "EVALUATION" (idRow INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,rif_lesson INTEGER, grade INTEGER, evaluationDate DATE,
-	FOREIGN KEY (rif_lesson) REFERENCES LESSONS(lesson_id));
+-- CREATE TABLE IF NOT EXISTS "EVALUATION" (idRow INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,rif_lesson INTEGER, grade INTEGER, evaluationDate DATE,
+-- 	FOREIGN KEY (rif_lesson) REFERENCES LESSONS(lesson_id));
 
-INSERT INTO EVALUATION(idRow,rif_lesson,grade,evaluationDate)
-VALUES
-(1,1,4,'2024-02-13'),
-(2,2,5,'2024-02-18');
+-- INSERT INTO EVALUATION(idRow,rif_lesson,grade,evaluationDate)
+-- VALUES
+-- (1,1,4,'2024-02-13'),
+-- (2,2,5,'2024-02-18');
 
 
 COMMIT;
