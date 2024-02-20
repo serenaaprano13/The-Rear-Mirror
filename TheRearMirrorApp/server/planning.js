@@ -8,6 +8,11 @@ function Planning(id, date, distance) {
     this.distance = distance ;
 }
 
+function DrivingScenario(name){
+    this.name=name;
+}
+
 
 
 exports.Planning = Planning ;
+exports.DrivingScenario = DrivingScenario ;

@@ -3,6 +3,7 @@
 	margin: 0;
 	box-sizing: border-box;
   font-family: 'Archivo', sans-serif;
+  
 }
 
 header {
@@ -10,21 +11,25 @@ header {
 	align-items: center;
 	justify-content: space-between;
 	height: 100%;
-	padding: 0 2rem;
-	background-color:rgb(251, 178, 42);
-	color: black;
+	padding: 0 20px;
+	background-color: #004E98;
+	color: #C0C0C0;
 }
 .header-title{
   text-align: center;
-  flex-grow: 1;
+  margin-left: 20px;
+  font-size: 30px;
+
+ 
 
 }
 
 .back-btn {
-  background-color: #f1af5f ;
-  border-radius:5px;
-  font-size: 20px;
- margin-top: 20px;
+  background-color: #C0C0C0;
+  border-radius:2px;
+  font-size: 15px;
+  margin: 2px;
+ 
 }
 
 .form-group{
@@ -32,7 +37,7 @@ header {
 }
 
 .custom-label{
-  color: rgb(125, 125, 199); 
+  color: #FF6700; 
   font-weight: bold; 
   border-bottom: 2px solid #5a6268; 
   padding-bottom: 5px; 
@@ -45,7 +50,7 @@ header {
 
 }
 .discard-btn{
-  background-color: grey ;
+  background-color: #C0C0C0 ;
   border-radius:4px;
   border-width: 0cap;
   width:120px;
@@ -59,7 +64,7 @@ header {
  
 }
 .save-btn{
-  background-color:rgb(125, 125, 199) ;
+  background-color: #FF6700 ;
   border-radius:4px;
   border-color: aliceblue;
   border-width: 0cap;
@@ -290,7 +295,7 @@ header {
 
 .downNavbar a {
   text-decoration: none;
-  color: black;
+  color: #C0C0C0;
  
 }
 
@@ -306,7 +311,7 @@ header {
   margin-left: 0;
   padding-left: 0;
   align-items: center;
-  background-color: #f1af5f;
+  background-color: #004E98;
 }
 
 
@@ -341,7 +346,7 @@ header {
   
 
   .down-nav-item:hover {
-    background-color: rgb(251, 178, 42);
+    background-color: #FF6700;
   }
 
   .navbar{
@@ -421,6 +426,64 @@ header {
     background-color: #f0f0f0;
     border: 1px solid #999;
   }
- 
 
-  
+
+ .summary{
+    margin-top:50px;
+    margin-left: 20px;
+    margin-right:20px;
+    padding: 20px;
+    border: 1px solid #999;
+    background-color:#EBEBEB !important;
+ }
+
+ .summary-header{
+  font-size: 19px;;
+  background-color: #C0C0C0;
+ }
+
+ .summary-title{
+  font-size: 23px !important;
+  font-weight: bold !important;
+  margin-bottom: 10px;
+  color: #004E98;
+ }
+
+ .label-summary{
+  font-size: 17px;
+  font-weight: bold;
+ }
+
+ .lesson-performed{
+  background-color: #FF6700;
+  color: #EBEBEB;
+  border-radius:4px;
+  border-radius:4px;
+  border-width: 0cap;
+  width:120px;
+  font-size: 15px;
+  margin-left:100px;
+  margin-top: 20px;
+  text-align:center;
+ }
+ .home {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items to the start of the container */
+  align-items: center;
+  height: 100vh;
+  padding-top: 2cqb; /* Add some space at the top */
+  background-color: #f0f0f0; ;
+}
+
+.title {
+  font-size: 2.9em;
+  color:#004E98 ;
+  margin-top:1px;
+  margin-left:2px;
+}
+
+.subtitle {
+  font-size: 1em;
+  color: #FF6700;
+}

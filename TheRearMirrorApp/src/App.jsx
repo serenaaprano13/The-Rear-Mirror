@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { LoadingPage } from './components/Loadingpage'
+import { Homepage } from './components/Homepage'
 import  PlanningForm  from './components/PlanningForm'
 import  PlanningSummary from './components/PlanningSummary'
 import { BrowserRouter } from 'react-router-dom'
@@ -22,7 +22,7 @@ function App() {
 
   return <BrowserRouter>
   <Routes>
-    <Route path="/" element={<LoadingPage />} />
+    <Route path="/" element={<Homepage />} />
     <Route path="/planning" element={<PlanningForm />} />
     <Route path='*' element={<PageNotFound></PageNotFound>} />
     <Route path='/evaluation' element={<Evaluation></Evaluation>} />
