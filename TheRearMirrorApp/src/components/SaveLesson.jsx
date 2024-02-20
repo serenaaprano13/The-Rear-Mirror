@@ -84,16 +84,19 @@ function SaveLesson() {
             .slice(0, 3);
 
         // Crea un oggetto Lesson
-        const lesson = new Lesson(
-            currentDate, // Usa la data corrente nel formato YYYY-MM-DD
-            scenarios[0],
-            scenarios[1],
-            scenarios[2],
-            -1, // grade
-            false, // rifEvaluation
+        let currentDate = new Date();
+        let formattedDate = currentDate.toISOString().slice(0, 10); // This will give you the date in YYYY-MM-DD format
+
+        const lesson = new Lesson();
+        lesson.date = formattedDate, // Usa la data corrente nel formato YYYY-MM-DD
+            lesson.scenario1 = scenarios[0],
+            lesson.scenario2 = scenarios[1],
+            lesson.scenario3 = scenarios[2],
+            lesson.grade = -1, // grade
+            lesson.evaluated = -1, // rifEvaluation
             0, // distance
-            true // to_evaluate
-        );
+            lesson.to_evaluate = false // to_evaluate
+
 
         // Fai qualcosa con l'oggetto lesson (ad esempio, invialo a un server o salvalo in locale)
         console.log(lesson);

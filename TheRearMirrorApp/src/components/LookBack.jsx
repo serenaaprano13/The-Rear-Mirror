@@ -16,37 +16,48 @@ function LookBack() {
 
   const [lessons, setLessons] = useState([]);
   const [startDate, setStartDate] = useState(null);
-  
+  const [key, setKey] = useState(Math.random());
 
 
-// Function to fetch all lessons
-const fetchAllLessons = () => {
-  API.getAllLessons()
-    .then(lessons => {
-      setLessons(lessons);
-      console.log(lessons);
-    });
-};
+
+
+  // Function to fetch all lessons
+  const fetchAllLessons = () => {
+    API.getAllLessons()
+      .then(lessons => {
+        setLessons(lessons);
+        console.log(lessons);
+      });
+  };
+
+
 
   // Fetch all lessons at the beginning
   useEffect(() => {
     fetchAllLessons();
-  }, []);
+  }, [key]);
 
 
   const handleDateChange = (date) => {
-  setStartDate(date);
+    setStartDate(date);
 
-  const filteredLessons = lessons.filter(lesson => {
-    const lessonDate = new Date(lesson.date);
-    return lessonDate.getDate() === date.getDate() &&
-      lessonDate.getMonth() === date.getMonth() &&
-      lessonDate.getFullYear() === date.getFullYear();
-  });
+    const filteredLessons = lessons.filter(lesson => {
+      const lessonDate = new Date(lesson.date);
+      return lessonDate.getDate() === date.getDate() &&
+        lessonDate.getMonth() === date.getMonth() &&
+        lessonDate.getFullYear() === date.getFullYear();
+    });
 
-  setLessons(filteredLessons);
-}
+    setLessons(filteredLessons);
+  }
 
+  const handleEvaluateClick = async (lesson) => {
+    console.log("handleEvaluateClick called with lesson:", lesson);
+    await API.updateLesson(lesson.date);
+    const updatedLessons = await API.getAllLessons();
+    setLessons([...updatedLessons]);
+    console.log(lessons);
+  };
 
   return (
     <div style={{
@@ -94,11 +105,11 @@ const fetchAllLessons = () => {
           </Col>
         </Row>
       </Container>
-      <Container fluid style={{ overflowY: 'auto' }}>
+      <Container key={key} fluid style={{ overflowY: 'auto' }}>
         <Row>
-        {startDate && (
-          <Col className="d-flex justify-content-center">
-            <Button variant="primary" onClick={fetchAllLessons}>Show all lessons</Button>
+          {startDate && (
+            <Col className="d-flex justify-content-center">
+              <Button variant="primary" onClick={fetchAllLessons}>Show all lessons</Button>
             </Col>
           )}
           {lessons.map((lesson, index) => (
@@ -116,7 +127,13 @@ const fetchAllLessons = () => {
                       <FontAwesomeIcon key={i} icon={faStar} size="1x" />
                     ))
                   ) : (
-                    <Button variant="primary">ask to evaluate</Button>
+                    lesson.to_evaluate === 1 ? (
+                      <span>waiting for evaluation</span>
+                    ) : (
+                      <Button variant="primary" onClick={() => handleEvaluateClick(lesson)}>
+                        ask to evaluate
+                      </Button>
+                    )
                   )}
                 </div>
               </Card.Body>
