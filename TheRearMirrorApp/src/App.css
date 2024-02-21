@@ -429,10 +429,10 @@ header {
 
 
  .summary{
-    margin-top:50px;
+    margin-top:25px;
     margin-left: 20px;
     margin-right:20px;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #999;
     background-color:#EBEBEB !important;
  }
@@ -487,3 +487,4 @@ header {
   font-size: 1em;
   color: #FF6700;
 }
+

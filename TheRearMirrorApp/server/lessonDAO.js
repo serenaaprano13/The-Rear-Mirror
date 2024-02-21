@@ -9,6 +9,37 @@ const db = new sqlite.Database('theRearMirrorDB.db', (err) => {
     if (err) throw err;
 });
 
+
+
+
+
+//TO DO: get latest lesson
+exports.getLatestLesson=()=>{
+    return new Promise( (resolve,reject)=>{
+        const sql = ` SELECT * FROM LESSONS ORDER BY lessonDate DESC LIMIT 1;`;
+        db.all(sql,[],(err,rows)=>{
+            if(err){
+                reject(err);
+                return;
+            }
+        const lessons = rows.map((l) => new Lesson((l.lesson_id, l.lessonDate, l.scenario_name_1,
+            l.scenario_name_2, l.scenario_name_3, l.grade, l.rif_evaluation, l.distance)));
+        const latestLesson=lessons[0];
+        const latestLessonDate=latestLesson.date
+        console.log("latest lesson date  " + latestLessonDate);
+        const latestLessonScenario1=latestLesson.scenario1;
+        console.log("latest lesson scenario 1 " + latestLessonScenario1);
+        const latestLessonScenario2=latestLesson.scenario2;
+        console.log("latest lesson scenario 2 " + latestLessonScenario2);
+        const latestLessonScenario3=latestLesson.scenario3;
+        
+        console.log("latest lesson " +  latestLessonDate);
+        resolve(latestLesson);
+    
+        });
+        }
+    )};
+
 //Get Lessons
 
 exports.getLessons = (date) => {

@@ -10,7 +10,7 @@ const db = new sqlite.Database('theRearMirrorDB.db', (err) => {
 });
 
 
-//TO DO: get latest planning
+
 exports.getLatestPlanning=()=>{
     return new Promise( (resolve,reject)=>{
         const sql = ` SELECT * FROM PLANNINGS ORDER BY planning_id DESC LIMIT 1;`;

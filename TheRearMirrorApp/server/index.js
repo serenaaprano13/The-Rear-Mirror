@@ -27,6 +27,14 @@ app.get('/api/latestPlanning', (req, res) => {
     })
 })
 
+app.get('/api/latestLesson', (req, res) => {
+    LessonDAO.getLatestLesson().then((result) => {
+        res.json(result);
+    }).catch((error) => {
+        res.status(500).send(error.message);
+    })
+})
+
 
 app.post('/api/createPlanning', async (req, res) => {
     try {

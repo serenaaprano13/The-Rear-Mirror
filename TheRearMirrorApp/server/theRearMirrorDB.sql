@@ -113,5 +113,18 @@ VALUES
 -- (1,1,4,'2024-02-13'),
 -- (2,2,5,'2024-02-18');
 
+--DELETE FROM LESSONS WHERE lesson_id = 5;
+
+INSERT INTO LESSONS(lesson_id,rif_evaluation,lessonDate,scenario_1,scenario_2,scenario_3,grade,distance,to_evaluate,
+ route_1,route_2,route_3,mistake_1,mistake_2,mistake_3)
+VALUES
+(6, 1, '2024-02-20','Parallel Parking','Three-Point Turn','Uphill start',1,6,TRUE,
+'Via Roma','Corso Francia','Via Milano','Emergency Stop','S-Parking','Stop');
+
+
+
+
+
+
 
 COMMIT;
