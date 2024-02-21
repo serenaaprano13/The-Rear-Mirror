@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import RangeSlider from 'react-bootstrap-range-slider';
 import API from "./lessonsAPI";
+import Modal from 'react-bootstrap/Modal';
 
 
 // Calcola la data corrente qui
@@ -39,6 +40,8 @@ function SaveLesson() {
     const [sliderValue, setSliderValue] = useState(1);
     const [sliderValue2, setSliderValue2] = useState(1);
     const [sliderValue3, setSliderValue3] = useState(1);
+    const [showDiscardModal, setShowDiscardModal] = useState(false);
+
 
 
 
@@ -46,9 +49,18 @@ function SaveLesson() {
 
 
     const navigate = useNavigate();
-    const returnBack = () => {
-        navigate(-1);
+
+    const handleDiscard = (event) => {
+        event.preventDefault();
+        setShowDiscardModal(true);
     }
+    const confirmDiscard = () => {
+        setShowDiscardModal(false);
+        navigate('/');
+    };
+    const cancelDiscard = () => {
+        setShowDiscardModal(false);
+    };
 
 
     const toggleButton = (button) => {
@@ -83,39 +95,39 @@ function SaveLesson() {
     };
 
     // Creare un oggetto Lesson basato sullo stato corrente dei pulsanti
-     let createLesson = async () => {
+    let createLesson = async () => {
         // Find the first three active buttons for scenarios
         const scenarios = Object.entries(activeButtons)
             .filter(([key, value]) => value)
             .map(([key]) => key)
             .slice(0, 3);
-    
+
         // Find the first three active buttons for mistakes
         const mistakes = ['speeding', 'redLight', 'uphillStart', 'sParking']
             .filter(mistake => activeButtons[mistake])
             .slice(0, 3);
-    
+
         // Create a Lesson object
         let currentDate = new Date();
         let formattedDate = currentDate.toISOString().slice(0, 10); // This will give you the date in YYYY-MM-DD format
-    
+
         const lesson = new Lesson();
         lesson.date = formattedDate, // Use the current date in YYYY-MM-DD format
-        lesson.mistake_1 = mistakes[0] || '',
-        lesson.mistake_2 = mistakes[1] || '',
-        lesson.mistake_3 = mistakes[2] || '',
-        lesson.scenario1 = scenarios[0] || '',
-        lesson.scenario2 = scenarios[1] || '',
-        lesson.scenario3 = scenarios[2] || '',
-        lesson.grade = -1, // grade
-        lesson.evaluated = -1, // rifEvaluation
-        0, // distance
-        lesson.to_evaluate = false // to_evaluate
+            lesson.mistake_1 = mistakes[0] || '',
+            lesson.mistake_2 = mistakes[1] || '',
+            lesson.mistake_3 = mistakes[2] || '',
+            lesson.scenario1 = scenarios[0] || '',
+            lesson.scenario2 = scenarios[1] || '',
+            lesson.scenario3 = scenarios[2] || '',
+            lesson.grade = -1, // grade
+            lesson.evaluated = -1, // rifEvaluation
+            0, // distance
+            lesson.to_evaluate = false // to_evaluate
         lesson.distance = Number(sliderValue) + Number(sliderValue2) + Number(sliderValue3);
         lesson.route_1 = document.getElementById('formBasicRoute').value
         lesson.route_2 = document.getElementById('formBasicRoute2').value
         lesson.route_3 = document.getElementById('formBasicRoute3').value
-    
+
         // Do something with the lesson object (e.g., send it to a server or save it locally)
 
         //console.log("Valore passato a SaveLesson:");
@@ -279,7 +291,7 @@ function SaveLesson() {
 
                     <Row className="mt-5">
                         <Col>
-                            <Button variant="secondary" className="mr-2 w-100 " onClick={returnBack}>Cancel</Button>
+                        <Button variant="secondary" onClick={handleDiscard}>Cancel</Button>
                         </Col>
                         <Col>
                             <Button variant="primary" className="w-100" onClick={createLesson}>Save Lesson</Button>
@@ -295,6 +307,22 @@ function SaveLesson() {
                     <MyNavbar />
                 </Row>
             </Container>
+
+
+
+            <Modal show={showDiscardModal} onHide={cancelDiscard}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Discard</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to discard your changes and leave to Homepage?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
+                    <Button variant="primary" onClick={confirmDiscard}>Discard planning</Button>
+                </Modal.Footer>
+            </Modal>
+
+
+
         </div>
     )
 }
