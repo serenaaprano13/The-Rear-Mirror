@@ -246,7 +246,7 @@ const PlanningForm = () => {
     <Title titolo="Planning"></Title>
     <Form className="planning" onSubmit={handleSubmit}>
       <Form.Group className="form-group" controlId="plannedDistance">
-        <Form.Label className='custom-label'>Planned Distance</Form.Label>{" "}
+        <Form.Label className='custom-label'>PLANNED DISTANCE</Form.Label>{" "}
       </Form.Group>
 
 
@@ -260,7 +260,7 @@ const PlanningForm = () => {
       </Form.Group>
 
       <Form.Group className="form-group" controlId="lastestMistakes">
-        <Form.Label className='custom-label'>Recent Mistakes</Form.Label>
+        <Form.Label className='custom-label'>RECENT MISTAKES</Form.Label>
     
         <Multiselect
           className="planningMultiSelect"
@@ -283,7 +283,7 @@ const PlanningForm = () => {
       </Form.Group>
 
       <Form.Group className="form-group" controlId="lastestMistakes">
-        <Form.Label className='custom-label'>Untested Scenarios</Form.Label>
+        <Form.Label className='custom-label'>UNTESTED SCENARIOS</Form.Label>
         <Multiselect
           className="planningMultiSelect"
           options={untestedScenarioOption} // Options to display in the dropdown
