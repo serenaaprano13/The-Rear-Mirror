@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import RangeSlider from 'react-bootstrap-range-slider';
 import API from "./lessonsAPI";
 import Modal from 'react-bootstrap/Modal';
+import Multiselect from 'multiselect-react-dropdown';
 
 
 // Calcola la data corrente qui
@@ -41,6 +42,10 @@ function SaveLesson() {
     const [sliderValue2, setSliderValue2] = useState(1);
     const [sliderValue3, setSliderValue3] = useState(1);
     const [showDiscardModal, setShowDiscardModal] = useState(false);
+    const [recentMistakes, setRecentMistakes] = useState([]);
+    const [untestedScenarios, setUntestedScenarios] = useState([]);
+    const [recentMistakesError, setRecentMistakesError] = useState(false);
+    const [untestedScenariosError, setUntestedScenariosError] = useState(false);
 
 
 
@@ -113,12 +118,12 @@ function SaveLesson() {
 
         const lesson = new Lesson();
         lesson.date = formattedDate, // Use the current date in YYYY-MM-DD format
-            lesson.mistake_1 = mistakes[0] || '',
-            lesson.mistake_2 = mistakes[1] || '',
-            lesson.mistake_3 = mistakes[2] || '',
-            lesson.scenario1 = scenarios[0] || '',
-            lesson.scenario2 = scenarios[1] || '',
-            lesson.scenario3 = scenarios[2] || '',
+            lesson.mistake_1 = recentMistakes[0]?.name || '',
+            lesson.mistake_2 = recentMistakes[1]?.name || '',
+            lesson.mistake_3 = recentMistakes[2]?.name || '',
+            lesson.scenario1 = untestedScenarios[0]?.name || '',
+            lesson.scenario2 = untestedScenarios[1]?.name || '',
+            lesson.scenario3 = untestedScenarios[2]?.name || '',
             lesson.grade = -1, // grade
             lesson.evaluated = -1, // rifEvaluation
             0, // distance
@@ -134,6 +139,158 @@ function SaveLesson() {
         //console.log(JSON.stringify(lesson));
         await API.saveLesson(lesson).then(() => navigate('/'))
     };
+
+
+    const recentMistakeOption = [
+        {
+            name: "Parallel Parking",
+            showing: true,
+        },
+        {
+            name: "Three-Point Turn",
+            showing: true,
+        },
+        {
+            name: "Lane Change",
+            showing: true,
+        },
+        {
+            name: "Merge onto Highway",
+            showing: true,
+        },
+        {
+            name: "U-Turn",
+            showing: true,
+        },
+        {
+            name: "Stop",
+            showing: true,
+        },
+        {
+            name: "Roundabout",
+            showing: true,
+        },
+        {
+            name: "S-Parking",
+            showing: true,
+        },
+        {
+            name: "Speed limit",
+            showing: true,
+        },
+        {
+            name: "Yield to Pedestrians",
+            showing: true,
+        },
+        {
+            name: "Emergency Stop",
+            showing: true,
+        },
+        {
+            name: "Obey Traffic Signals",
+            showing: true,
+        },
+
+        {
+            name: "Bad Weather",
+            showing: true,
+        },
+        {
+            name: "Night driving",
+            showing: true,
+        },
+        {
+            name: "Uphill start",
+            showing: true,
+        },
+    ];
+
+
+
+    const untestedScenarioOption = [
+        {
+            name: "Parallel Parking",
+            showing: true,
+        },
+        {
+            name: "Three-Point Turn",
+            showing: true,
+        },
+        {
+            name: "Lane Change",
+            showing: true,
+        },
+        {
+            name: "Merge onto Highway",
+            showing: true,
+        },
+        {
+            name: "U-Turn",
+            showing: true,
+        },
+        {
+            name: "Stop",
+            showing: true,
+        },
+        {
+            name: "Roundabout",
+            showing: true,
+        },
+        {
+            name: "S-Parking",
+            showing: true,
+        },
+        {
+            name: "Speed limit",
+            showing: true,
+        },
+        {
+            name: "Yield to Pedestrians",
+            showing: true,
+        },
+        {
+            name: "Emergency Stop",
+            showing: true,
+        },
+        {
+            name: "Obey Traffic Signals",
+            showing: true,
+        },
+
+        {
+            name: "Bad Weather",
+            showing: true,
+        },
+        {
+            name: "Night driving",
+            showing: true,
+        },
+        {
+            name: "Uphill start",
+            showing: true,
+        },
+    ];
+
+    function handleSelectRecentMistakes(selectedList, selectedOptions) {
+        if (selectedList.length > 3) {
+            setRecentMistakesError(true);
+            selectedList.pop(); // Remove the last added item
+        } else {
+            setRecentMistakesError(false);
+        }
+        setRecentMistakes(selectedList);
+    }
+
+    function handleSelectUntestedScenarios(selectedList, selectedOptions) {
+        if (selectedList.length > 3) {
+            setUntestedScenariosError(true);
+            selectedList.pop(); // Remove the last added item
+        } else {
+            setUntestedScenariosError(false);
+        }
+        setUntestedScenarios(selectedList);
+    }
+
 
 
 
@@ -215,83 +372,72 @@ function SaveLesson() {
 
 
 
-                    <h5>Select no more than 3 elements below:</h5>
+                    
 
-                    <Form.Label className="mt-3">Mistakes</Form.Label>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div style={{ display: 'flex' }}>
-                            <Button
-                                variant={activeButtons.speeding ? 'primary' : 'secondary'}
-                                onClick={() => toggleButton('speeding')}
-                                style={{ flex: 1 }}
-                            >
-                                Speeding
-                            </Button>
-                            <Button
-                                variant={activeButtons.redLight ? 'primary' : 'secondary'}
-                                onClick={() => toggleButton('redLight')}
-                                style={{ flex: 1 }}
-                            >
-                                Red light
-                            </Button>
-                        </div>
-                        <div style={{ display: 'flex' }}>
-                            <Button
-                                variant={activeButtons.uphillStart ? 'primary' : 'secondary'}
-                                onClick={() => toggleButton('uphillStart')}
-                                style={{ flex: 1 }}
-                            >
-                                Uphill Start
-                            </Button>
-                            <Button
-                                variant={activeButtons.sParking ? 'primary' : 'secondary'}
-                                onClick={() => toggleButton('sParking')}
-                                style={{ flex: 1 }}
-                            >
-                                S Parking
-                            </Button>
-                        </div>
-                    </div>
 
-                    <Form.Label className="mt-3">Progresses</Form.Label>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div style={{ display: 'flex' }}>
-                            <Button
-                                variant={activeButtons.speedingP ? 'primary' : 'secondary'}
-                                onClick={() => toggleButton('speedingP')}
-                                style={{ flex: 1 }}
-                            >
-                                Speeding
-                            </Button>
-                            <Button
-                                variant={activeButtons.redLightP ? 'primary' : 'secondary'}
-                                onClick={() => toggleButton('redLightP')}
-                                style={{ flex: 1 }}
-                            >
-                                Red light
-                            </Button>
-                        </div>
-                        <div style={{ display: 'flex' }}>
-                            <Button
-                                variant={activeButtons.uphillStartP ? 'primary' : 'secondary'}
-                                onClick={() => toggleButton('uphillStartP')}
-                                style={{ flex: 1 }}
-                            >
-                                Uphill Start
-                            </Button>
-                            <Button
-                                variant={activeButtons.sParkingP ? 'primary' : 'secondary'}
-                                onClick={() => toggleButton('sParkingP')}
-                                style={{ flex: 1 }}
-                            >
-                                S Parking
-                            </Button>
-                        </div>
-                    </div>
+                    <Form.Group className="form-group" controlId="lastestMistakes">
+                        <Form.Label className='custom-label'>Mistakes (MAX 3 items)</Form.Label>
+
+
+                        {recentMistakesError && <p>You can only select 3 items</p>}
+
+
+
+                        <Multiselect
+                            className="planningMultiSelect"
+                            options={recentMistakeOption} // Options to display in the dropdown
+                            // selectedValues={selectedValue} // Preselected value to persist in dropdown
+                            onSelect={handleSelectRecentMistakes} // Function will trigger on select event
+                            onRemove={selectedOptions => handleRemove(selectedOptions)} // Function will trigger on remove event
+                            displayValue="name" // Property name to display in the dropdown optionsù
+                            placeholder='Type & search mistakes'
+                            emptyRecordMsg='Driving scenario not found'
+                            closeIcon='cancel'
+                            closeOnSelect={false}
+                            avoidHighlightFirstOption={true}
+                            hidePlaceholder={true}
+                            showArrow={true}
+                            keepSearchTerm={true}
+
+
+                        />
+
+
+
+                    </Form.Group>
+
+
+                    {untestedScenariosError && <p>You can only select 3 items</p>}
+
+
+                    <Form.Group className="form-group" controlId="lastestMistakes">
+                        <Form.Label className='custom-label'>Scenarios (MAX 3 items)</Form.Label>
+                        <Multiselect
+                            className="planningMultiSelect"
+                            options={untestedScenarioOption} // Options to display in the dropdown
+                            // selectedValues={selectedValue} // Preselected value to persist in dropdown
+                            onSelect={handleSelectUntestedScenarios} // Function will trigger on select event
+                            onRemove={selectedOptions => handleRemove(selectedOptions)} // Function will trigger on remove event
+                            displayValue="name" // Property name to display in the dropdown options
+                            placeholder='Type & search scenarios'
+                            emptyRecordMsg='Driving scenario not found'
+                            closeIcon='cancel'
+                            closeOnSelect={false}
+                            avoidHighlightFirstOption={true}
+                            hidePlaceholder={true}
+                            showArrow={true}
+                            keepSearchTerm={true}
+
+                        />
+
+
+                    </Form.Group>
+
+
 
                     <Row className="mt-5">
                         <Col>
-                        <Button variant="secondary" onClick={handleDiscard}>Cancel</Button>
+                            <Button variant="secondary" onClick={handleDiscard}>Cancel</Button>
                         </Col>
                         <Col>
                             <Button variant="primary" className="w-100" onClick={createLesson}>Save Lesson</Button>
@@ -317,7 +463,7 @@ function SaveLesson() {
                 <Modal.Body>Are you sure you want to discard your changes and leave to Homepage?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
-                    <Button variant="primary" onClick={confirmDiscard}>Discard planning</Button>
+                    <Button variant="primary" onClick={confirmDiscard}>Discard lesson</Button>
                 </Modal.Footer>
             </Modal>
 

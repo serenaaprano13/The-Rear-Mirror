@@ -1,5 +1,5 @@
 import MyNavbar from "./MyNavbar";
-import { Container, Row, Col, InputGroup, FormControl, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, InputGroup, FormControl, Card, Button, Modal, Form } from 'react-bootstrap';
 import Title from "./Title";
 import './LookBack.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +9,8 @@ import API from "./lessonsAPI";
 import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -18,8 +20,11 @@ function LookBack() {
   const [startDate, setStartDate] = useState(null);
   const [key, setKey] = useState(Math.random());
   const [searchKeyword, setSearchKeyword] = useState('');
-  
+  const [showModal, setShowModal] = useState(false);
+  const [pin, setPin] = useState('');
 
+
+  const navigate = useNavigate();
 
 
 
@@ -75,6 +80,39 @@ function LookBack() {
     console.log(lessons);
   };
 
+  const handleAskToEvaluateClick = async (lesson) => {
+    console.log("handleEvaluateClick called with lesson:", lesson);
+    try {
+      await API.updateLesson(lesson.date).catch(e => console.error('updateLesson error:', e));
+      const updatedLessons = await API.getAllLessons().catch(e => console.error('getAllLessons error:', e));
+      setLessons([...updatedLessons]);
+      console.log("lezioni settate");
+      setShowModal(true); // This line will show the modal
+      console.log(showModal);
+      setPin('');
+    } catch (error) {
+      console.error("Error in handleAskToEvaluateClick:", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("lezioni settate", lessons);
+  }, [lessons]);
+
+
+  const handlePinSubmit = (event) => {
+    event.preventDefault();
+    if (pin === '0000') {
+      navigate('/evaluation');
+    } else {
+      alert('Incorrect PIN. Please try again.');
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000);
+    }
+  };
+
+
   return (
     <div style={{
       display: 'grid',
@@ -111,7 +149,7 @@ function LookBack() {
           </Col>
           <Col>
             <InputGroup>
-            <FormControl type="text" placeholder="Keyword" aria-label="keyword" value={searchKeyword} onChange={handleSearchChange} />
+              <FormControl type="text" placeholder="Keyword" aria-label="keyword" value={searchKeyword} onChange={handleSearchChange} />
               <InputGroup.Text>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -122,54 +160,73 @@ function LookBack() {
         </Row>
       </Container>
       <Container key={key} fluid style={{ overflowY: 'auto' }}>
-  <Row>
-    {lessons.map((lesson, index) => (
-      <Card key={index} className="w-100">
-        <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
-        <Card.Body className="d-flex align-items-center">
-          <div>
-            <Card.Text>{lesson.scenario1}</Card.Text>
-            <Card.Text>{lesson.scenario2}</Card.Text>
-            <Card.Text>{lesson.scenario3}</Card.Text>
-          </div>
-          <div className="ml-auto">
-            {lesson.grade !== -1 ? (
-              Array.from({ length: lesson.grade }).map((_, i) => (
-                <FontAwesomeIcon key={i} icon={faStar} size="1x" />
-              ))
-            ) : (
-              lesson.to_evaluate === 1 ? (
-                <span>waiting for evaluation</span>
-              ) : (
-                <Button variant="primary" onClick={() => handleEvaluateClick(lesson)}>
-                  ask to evaluate
-                </Button>
-              )
-            )}
-          </div>
-        </Card.Body>
-      </Card>
-    ))}
-  </Row>
-  {lessons.length === 0 && (
-    <Row>
-      <Col className="d-flex justify-content-center">
-        <p>No lessons matching your requirements</p>
-      </Col>
-    </Row>
-  )}
-  { (startDate || searchKeyword) && (
-  <Row>
-    <Col className="d-flex justify-content-center">
-      <Button variant="primary" onClick={fetchAllLessons}>Show all lessons</Button>
-    </Col>
-  </Row>
-)}
-  <Row style={{ height: '4rem' }}></Row>
-  <Row>
-    <MyNavbar />
-  </Row>
-</Container>
+        <Row>
+          {lessons.map((lesson, index) => (
+            <Card key={index} className="w-100">
+              <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
+              <Card.Body className="d-flex align-items-center">
+                <div>
+                  <Card.Text>{lesson.scenario1}</Card.Text>
+                  <Card.Text>{lesson.scenario2}</Card.Text>
+                  <Card.Text>{lesson.scenario3}</Card.Text>
+                </div>
+                <div className="ml-auto">
+                  {lesson.grade !== -1 ? (
+                    Array.from({ length: lesson.grade }).map((_, i) => (
+                      <FontAwesomeIcon key={i} icon={faStar} size="1x" />
+                    ))
+                  ) : (
+                    lesson.to_evaluate === 1 ? (
+                      <span>waiting for evaluation</span>
+                    ) : (
+                      <Button variant="primary" onClick={() => handleAskToEvaluateClick(lesson)}>
+                        ask to evaluate
+                      </Button>
+                    )
+                  )}
+                </div>
+              </Card.Body>
+            </Card>
+          ))}
+        </Row>
+        {lessons.length === 0 && (
+          <Row>
+            <Col className="d-flex justify-content-center">
+              <p>No lessons matching your requirements</p>
+            </Col>
+          </Row>
+        )}
+        {(startDate || searchKeyword) && (
+          <Row>
+            <Col className="d-flex justify-content-center">
+              <Button variant="primary" onClick={fetchAllLessons}>Show all lessons</Button>
+            </Col>
+          </Row>
+        )}
+        <Row style={{ height: '4rem' }}></Row>
+        <Row>
+          <MyNavbar />
+        </Row>
+        <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Enter PIN</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handlePinSubmit}>
+            <Form.Group>
+              <Form.Label>PIN</Form.Label>
+              <Form.Control type="password" value={pin} onChange={(e) => setPin(e.target.value)} />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      </Container>
+
+      
+
     </div>
   )
 }
