@@ -376,7 +376,7 @@ function SaveLesson() {
 
 
                     <Form.Group className="form-group" controlId="lastestMistakes">
-                        <Form.Label className='custom-label'>Mistakes (MAX 3 items)</Form.Label>
+                        <Form.Label className='custom-label'>YOUR RECENT MISTAKES</Form.Label>
 
 
                         {recentMistakesError && <p>You can only select 3 items</p>}
@@ -411,7 +411,7 @@ function SaveLesson() {
 
 
                     <Form.Group className="form-group" controlId="lastestMistakes">
-                        <Form.Label className='custom-label'>Scenarios (MAX 3 items)</Form.Label>
+                        <Form.Label className='custom-label'>OTHER SCENARIOS</Form.Label>
                         <Multiselect
                             className="planningMultiSelect"
                             options={untestedScenarioOption} // Options to display in the dropdown
@@ -437,10 +437,10 @@ function SaveLesson() {
 
                     <Row className="mt-5">
                         <Col>
-                            <Button variant="secondary" onClick={handleDiscard}>Cancel</Button>
+                            <button className="discard-btn" onClick={handleDiscard}>DISCARD LESSON</button>
                         </Col>
                         <Col>
-                            <Button variant="primary" className="w-100" onClick={createLesson}>Save Lesson</Button>
+                            <button className="save-btn"  onClick={createLesson}>SAVE LESSON</button>
                         </Col>
                     </Row>
                 </>
