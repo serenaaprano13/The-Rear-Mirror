@@ -60,28 +60,16 @@ const Evaluating = () => {
   const navigate = useNavigate();
 
   const APIURL = 'http://localhost:3000/api'
-  async function Save() {
-    event.preventDefault();
-    const response = await fetch(APIURL + '/insertEvaluation', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(lesson.date, rating)
-    });
 
-    if (response.ok) {
-      console.log('Planning data sent to server successfully');
-      // navigate('/summaryOfPlanning');
-    } else {
-      console.error('Failed to send Planning data to the server');
-    }
-  }
   const handleSave = () => {
-    if (rating > 0 || rating < 5)
+    if (rating > 0 && rating < 5) {
       API.insertEval(lesson.date, rating).catch(e => console.error('insertEval error:', e));
-
-    navigate('/Evaluation');
+      navigate('/Evaluation');
+    }
+    else
+    {
+      window.alert('You need to insert a Grade to proceed.');
+    }
   };
   const initialDistance = lesson.distance;
   console.log(initialDistance)
@@ -99,11 +87,11 @@ const Evaluating = () => {
           <Row>
             <Col>
 
-              <Form.Label className='custom-label'>Distance</Form.Label>
+              <Form.Label className='custom-label'>Distance (in km)</Form.Label>
             </Col>
 
             <Col>
-              <FontAwesomeIcon icon={faCalendarAlt} size="1x" />
+              <FontAwesomeIcon icon={faCalendarAlt} size="1x" style={{ marginRight: '10px' }} />
               <Form.Label className='custom-label'> Date</Form.Label>
 
             </Col>
@@ -123,16 +111,18 @@ const Evaluating = () => {
                 />
               </Form.Group>
             </Col>
-            <Form.Group controlId="duedate">
-              <Form.Control
-                type="text"
-                name="distance"
-                placeholder="Enter distance"
-                value={dateStr}  // Set the value using the stringValue variable
-                onChange={handleDistanceChange}
-                readOnly
-              />
-            </Form.Group>
+            <Col>
+              <Form.Group controlId="duedate">
+                <Form.Control
+                  type="text"
+                  name="distance"
+                  placeholder="Enter distance"
+                  value={dateStr}  // Set the value using the stringValue variable
+                  onChange={handleDistanceChange}
+                  readOnly
+                />
+              </Form.Group>
+            </Col>
 
           </Row>
 

@@ -13,7 +13,8 @@ import Container from 'react-bootstrap/Container';
 import { Lesson } from './lessonDefine';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import API from "./lessonsAPI";
 
@@ -33,27 +34,31 @@ const errorMessageStyle = {
 
 const DisplayErrorMessage = ({ lessons }) => {
   const errorMessage = "No lessons available.";
-  
-  if (!lessons || lessons.length === 0){
+
+  if (!lessons || lessons.length === 0) {
     return (
       <div style={{ textAlign: 'center', marginTop: '20px', ...errorMessageStyle }}>
         <p>{errorMessage}</p>
       </div>
     );
   }
-  
+
 };
 //-----------------------------------------------------------------------
 const Evaluation = () => {
   const [isChecked, setIsChecked] = useState(true);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
-    const filteredLessons = lessons.filter(lesson => {
-      if ((lesson.grade <= 0 && isChecked === true) || (isChecked === false))
-        return lesson;
+    if (isChecked === true) {
+      const filteredLessons = lessons.filter(lesson => {
+        if ((lesson.grade <= 0 && isChecked === true))
+          return lesson;
 
-    });
-    setLessons(filteredLessons);
+      });
+      setLessons(filteredLessons);
+    }
+    else
+      fetchAllLessons();
   }
 
   const [startDate, setStartDate] = useState(null);
@@ -104,6 +109,8 @@ const Evaluation = () => {
           <Row>
             <Col>
               <Form.Group controlId="date">
+                
+              <FontAwesomeIcon icon={faCalendarAlt} size="1x" style={{ marginRight: '10px' }}/>
                 <Form.Label className='custom-label'>Date</Form.Label>
                 <DatePicker selected={startDate} onChange={handleDateChange} placeholderText="Date" className="form-control" />
 
@@ -123,13 +130,13 @@ const Evaluation = () => {
           </Row>
           <br /><br />
           <div >
-          <Form.Group controlId="LessonElements">
-        {lessons.length === 0 ? (
-          <DisplayErrorMessage />
-        ) : (
-          lessons.map((a, i) => <LessonElement key={i} lesson={a} index={i} />)
-        )}
-      </Form.Group>
+            <Form.Group controlId="LessonElements">
+              {lessons.length === 0 ? (
+                <DisplayErrorMessage />
+              ) : (
+                lessons.map((a, i) => <LessonElement key={i} lesson={a} index={i} />)
+              )}
+            </Form.Group>
             <div>
               {lessons.map((lesson, index) => (
                 <p key={index}>{lesson.id}</p>
@@ -149,7 +156,7 @@ const Evaluation = () => {
 function LessonElement(wrap, index) {
   const lesson = wrap.lesson;
   const id = parseInt(index, 10);
-  
+
   const grade = lesson.grade;
 
   const navigate = useNavigate();
