@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
+import API from "./lessonsAPI";
 
 
 const StarRating = ({ rating, onRatingChange }) => {
@@ -77,7 +78,8 @@ const Evaluating = () => {
     }
   }
   const handleSave = () => {
-    Save()
+    if (rating > 0 || rating < 5)
+      API.insertEval(lesson.date, rating).catch(e => console.error('insertEval error:', e));
 
     navigate('/Evaluation');
   };

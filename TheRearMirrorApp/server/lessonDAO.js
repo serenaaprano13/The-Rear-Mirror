@@ -112,6 +112,19 @@ exports.updateLesson = (requestBody) => {
   };
 
 
+  exports.insertEval = (requestBody) => {
+    return new Promise((resolve, reject) => {
+      const sql = 'UPDATE LESSONS SET grade=? WHERE lessonDate = ?';
+  
+      db.run(sql, [requestBody.rating, requestBody.date], function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve("lesson successfully updated");
+      });
+    });
+  };
 exports.getLessonByID = (id) => {
     return new Promise((resolve, reject) => {
 

@@ -77,6 +77,9 @@ app.put('/api/updateLesson', async (req, res) => {
     await LessonDAO.updateLesson(req.body).catch(err => res.status(500).json(err));
 })
 
+app.put('/api/insertEval', async (req, res) => {
+    await LessonDAO.insertEval(req.body).catch(err => res.status(500).json(err));
+})
 
 app.post('/api/saveLesson', async (req, res) => {
 
