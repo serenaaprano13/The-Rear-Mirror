@@ -30,16 +30,13 @@ const Evaluation = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
-    const filteredLessons = lessons.filter(lesson => {
-      if ((lesson.grade <= 0 && isChecked === true) || (isChecked === false))
-        return lesson;
+    // const filteredLessons = lessons.filter(lesson => {
+    //   if ((lesson.grade <= 0 && isChecked === true) || (isChecked === false))
+    //     return lesson;
 
-    });
-    setLessons(filteredLessons);
+    // });
+    // setLessons(filteredLessons);
   }
-
-  const [lessons, setLessons] = useState([]);
-  const [startDate, setStartDate] = useState(null);
 
   const errorMessageStyle = {
     color: 'red',
@@ -47,45 +44,49 @@ const Evaluation = () => {
     marginTop: '10px',
   };
 
-  // Function to fetch all lessons
-  const fetchAllLessons = () => {
-    API.getAllLessons()
-      .then(lessons => {
-        setLessons(lessons);
-        console.log(lessons);
-      });
-  };
+  const [startDate, setStartDate] = useState(null);
 
+  const [lessons, setLessons] = useState([]);
   // Fetch all lessons at the beginning
   useEffect(() => {
     fetchAllLessons();
   }, []);
 
 
+  // Function to fetch all lessons
+  const fetchAllLessons = () => {
+    API.getAllLessons()
+      .then(lessonsTemp => {
+        setLessons(lessonsTemp);
+        console.log(lessonsTemp);
+      });
+  };
+
   const handleDateChange = (date) => {
     setStartDate(date);
 
-    const filteredLessons = lessons.filter(lesson => {
-      const lessonDate = new Date(lesson.date);
-      return lessonDate.getDate() === date.getDate() &&
-        lessonDate.getMonth() === date.getMonth() &&
-        lessonDate.getFullYear() === date.getFullYear();
+    // const filteredLessons = lessons.filter(lesson => {
+    //   const lessonDate = new Date(lesson.date);
+    //   return lessonDate.getDate() === date.getDate() &&
+    //     lessonDate.getMonth() === date.getMonth() &&
+    //     lessonDate.getFullYear() === date.getFullYear();
 
-    });
+    // });
 
-    setLessons(filteredLessons);
+    // setLessons(filteredLessons);
   }
+
   const DisplayErrorMessage = ({ lessons }) => {
     const errorMessage = "No lessons available.";
-  
-    if (!lessons || lessons.length === 0) {
+    
+    if (!lessons) {
       return (
-        <div style={{ textAlign: 'center', marginTop: '20px', ...errorMessageStyle}}>
+        <div style={{ textAlign: 'center', marginTop: '20px', ...errorMessageStyle }}>
           <p>{errorMessage}</p>
         </div>
       );
     }
-    return null; 
+    return null;
   };
   return (
 
@@ -153,7 +154,8 @@ function LessonElement(wrap, index) {
     e.preventDefault();
     navigate('/evaluating', { state: { lesson } });
   };
-  if (lesson.length > 0) {
+  console.log(wrap)
+  if (lesson) {
     return <div>
       <div className="scroll-element">
         <Card key={index} className="w-100">
@@ -183,12 +185,11 @@ function LessonElement(wrap, index) {
     </div>
 
   }
-  else
-  {
-    return 
+  else {
+    return
     <Container>
       <Row>
-        
+
       </Row>
       <Row>
         <div className="ErrorMessage">

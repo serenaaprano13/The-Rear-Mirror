@@ -75,13 +75,12 @@ const Evaluating = () => {
   const APIURL = 'http://localhost:3000/api'
   async function Save() {
     event.preventDefault();
-
     const response = await fetch(APIURL + '/insertEvaluation', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(lesson_id, rating)
+      body: JSON.stringify(lesson.date, rating)
     });
 
     if (response.ok) {
