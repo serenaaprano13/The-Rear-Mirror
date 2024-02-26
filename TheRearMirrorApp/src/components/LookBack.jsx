@@ -18,10 +18,8 @@ function LookBack() {
 
   const [lessons, setLessons] = useState([]);
   const [startDate, setStartDate] = useState(null);
-  const [key, setKey] = useState(Math.random());
   const [searchKeyword, setSearchKeyword] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [pin, setPin] = useState('');
 
 
   const navigate = useNavigate();
@@ -42,7 +40,7 @@ function LookBack() {
   // Fetch all lessons at the beginning
   useEffect(() => {
     fetchAllLessons();
-  }, [key]);
+  }, []);
 
 
   const handleDateChange = (date) => {
@@ -72,45 +70,39 @@ function LookBack() {
     setLessons(filteredLessons);
   }
 
-  const handleEvaluateClick = async (lesson) => {
-    console.log("handleEvaluateClick called with lesson:", lesson);
-    await API.updateLesson(lesson.date);
-    const updatedLessons = await API.getAllLessons();
-    setLessons([...updatedLessons]);
-    console.log(lessons);
+  const handleAskToEvaluateClick = (lesson) => {
+    
+    setShowModal(true);
+    handleAskToEvaluateClick2(lesson);
   };
 
-  const handleAskToEvaluateClick = async (lesson) => {
+  const handleAskToEvaluateClick2 = async (lesson) => {
     console.log("handleEvaluateClick called with lesson:", lesson);
     try {
       await API.updateLesson(lesson.date).catch(e => console.error('updateLesson error:', e));
       const updatedLessons = await API.getAllLessons().catch(e => console.error('getAllLessons error:', e));
       setLessons([...updatedLessons]);
       console.log("lezioni settate");
-      setShowModal(true); // This line will show the modal
-      console.log(showModal);
-      setPin('');
     } catch (error) {
       console.error("Error in handleAskToEvaluateClick:", error);
     }
   };
 
+  const handlePinSubmit = () => {
+    // Here you can get the pin value from the form and validate it
+    // For example, let's just log it to the console for now
+    console.log("Pin submitted");
+
+    navigate('/evaluation');
+    // Close the modal after submitting
+    setShowModal(false);
+  };
+
+
   useEffect(() => {
     console.log("lezioni settate", lessons);
   }, [lessons]);
 
-
-  const handlePinSubmit = (event) => {
-    event.preventDefault();
-    if (pin === '0000') {
-      navigate('/evaluation');
-    } else {
-      alert('Incorrect PIN. Please try again.');
-      setTimeout(() => {
-        setShowModal(false);
-      }, 2000);
-    }
-  };
 
 
   return (
@@ -159,7 +151,7 @@ function LookBack() {
           </Col>
         </Row>
       </Container>
-      <Container key={key} fluid style={{ overflowY: 'auto' }}>
+      <Container fluid style={{ overflowY: 'auto' }}>
         <Row>
           {lessons.map((lesson, index) => (
             <Card key={index} className="w-100">
@@ -208,24 +200,29 @@ function LookBack() {
           <MyNavbar />
         </Row>
         <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Enter PIN</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handlePinSubmit}>
-            <Form.Group>
-              <Form.Label>PIN</Form.Label>
-              <Form.Control type="password" value={pin} onChange={(e) => setPin(e.target.value)} />
-            </Form.Group>
-            <Button variant="primary" type="submit">
+          <Modal.Header closeButton>
+            <Modal.Title>Enter Pin</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="formPin">
+                <Form.Label>Pin</Form.Label>
+                <Form.Control type="password" placeholder="Enter pin" />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowModal(false)}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handlePinSubmit}>
               Submit
             </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
+          </Modal.Footer>
+        </Modal>
       </Container>
 
-      
+
 
     </div>
   )
