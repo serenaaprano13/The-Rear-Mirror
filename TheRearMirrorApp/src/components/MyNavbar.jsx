@@ -5,6 +5,7 @@ import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
 import { faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 
 
 const MyNavbar = () => {
@@ -13,7 +14,7 @@ const MyNavbar = () => {
       <div className="down-nav-item">
         <Link to="">
         <div>
-        <FontAwesomeIcon icon={faHouseUser} size="lg"/>
+        <FontAwesomeIcon icon={faHouseUser} size="sm"/>
         Home
         </div>
         </Link> 
@@ -26,7 +27,7 @@ const MyNavbar = () => {
       <div className="down-nav-item">
       <Link to="/planning">
         <div>
-      <FontAwesomeIcon icon={faFileCirclePlus} size="lg" />
+      <FontAwesomeIcon icon={faFileCirclePlus} size="sm" />
         Planning
         </div>
       </Link>
@@ -35,8 +36,17 @@ const MyNavbar = () => {
       <div className="down-nav-item">
       <Link to="/lookback">
         <div>
-        <FontAwesomeIcon icon={faCalendar} size="lg"/>
-        Look Back
+        <FontAwesomeIcon icon={faCalendar} size="sm"/>
+        LookBack
+        </div></Link>
+      </div>
+
+
+      <div className="down-nav-item">
+      <Link to="/savelesson">
+        <div>
+        <FontAwesomeIcon icon={faFloppyDisk} size="sm"/>
+        SaveLesson
         </div></Link>
       </div>
       
@@ -44,7 +54,7 @@ const MyNavbar = () => {
       <div className="down-nav-item">
       <Link to="/evaluation">
         <div>
-        <FontAwesomeIcon icon={faStarHalfStroke}size="lg"/>
+        <FontAwesomeIcon icon={faStarHalfStroke}size="sm"/>
         Evaluation
         </div>
       </Link> {/* TO DO: create the evaluation page */}

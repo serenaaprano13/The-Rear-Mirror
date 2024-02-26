@@ -437,7 +437,7 @@ function SaveLesson() {
 
                     <Row className="mt-5">
                         <Col>
-                            <button className="discard-btn" onClick={handleDiscard}>DISCARD LESSON</button>
+                            <button className="discard-btn" onClick={handleDiscard}>DISCARD</button>
                         </Col>
                         <Col>
                             <button className="save-btn"  onClick={createLesson}>SAVE LESSON</button>
