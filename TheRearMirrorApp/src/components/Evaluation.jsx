@@ -79,7 +79,7 @@ const Evaluation = () => {
   const DisplayErrorMessage = ({ lessons }) => {
     const errorMessage = "No lessons available.";
     
-    if (!lessons) {
+    if (!lessons || lessons.length === 0) {
       return (
         <div style={{ textAlign: 'center', marginTop: '20px', ...errorMessageStyle }}>
           <p>{errorMessage}</p>
@@ -87,7 +87,7 @@ const Evaluation = () => {
       );
     }
     return null;
-  };
+  }
   return (
 
     <div style={{

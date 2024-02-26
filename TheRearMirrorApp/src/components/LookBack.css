@@ -23,3 +23,7 @@
   top: 50px;
   z-index: 1;
 }
+
+.react-datepicker__day--highlighted {
+  background-color: #ff0;
+}
