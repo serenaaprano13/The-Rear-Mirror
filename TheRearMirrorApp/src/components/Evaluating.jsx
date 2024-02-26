@@ -5,6 +5,7 @@ import React from 'react';
 import MyNavbar from './MyNavbar';
 import Title from './Title';
 import { Form, Row } from 'react-bootstrap';
+import { InputGroup, FormControl, Card } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
@@ -17,21 +18,6 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
-const myLesson = [];
-//id, date, scenario1, scenario2, scenario3, grade, rifEvaluation, distance, to_evaluate
-myLesson.push(new Lesson(1, '2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, -1, 6, true));
-const mistakes = [];
-mistakes.push(("Roundabout"))
-mistakes.push(("Speeding"))
-mistakes.push(("Lights off"))
-const scenarios = [];
-scenarios.push(("Uphill Start"));
-scenarios.push(("S Parking"));
-scenarios.push(("Nightime Driving"));
-const routes = [];
-routes.push(new Route("Corso Ferrucci", 3));
-routes.push(new Route("Corso Trapani", 2));
-routes.push(new Route("Via Virle", 1));
 
 
 const StarRating = ({ rating, onRatingChange }) => {
@@ -106,7 +92,7 @@ const Evaluating = () => {
       <header>
         <Title titolo="Evaluating"></Title>
       </header>
-      <div className="scroll-container">
+      <div >
         <Container>
           <Row>
             <Col>
@@ -131,12 +117,21 @@ const Evaluating = () => {
                   placeholder="Enter distance"
                   defaultValue={inputValue}
                   onChange={handleDistanceChange}
+                  readOnly
                 />
               </Form.Group>
             </Col>
             <Form.Group controlId="duedate">
-              <input type="text" value={dateStr} readOnly />
+              <Form.Control
+                type="text"
+                name="distance"
+                placeholder="Enter distance"
+                value={dateStr}  // Set the value using the stringValue variable
+                onChange={handleDistanceChange}
+                readOnly
+              />
             </Form.Group>
+
           </Row>
 
           <Row>
@@ -145,42 +140,52 @@ const Evaluating = () => {
             </Col>
           </Row>
           <Row >
-            <div className="evaluating-element">
-              <Row>
-                {lesson.route_1}
-              </Row>
-              <Row>
-                {lesson.route_2}
-              </Row>
-              <Row>
-                {lesson.route_3}
-              </Row>
-            </div>
+            <Card key={1} className="w-100">
+
+              <Card.Body className="d-flex align-items-center">
+                <div>
+                  <Card.Text>{lesson.route_1}</Card.Text>
+                  <Card.Text>{lesson.route_2}</Card.Text>
+                  <Card.Text>{lesson.route_3}</Card.Text>
+                </div>
+              </Card.Body>
+            </Card>
+
           </Row>
           <Row>
             <Col>
               <Form.Label className='custom-label'>Driving Scenarios</Form.Label>
             </Col>
           </Row>
+
           <Row>
-            <div className="evaluating-element">
-              <Row >{lesson.scenario1}</Row>
-              <Row>{lesson.scenario2}</Row>
-              <Row>{lesson.scenario3}</Row>
-            </div>
+            <Card key={2} className="w-100">
+
+              <Card.Body className="d-flex align-items-center">
+                <div>
+                  <Card.Text>{lesson.scenario1}</Card.Text>
+                  <Card.Text>{lesson.scenario2}</Card.Text>
+                  <Card.Text>{lesson.scenario3}</Card.Text>
+                </div>
+              </Card.Body>
+            </Card>
           </Row>
           <Row>
             <Col>
-
               <Form.Label className='custom-label'>Mistakes</Form.Label>
             </Col>
           </Row>
           <Row>
-            <div className="evaluating-element">
-              <Row>{lesson.mistake_1}</Row>
-              <Row>{lesson.mistake_2}</Row>
-              <Row>{lesson.mistake_3}</Row>
-            </div>
+            <Card key={3} className="w-100">
+
+              <Card.Body className="d-flex align-items-center">
+                <div>
+                  <Card.Text>{lesson.mistake_1}</Card.Text>
+                  <Card.Text>{lesson.mistake_2}</Card.Text>
+                  <Card.Text>{lesson.mistake_3}</Card.Text>
+                </div>
+              </Card.Body>
+            </Card>
           </Row>
           <Row>
             <Col>
