@@ -24,25 +24,37 @@ import DatePicker from "react-datepicker";
 
 
 
+const errorMessageStyle = {
+  color: 'red',
+  fontSize: '18px',
+  marginTop: '10px',
+};
 
+
+const DisplayErrorMessage = ({ lessons }) => {
+  const errorMessage = "No lessons available.";
+  
+  if (!lessons || lessons.length === 0){
+    return (
+      <div style={{ textAlign: 'center', marginTop: '20px', ...errorMessageStyle }}>
+        <p>{errorMessage}</p>
+      </div>
+    );
+  }
+  
+};
 //-----------------------------------------------------------------------
 const Evaluation = () => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
-    // const filteredLessons = lessons.filter(lesson => {
-    //   if ((lesson.grade <= 0 && isChecked === true) || (isChecked === false))
-    //     return lesson;
+    const filteredLessons = lessons.filter(lesson => {
+      if ((lesson.grade <= 0 && isChecked === true) || (isChecked === false))
+        return lesson;
 
-    // });
-    // setLessons(filteredLessons);
+    });
+    setLessons(filteredLessons);
   }
-
-  const errorMessageStyle = {
-    color: 'red',
-    fontSize: '18px',
-    marginTop: '10px',
-  };
 
   const [startDate, setStartDate] = useState(null);
 
@@ -65,29 +77,17 @@ const Evaluation = () => {
   const handleDateChange = (date) => {
     setStartDate(date);
 
-    // const filteredLessons = lessons.filter(lesson => {
-    //   const lessonDate = new Date(lesson.date);
-    //   return lessonDate.getDate() === date.getDate() &&
-    //     lessonDate.getMonth() === date.getMonth() &&
-    //     lessonDate.getFullYear() === date.getFullYear();
+    const filteredLessons = lessons.filter(lesson => {
+      const lessonDate = new Date(lesson.date);
+      return lessonDate.getDate() === date.getDate() &&
+        lessonDate.getMonth() === date.getMonth() &&
+        lessonDate.getFullYear() === date.getFullYear();
 
-    // });
+    });
 
-    // setLessons(filteredLessons);
+    setLessons(filteredLessons);
   }
 
-  const DisplayErrorMessage = ({ lessons }) => {
-    const errorMessage = "No lessons available.";
-    
-    if (!lessons) {
-      return (
-        <div style={{ textAlign: 'center', marginTop: '20px', ...errorMessageStyle }}>
-          <p>{errorMessage}</p>
-        </div>
-      );
-    }
-    return null;
-  };
   return (
 
     <div style={{
@@ -122,11 +122,14 @@ const Evaluation = () => {
             </Col>
           </Row>
           <br /><br />
-          <div className="scroll-container">
-            <Form.Group controlId="LessonElements">
-              {DisplayErrorMessage(lessons)}
-              {lessons.map((a, i) => <LessonElement key={i} lesson={a} index={i} />)}
-            </Form.Group>
+          <div >
+          <Form.Group controlId="LessonElements">
+        {lessons.length === 0 ? (
+          <DisplayErrorMessage />
+        ) : (
+          lessons.map((a, i) => <LessonElement key={i} lesson={a} index={i} />)
+        )}
+      </Form.Group>
             <div>
               {lessons.map((lesson, index) => (
                 <p key={index}>{lesson.id}</p>
@@ -146,7 +149,7 @@ const Evaluation = () => {
 function LessonElement(wrap, index) {
   const lesson = wrap.lesson;
   const id = parseInt(index, 10);
-  console.log(wrap)
+  
   const grade = lesson.grade;
 
   const navigate = useNavigate();
@@ -154,10 +157,9 @@ function LessonElement(wrap, index) {
     e.preventDefault();
     navigate('/evaluating', { state: { lesson } });
   };
-  console.log(wrap)
   if (lesson) {
     return <div>
-      <div className="scroll-element">
+      <div >
         <Card key={index} className="w-100">
           <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
           <Card.Body className="d-flex align-items-center">
@@ -184,19 +186,6 @@ function LessonElement(wrap, index) {
       </div>
     </div>
 
-  }
-  else {
-    return
-    <Container>
-      <Row>
-
-      </Row>
-      <Row>
-        <div className="ErrorMessage">
-          <b>No Lessons found</b>
-        </div>
-      </Row>
-    </Container>
   }
 }
 export default Evaluation;
