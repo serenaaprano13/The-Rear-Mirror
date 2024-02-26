@@ -214,7 +214,7 @@ function LookBack() {
             </Card>
           ))}
         </Row>
-        {lessons.length === 0 && (
+        {filteredLessons.length === 0 && (
           <Row>
             <Col className="d-flex justify-content-center">
               <p>No lessons matching your requirements</p>
