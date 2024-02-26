@@ -36,6 +36,7 @@ function LookBack() {
     API.getAllLessons()
       .then(lessons => {
         setLessons(lessons);
+        setFilteredLessons(lessons);
         console.log(lessons);
       });
   };
