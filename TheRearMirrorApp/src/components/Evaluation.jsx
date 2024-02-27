@@ -5,7 +5,7 @@ import React from 'react';
 import MyNavbar from './MyNavbar';
 import Title from './Title';
 import { Form } from 'react-bootstrap';
-import { Row, Col, InputGroup, FormControl, Card, Button } from 'react-bootstrap';
+import { Row, Col, InputGroup, FormControl, Card, Button, DropdownButton, Dropdown } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
 import Container from 'react-bootstrap/Container';
@@ -14,7 +14,8 @@ import { Lesson } from './lessonDefine';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import Modal from 'react-bootstrap/Modal';
+import { faCalendarAlt, faStar, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import API from "./lessonsAPI";
 
@@ -109,8 +110,8 @@ const Evaluation = () => {
           <Row>
             <Col>
               <Form.Group controlId="date">
-                
-              <FontAwesomeIcon icon={faCalendarAlt} size="1x" style={{ marginRight: '10px' }}/>
+
+                <FontAwesomeIcon icon={faCalendarAlt} size="1x" style={{ marginRight: '10px' }} />
                 <Form.Label className='custom-label'>Date</Form.Label>
                 <DatePicker selected={startDate} onChange={handleDateChange} placeholderText="Date" className="form-control" />
 
@@ -119,12 +120,17 @@ const Evaluation = () => {
             <Col>
               <Form.Label className='custom-label'>Validated</Form.Label>
               <Form.Group controlId="formCheckbox">
-                <Form.Check
-                  type="checkbox"
-                  label=""
-                  checked={isChecked}
-                  onChange={handleCheckboxChange}
-                />
+                <div style={{ display: "flex" }}>
+
+                  <Form.Check
+                    type="checkbox"
+                    label=""
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                    style={{ transform: 'scale(3)' , marginLeft: '50px', marginTop: '10px'}}
+                    alignright="true"
+                  />
+                </div>
               </Form.Group>
             </Col>
           </Row>
@@ -164,11 +170,46 @@ function LessonElement(wrap, index) {
     e.preventDefault();
     navigate('/evaluating', { state: { lesson } });
   };
-  if (lesson) {
+  const handleDropdownSelect = (eventKey) => {
+    if (eventKey === 'delete') {
+      // Handle delete logic here, e.g., call a delete function
+
+      setShowDiscardModal(true);
+    }
+  };
+
+  const [showDiscardModal, setShowDiscardModal] = useState(false);//modal conferma delete grade
+  const confirmDiscard = () => {
+    API.insertEval(lesson.date, -1).catch(e => console.error('reset insertEval error:', e));
+    setShowDiscardModal(false);
+    window.location.reload();
+  };
+  const cancelDiscard = () => {
+    setShowDiscardModal(false);
+  };
+
+
+  if (lesson.grade > 0) {
     return <div>
       <div >
         <Card key={index} className="w-100">
-          <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
+          <Card.Header style={{ fontWeight: 'bold' }}>
+            <div className="d-flex align-items-center" style={{ display: "flex" }}>
+              LESSON {lesson.date}
+
+              <DropdownButton
+                style={{ marginLeft: "auto" }}
+                variant="secondary"
+                title={<FontAwesomeIcon icon={faEllipsisV} />}
+                id={`dropdown-button-${index}`}
+                onSelect={handleDropdownSelect}
+              >
+                <Dropdown.Item eventKey="delete">Delete Evaluation</Dropdown.Item>
+              </DropdownButton>
+
+            </div>
+
+          </Card.Header>
           <Card.Body className="d-flex align-items-center">
             <div>
               <Card.Text>{lesson.scenario1}</Card.Text>
@@ -191,8 +232,64 @@ function LessonElement(wrap, index) {
 
         <br />
       </div>
+
+      <Modal show={showDiscardModal} onHide={cancelDiscard}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Grade</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to assign this grade?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
+          <Button variant="primary" onClick={confirmDiscard}>Confirm</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
 
+  }
+  else {
+    return <div>
+      <div >
+        <Card key={index} className="w-100">
+          <Card.Header style={{ fontWeight: 'bold' }}>
+            <div className="d-flex align-items-center" style={{ display: "flex" }}>
+              LESSON {lesson.date}
+            </div>
+
+          </Card.Header>
+          <Card.Body className="d-flex align-items-center">
+            <div>
+              <Card.Text>{lesson.scenario1}</Card.Text>
+              <Card.Text>{lesson.scenario2}</Card.Text>
+              <Card.Text>{lesson.scenario3}</Card.Text>
+            </div>
+            <div className="ml-auto">
+              {lesson.grade !== -1 ? (
+                Array.from({ length: lesson.grade }).map((_, i) => (
+                  <FontAwesomeIcon key={i} icon={faStar} size="1x" />
+                ))
+              ) : (
+                <button className="save-btn" onClick={(event) => handleEvaluate(event, lesson)}>
+                  EVALUATE
+                </button>
+              )}
+            </div>
+          </Card.Body>
+        </Card>
+
+        <br />
+      </div>
+
+      <Modal show={showDiscardModal} onHide={cancelDiscard}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Grade</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to assign this grade?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
+          <Button variant="primary" onClick={confirmDiscard}>Confirm</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   }
 }
 export default Evaluation;
