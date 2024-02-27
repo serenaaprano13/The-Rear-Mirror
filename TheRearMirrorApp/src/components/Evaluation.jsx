@@ -305,7 +305,7 @@ function LessonElement(wrap, index) {
       </div>
       <Modal show={showModalPin} onHide={() => setShowModalPin(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Enter Pin</Modal.Title>
+          <Modal.Title>Enter Teacher's Pin</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -321,10 +321,10 @@ function LessonElement(wrap, index) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondaryPin" onClick={() => setShowModalPin(false)}>
+          <Button variant="secondary" onClick={() => setShowModalPin(false)}>
             Back
           </Button>
-          <Button variant="primaryPin" onClick={handlePinSubmit}>
+          <Button variant="primary" onClick={handlePinSubmit}>
             Submit
           </Button>
         </Modal.Footer>
