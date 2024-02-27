@@ -43,29 +43,8 @@ const DisplayErrorMessage = ({ lessons }) => {
 };
 //-----------------------------------------------------------------------
 const Evaluation = () => {
-
-  const [showModalPin, setShowModalPin] = useState(false);
   const navigate = useNavigate();
-  const handlePinSubmit = () => {
-    // Here you can get the pin value from the form and validate it
-    // For example, let's just log it to the console for now
-    console.log("Pin submitted");
-    localStorage.setItem('pinModalShown', 'true');
-    // Close the modal after submitting
-    setShowModalPin(false);
-  };
-  
-  useEffect(() => {
-    // Check if the modal has been shown before
-    const hasModalBeenShown = localStorage.getItem('pinModalShown');
-    console.log("pinModalShown: " + hasModalBeenShown)
-    localStorage.setItem('pinModalShown', 'false');
-    if (!hasModalBeenShown) {
-      // If not, show the modal and set the flag in localStorage
-      setShowModalPin(true);
 
-    }
-  }, []);
 
   const [isChecked, setIsChecked] = useState(true);
   const handleCheckboxChange = () => {
@@ -86,7 +65,7 @@ const Evaluation = () => {
 
   const [lessons, setLessons] = useState([]);
   // Fetch all lessons at the beginning
-  
+
   useEffect(() => {
     fetchAllLessons();
   }, []);
@@ -172,27 +151,7 @@ const Evaluation = () => {
           </div>
         </Form>
       </Container>
-      <Modal show={showModalPin} onHide={() => setShowModalPin(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Enter Pin</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formPin">
-              <Form.Label>Pin</Form.Label>
-              <Form.Control type="password" placeholder="Enter pin" />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondaryPin" onClick={() => navigate(-1)}>
-            Back
-          </Button>
-          <Button variant="primaryPin" onClick={handlePinSubmit}>
-            Submit
-          </Button>
-        </Modal.Footer>
-      </Modal>
+
       <footer className="myNavbar">
         <MyNavbar></MyNavbar>
       </footer>
@@ -210,7 +169,9 @@ function LessonElement(wrap, index) {
   const navigate = useNavigate();
   const handleEvaluate = (e, id) => {
     e.preventDefault();
-    navigate('/evaluating', { state: { lesson } });
+
+    setShowModalPin(true);
+
   };
   const handleDropdownSelect = (eventKey) => {
     if (eventKey === 'delete') {
@@ -228,6 +189,23 @@ function LessonElement(wrap, index) {
   };
   const cancelDiscard = () => {
     setShowDiscardModal(false);
+  };
+
+
+  const [password, setPassword] = useState('');
+  const [showModalPin, setShowModalPin] = useState(false);
+  const handlePinSubmit = () => {
+    if (password.trim() === '') {
+      console.log('Password is empty!');
+      alert("TheRearMirror:\nYour Password cannot be empty!")
+    }
+    else {
+      console.log("Pin submitted");
+      localStorage.setItem('pinModalShown', 'true');
+      // Close the modal after submitting
+      setShowModalPin(false);
+      navigate('/evaluating', { state: { lesson } });
+    }
   };
 
 
@@ -320,15 +298,30 @@ function LessonElement(wrap, index) {
 
         <br />
       </div>
-
-      <Modal show={showDiscardModal} onHide={cancelDiscard}>
+      <Modal show={showModalPin} onHide={() => setShowModalPin(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Grade</Modal.Title>
+          <Modal.Title>Enter Pin</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to assign this grade?</Modal.Body>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formPin">
+              <Form.Label>Pin</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter pin"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
-          <Button variant="primary" onClick={confirmDiscard}>Confirm</Button>
+          <Button variant="secondaryPin" onClick={() => setShowModalPin(false)}>
+            Back
+          </Button>
+          <Button variant="primaryPin" onClick={handlePinSubmit}>
+            Submit
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
