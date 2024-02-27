@@ -25,14 +25,14 @@ import DatePicker from "react-datepicker";
 
 
 const errorMessageStyle = {
-  color: 'red',
+  color: 'grey',
   fontSize: '18px',
   marginTop: '10px',
 };
 
 
 const DisplayErrorMessage = ({ lessons }) => {
-  const errorMessage = "No lessons available.";
+  const errorMessage = "Loading lessons...This might take a few seconds. Please wait.";
 
   if (!lessons || lessons.length === 0) {
     return (

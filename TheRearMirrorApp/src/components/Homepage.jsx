@@ -29,7 +29,7 @@ export const Homepage = () => {
 
 
   if (data === null) {
-    return <div>Loading...</div>;
+    return <div>Loading for your best driving experience</div>;
   }
   
   

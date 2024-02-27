@@ -46,6 +46,18 @@ exports.getLatestPlanning=()=>{
 };
 
 
+// delete planning
+exports.deletePlanning = (planningId) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'DELETE FROM PLANNINGS WHERE planning_id = ?';
+        db.run(sql, [planningId], function(err) {
+            if (err) reject(err);
+            resolve(this.changes);
+        });
+    });
+};
+
+
 
 //SOFT TO DO: WE CAN HARD-CODE IT 
 //get latest mistakes

@@ -92,7 +92,11 @@ app.post('/api/saveLesson', async (req, res) => {
     res.json();
   }
   );
-
+//delete plannign
+app.delete('/api/deletePlanning', async (req, res) => {
+    await PlanningDAO.deletePlanning(req.body.id).catch(err => res.status(500).json(err));
+    console.log("deleted");
+})
 
  
 app.listen(PORT, 
