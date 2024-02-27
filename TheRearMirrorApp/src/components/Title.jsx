@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FaArrowLeft } from 'react-icons/fa';
 
 
 const Title = ({ titolo }) => {
@@ -20,9 +21,8 @@ const Title = ({ titolo }) => {
     <header>
       <div style={{ display: 'flex', alignItems: 'center' }}>
 
-      <button className="save-btn" onClick={returnBack}>
-        <FontAwesomeIcon icon={faChevronLeft} /> {" "}
-        Back
+      <button style={{ backgroundColor: 'transparent', border: 'none' }}  onClick={returnBack}>
+        <FaArrowLeft color="white"/> {" "}
       </button>
       <h3 className="header-title">
         <div style={{ display: 'flex', marginTop: '30px' }}>

@@ -6,58 +6,49 @@ import { faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
-
+import {useNavigate} from 'react-router-dom';
 
 const MyNavbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="downNavbar">
-      <div className="down-nav-item">
-        <Link to="">
+      <div className="down-nav-item" onClick={()=> navigate('/')}>
         <div>
         <FontAwesomeIcon icon={faHouseUser} size="sm"/>
         Home
         </div>
-        </Link> 
+       
       </div>
-        {/* TO DO: create the home page */}
-        
-        
-      
 
-      <div className="down-nav-item">
-      <Link to="/planning">
+      <div className="down-nav-item"onClick={()=> navigate('/planning')}>
         <div>
       <FontAwesomeIcon icon={faFileCirclePlus} size="sm" />
         Planning
         </div>
-      </Link>
       </div>
 
-      <div className="down-nav-item">
-      <Link to="/lookback">
+      <div className="down-nav-item" onClick={()=> navigate('/lookback')}>
         <div>
         <FontAwesomeIcon icon={faCalendar} size="sm"/>
         LookBack
-        </div></Link>
+        </div>
       </div>
 
 
-      <div className="down-nav-item">
-      <Link to="/savelesson">
+      <div className="down-nav-item" onClick={()=> navigate('/savelesson')}>
         <div>
         <FontAwesomeIcon icon={faFloppyDisk} size="sm"/>
         SaveLesson
-        </div></Link>
+        </div>
       </div>
       
 
-      <div className="down-nav-item">
-      <Link to="/evaluation">
+      <div className="down-nav-item" onClick={()=> navigate('/evaluation')}>
         <div>
         <FontAwesomeIcon icon={faStarHalfStroke}size="sm"/>
         Evaluation
         </div>
-      </Link> {/* TO DO: create the evaluation page */}
+     
         </div>
   
     </div>
