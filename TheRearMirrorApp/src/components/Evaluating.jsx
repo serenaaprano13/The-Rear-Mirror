@@ -69,13 +69,25 @@ const Evaluating = () => {
     setShowErrorModal(false);
   };
   const [showDiscardModal, setShowDiscardModal] = useState(false);//modal conferma grade
+  const [showDiscardModal1, setShowDiscardModal1]=useState(false);
   const confirmDiscard = () => {
     handleSave()
   };
   const cancelDiscard = () => {
     setShowDiscardModal(false);
-  };
 
+  };
+  const handleDiscard1 = (event) => {
+    event.preventDefault();
+    setShowDiscardModal1(true);
+  }
+  const confirmDiscard1 = () => {
+    setShowDiscardModal(false);
+    navigate('/evaluation');
+  };
+  const cancelDiscard1 = () => {
+    setShowDiscardModal1(false);
+  };
 
   const location = useLocation();
   const lesson = location.state.lesson;
@@ -106,20 +118,20 @@ const Evaluating = () => {
   return (
 
     <div>
-      <header>
+      
         <Title titolo="Evaluating"></Title>
-      </header>
+      
       <div >
         <Container>
           <Row>
             <Col>
 
-              <Form.Label className='custom-label'>Distance (in km)</Form.Label>
+              <Form.Label className='custom-label'>DISTANCE</Form.Label>
             </Col>
 
             <Col>
               <FontAwesomeIcon icon={faCalendarAlt} size="1x" style={{ marginRight: '10px' }} />
-              <Form.Label className='custom-label'> Date</Form.Label>
+              <Form.Label className='custom-label'> DATE</Form.Label>
 
             </Col>
           </Row>
@@ -155,7 +167,7 @@ const Evaluating = () => {
 
           <Row>
             <Col>
-              <Form.Label className='custom-label'>Route</Form.Label>
+              <Form.Label className='custom-label'>ROUTE</Form.Label>
             </Col>
           </Row>
           <Row >
@@ -173,7 +185,7 @@ const Evaluating = () => {
           </Row>
           <Row>
             <Col>
-              <Form.Label className='custom-label'>Driving Scenarios</Form.Label>
+              <Form.Label className='custom-label'>DRIVING SCENARIOS</Form.Label>
             </Col>
           </Row>
 
@@ -191,7 +203,7 @@ const Evaluating = () => {
           </Row>
           <Row>
             <Col>
-              <Form.Label className='custom-label'>Mistakes</Form.Label>
+              <Form.Label className='custom-label'>MISTAKES</Form.Label>
             </Col>
           </Row>
           <Row>
@@ -209,7 +221,7 @@ const Evaluating = () => {
           <Row>
             <Col>
 
-              <Form.Label className='custom-label'>Grade</Form.Label>
+              <Form.Label className='custom-label'>GRADE</Form.Label>
             </Col>
           </Row>
           <Row>
@@ -218,7 +230,8 @@ const Evaluating = () => {
             </Col>
           </Row>
           <Form.Group className="d-flex justify-content-center ">
-            <button className="save-btn" onClick={(event) => handleDiscard(event)}>CONFIRM</button>
+          <button className="discard-btn" onClick={(event)=>handleDiscard1(event)}>DISCARD PLAN</button>{" "}
+            <button className="save-btn" onClick={(event) => handleDiscard(event)}>SAVE GRADE</button>
           </Form.Group>
         </Container>
       </div>
@@ -229,8 +242,8 @@ const Evaluating = () => {
         </Modal.Header>
         <Modal.Body>Are you sure you want to assign this grade?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
-          <Button variant="primary" onClick={confirmDiscard}>Confirm</Button>
+          <Button variant="secondary" onClick={cancelDiscard}>CANCEL GRADE</Button>
+          <Button variant="primary" onClick={confirmDiscard}>CONFIRM GRADE</Button>
         </Modal.Footer>
       </Modal>
 
@@ -243,6 +256,18 @@ const Evaluating = () => {
           <Button variant="secondary" onClick={cancelError}>OK</Button>
         </Modal.Footer>
       </Modal>
+
+
+      <Modal show={showDiscardModal1} onHide={cancelDiscard1}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Discard</Modal.Title>
+        </Modal.Header>
+      <Modal.Body>Are you sure you want to discard your changes in the evaluation?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={cancelDiscard1}>GO BACK</Button>
+          <Button variant="primary" onClick={confirmDiscard1}>DISCARD GRADE</Button>
+        </Modal.Footer>
+    </Modal>
 
 
 

@@ -14,7 +14,7 @@ const MyNavbar = () => {
     <div className="downNavbar">
       <div className="down-nav-item" onClick={()=> navigate('/')}>
         <div>
-        <FontAwesomeIcon icon={faHouseUser} size="sm"/>
+        <FontAwesomeIcon icon={faHouseUser} size="lg"/>
         Home
         </div>
        
@@ -22,14 +22,14 @@ const MyNavbar = () => {
 
       <div className="down-nav-item"onClick={()=> navigate('/planning')}>
         <div>
-      <FontAwesomeIcon icon={faFileCirclePlus} size="sm" />
+      <FontAwesomeIcon icon={faFileCirclePlus} size="lg" />
         Planning
         </div>
       </div>
 
       <div className="down-nav-item" onClick={()=> navigate('/lookback')}>
         <div>
-        <FontAwesomeIcon icon={faCalendar} size="sm"/>
+        <FontAwesomeIcon icon={faCalendar} size="lg"/>
         LookBack
         </div>
       </div>
@@ -37,7 +37,7 @@ const MyNavbar = () => {
 
       <div className="down-nav-item" onClick={()=> navigate('/savelesson')}>
         <div>
-        <FontAwesomeIcon icon={faFloppyDisk} size="sm"/>
+        <FontAwesomeIcon icon={faFloppyDisk} size="lg"/>
         SaveLesson
         </div>
       </div>
@@ -45,7 +45,7 @@ const MyNavbar = () => {
 
       <div className="down-nav-item" onClick={()=> navigate('/evaluation')}>
         <div>
-        <FontAwesomeIcon icon={faStarHalfStroke}size="sm"/>
+        <FontAwesomeIcon icon={faStarHalfStroke}size="lg"/>
         Evaluation
         </div>
      

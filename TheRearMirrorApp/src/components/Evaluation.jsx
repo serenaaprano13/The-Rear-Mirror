@@ -104,9 +104,9 @@ const Evaluation = () => {
       height: '100vh'
     }}>
 
-      <header>
+     
         <Title titolo="Evaluations"></Title>
-      </header>
+      
       <Container>
         <Form>
           <Row>
@@ -114,13 +114,13 @@ const Evaluation = () => {
               <Form.Group controlId="date">
 
                 <FontAwesomeIcon icon={faCalendarAlt} size="1x" style={{ marginRight: '10px' }} />
-                <Form.Label className='custom-label'>Date</Form.Label>
+                <Form.Label className='custom-label'>DATE</Form.Label>
                 <DatePicker selected={startDate} onChange={handleDateChange} placeholderText="Date" className="form-control" />
 
               </Form.Group>
             </Col>
             <Col>
-              <Form.Label className='custom-label'>Validated</Form.Label>
+              <Form.Label className='custom-label'>VALIDATED</Form.Label>
               <Form.Group controlId="formCheckbox">
                 <div style={{ display: "flex" }}>
 
@@ -260,12 +260,12 @@ function LessonElement(wrap, index) {
 
       <Modal show={showDiscardModal} onHide={cancelDiscard}>
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Grade</Modal.Title>
+          <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this grade?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
-          <Button variant="primary" onClick={confirmDiscard}>Confirm</Button>
+          <Button variant="secondary" onClick={cancelDiscard}>GO BACK</Button>
+          <Button variant="primary" onClick={confirmDiscard}>CONFIRM DELETION</Button>
         </Modal.Footer>
       </Modal>
     </div>

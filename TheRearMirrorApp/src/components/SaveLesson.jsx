@@ -301,9 +301,10 @@ function SaveLesson() {
             height: '100vh'
         }}>
 
-            <header>
+           
                 <Title titolo="Save lesson"></Title>
-            </header>
+            
+            
 
             {/* INSERISCI QUI IL TITOLO 
             <Container fluid className="top-bar">

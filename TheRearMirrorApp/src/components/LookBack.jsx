@@ -145,9 +145,9 @@ function LookBack() {
       height: '100vh'
     }}>
 
-      <header>
+      
         <Title titolo="Look Back"></Title>
-      </header>
+      
       {/* <Container fluid className="top-bar">
         <Row>
           <h2>THE REAR MIRROR</h2>

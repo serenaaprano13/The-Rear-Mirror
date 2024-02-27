@@ -19,14 +19,13 @@ const Title = ({ titolo }) => {
   return (
 
     <header>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex'}}>
 
       <button style={{ backgroundColor: 'transparent', border: 'none' }}  onClick={returnBack}>
         <FaArrowLeft color="white"/> {" "}
       </button>
       <h3 className="header-title">
         <div style={{ display: 'flex', marginTop: '30px' }}>
-
         {titolo}
         </div>
         </h3>
