@@ -17,7 +17,9 @@ import { faCalendarAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
 
+import Button from 'react-bootstrap/Button';
 import API from "./lessonsAPI";
 
 
@@ -50,6 +52,31 @@ const handleDistanceChange = (e) => {
 
 
 const Evaluating = () => {
+
+  const [showErrorModal, setShowErrorModal] = useState(false);//Modal grade non valido
+  const handleDiscard = (event) => {
+    event.preventDefault();
+    if (rating > 0 && rating < 6) {
+      setShowDiscardModal(true);
+    }
+    else {
+
+      setShowErrorModal(true);
+    }
+  }
+
+  const cancelError = () => {
+    setShowErrorModal(false);
+  };
+  const [showDiscardModal, setShowDiscardModal] = useState(false);//modal conferma grade
+  const confirmDiscard = () => {
+    handleSave()
+  };
+  const cancelDiscard = () => {
+    setShowDiscardModal(false);
+  };
+
+
   const location = useLocation();
   const lesson = location.state.lesson;
   const [rating, setRating] = useState(0);
@@ -62,12 +89,12 @@ const Evaluating = () => {
   const APIURL = 'http://localhost:3000/api'
 
   const handleSave = () => {
-    if (rating > 0 && rating < 5) {
+    if (rating > 0 && rating < 7) {
       API.insertEval(lesson.date, rating).catch(e => console.error('insertEval error:', e));
       navigate('/Evaluation');
     }
-    else
-    {
+    else {
+      console.log("RATING"+rating)
       window.alert('You need to insert a Grade to proceed.');
     }
   };
@@ -191,10 +218,34 @@ const Evaluating = () => {
             </Col>
           </Row>
           <Form.Group className="d-flex justify-content-center ">
-            <button className="save-btn" onClick={(event) => handleSave(event)}>CONFIRM</button>
+            <button className="save-btn" onClick={(event) => handleDiscard(event)}>CONFIRM</button>
           </Form.Group>
         </Container>
       </div>
+
+      <Modal show={showDiscardModal} onHide={cancelDiscard}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Grade</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to assign this grade?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
+          <Button variant="primary" onClick={confirmDiscard}>Confirm</Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showErrorModal} onHide={cancelError}>
+        <Modal.Header closeButton>
+          <Modal.Title>Grade Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You need to insert a Grade to proceed.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={cancelError}>OK</Button>
+        </Modal.Footer>
+      </Modal>
+
+
+
       <br /><br /><br /><br />
       <footer className="myNavbar">
         <MyNavbar></MyNavbar>
