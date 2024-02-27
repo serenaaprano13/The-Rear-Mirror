@@ -18,6 +18,7 @@ import Modal from 'react-bootstrap/Modal';
 import { faCalendarAlt, faStar, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import API from "./lessonsAPI";
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import DatePicker from "react-datepicker";
 // myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true, 5));
@@ -197,14 +198,17 @@ function LessonElement(wrap, index) {
             <div className="d-flex align-items-center" style={{ display: "flex" }}>
               LESSON {lesson.date}
 
-              <DropdownButton
-                style={{ marginLeft: "auto" }}
+              <DropdownButton 
+                className="evaluation-dropdown"
+                style={{marginLeft: 'auto', backgroundColor:'#C0C0C0 !important', border: 'none'}}
                 variant="secondary"
-                title={<FontAwesomeIcon icon={faEllipsisV} />}
+                title={<FontAwesomeIcon icon={faEllipsisV} style={{ color: 'grey' }} />}
                 id={`dropdown-button-${index}`}
                 onSelect={handleDropdownSelect}
               >
-                <Dropdown.Item eventKey="delete">Delete Evaluation</Dropdown.Item>
+                <Dropdown.Item eventKey="delete" style={{ color: 'rgb(230, 65, 65)'}}>
+                <FontAwesomeIcon icon={faTrash} style={{ color: 'rgb(230, 65, 65)', marginRight: '5px' }} />
+                  Delete evaluation</Dropdown.Item>
               </DropdownButton>
 
             </div>

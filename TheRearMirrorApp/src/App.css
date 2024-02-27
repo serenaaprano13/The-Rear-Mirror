@@ -487,3 +487,23 @@ header {
   font-size: 1em;
   color: #FF6700;
 }
+
+.dropdown-toggle::after {
+  border-top-color: grey;
+  
+}
+
+.evaluation-dropdown .btn-secondary{
+  background-color: transparent;
+  border-color: #C0C0C0;
+}
+
+.evaluation-dropdown .btn-secondary:focus,
+.evaluation-dropdown .btn-secondary:active,
+.evaluation-dropdown .btn-secondary:hover {
+  background-color: transparent;
+  border-color: #C0C0C0;
+  box-shadow: none;
+}
+
+
