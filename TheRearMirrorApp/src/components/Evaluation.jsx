@@ -21,9 +21,6 @@ import API from "./lessonsAPI";
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import DatePicker from "react-datepicker";
-// myLesson.push(new Lesson('2023-02-15', "Uphill Start", 'Nightime', 'S-Park', 4, true, 5));
-// myLesson.push(new Lesson('2023-02-16', "Red Light", 'Roundabout', 'Speeding', 5, true, 4));
-// myLesson.push(new Lesson(1,'2023-02-14', "Red Light", 'Roundabout', 'Speeding', -1, false, 6));
 
 
 
@@ -48,6 +45,9 @@ const DisplayErrorMessage = ({ lessons }) => {
 };
 //-----------------------------------------------------------------------
 const Evaluation = () => {
+  const navigate = useNavigate();
+
+
   const [isChecked, setIsChecked] = useState(true);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -67,6 +67,7 @@ const Evaluation = () => {
 
   const [lessons, setLessons] = useState([]);
   // Fetch all lessons at the beginning
+
   useEffect(() => {
     fetchAllLessons();
   }, []);
@@ -128,7 +129,7 @@ const Evaluation = () => {
                     label=""
                     checked={isChecked}
                     onChange={handleCheckboxChange}
-                    style={{ transform: 'scale(3)' , marginLeft: '50px', marginTop: '10px'}}
+                    style={{ transform: 'scale(3)', marginLeft: '50px', marginTop: '10px' }}
                     alignright="true"
                   />
                 </div>
@@ -152,6 +153,7 @@ const Evaluation = () => {
           </div>
         </Form>
       </Container>
+
       <footer className="myNavbar">
         <MyNavbar></MyNavbar>
       </footer>
@@ -169,7 +171,9 @@ function LessonElement(wrap, index) {
   const navigate = useNavigate();
   const handleEvaluate = (e, id) => {
     e.preventDefault();
-    navigate('/evaluating', { state: { lesson } });
+
+    setShowModalPin(true);
+
   };
   const handleDropdownSelect = (eventKey) => {
     if (eventKey === 'delete') {
@@ -187,6 +191,23 @@ function LessonElement(wrap, index) {
   };
   const cancelDiscard = () => {
     setShowDiscardModal(false);
+  };
+
+
+  const [password, setPassword] = useState('');
+  const [showModalPin, setShowModalPin] = useState(false);
+  const handlePinSubmit = () => {
+    if (password.trim() === '') {
+      console.log('Password is empty!');
+      alert("TheRearMirror:\nYour Password cannot be empty!")
+    }
+    else {
+      console.log("Pin submitted");
+      localStorage.setItem('pinModalShown', 'true');
+      // Close the modal after submitting
+      setShowModalPin(false);
+      navigate('/evaluating', { state: { lesson } });
+    }
   };
 
 
@@ -241,7 +262,7 @@ function LessonElement(wrap, index) {
         <Modal.Header closeButton>
           <Modal.Title>Confirm Grade</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to assign this grade?</Modal.Body>
+        <Modal.Body>Are you sure you want to delete this grade?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
           <Button variant="primary" onClick={confirmDiscard}>Confirm</Button>
@@ -282,15 +303,30 @@ function LessonElement(wrap, index) {
 
         <br />
       </div>
-
-      <Modal show={showDiscardModal} onHide={cancelDiscard}>
+      <Modal show={showModalPin} onHide={() => setShowModalPin(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Grade</Modal.Title>
+          <Modal.Title>Enter Pin</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to assign this grade?</Modal.Body>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formPin">
+              <Form.Label>Pin</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter pin"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
-          <Button variant="primary" onClick={confirmDiscard}>Confirm</Button>
+          <Button variant="secondaryPin" onClick={() => setShowModalPin(false)}>
+            Back
+          </Button>
+          <Button variant="primaryPin" onClick={handlePinSubmit}>
+            Submit
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
