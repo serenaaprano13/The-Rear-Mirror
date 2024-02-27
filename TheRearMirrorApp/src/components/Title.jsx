@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 
-const Title = ({titolo}) => {
+const Title = ({ titolo }) => {
 
-  const navigate= useNavigate();
-  const location=useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
 
   const returnBack = () => {
@@ -18,17 +18,25 @@ const Title = ({titolo}) => {
   return (
 
     <header>
-      <button className="back-btn" onClick={returnBack}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+
+      <button className="save-btn" onClick={returnBack}>
         <FontAwesomeIcon icon={faChevronLeft} /> {" "}
-          Back
-    </button>
-			<h3 className="header-title">{titolo}</h3>
+        Back
+      </button>
+      <h3 className="header-title">
+        <div style={{ display: 'flex', marginTop: '30px' }}>
+
+        {titolo}
+        </div>
+        </h3>
+      </div>
     </header>
-	
-   
-);
-    
-  
+
+
+  );
+
+
 }
 
 export default Title;
