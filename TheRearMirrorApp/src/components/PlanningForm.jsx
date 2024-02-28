@@ -24,7 +24,7 @@ const PlanningForm = () => {
     selectedOptions: [],
   });
   const APIURL = 'http://localhost:3000/api'
-
+  
 
   const navigate = useNavigate();
   const handleDiscard = (event) => {
@@ -255,8 +255,8 @@ const PlanningForm = () => {
             value={formState.distance}
             onChange={handleDistanceChange}
           />
-          <Form.Control className='form-control' value={formState.distance}  onChange={handleDistanceChange} />
-
+          <Form.Control className='form-control' value={formState.distance} onChange={handleDistanceChange} />
+          <span style={{ marginRight: '100px' }}>KM</span>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="lastestMistakes">

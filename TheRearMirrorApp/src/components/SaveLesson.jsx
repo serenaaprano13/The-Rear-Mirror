@@ -53,7 +53,7 @@ function SaveLesson() {
 
     const openSaveModal = () => setShowSaveModal(true);
     const closeSaveModal = () => setShowSaveModal(false);
-
+    
 
 
 
@@ -376,7 +376,7 @@ function SaveLesson() {
 
 
 
-
+                    
 
 
                     <Form.Group className="form-group" controlId="lastestMistakes">
@@ -444,7 +444,7 @@ function SaveLesson() {
                             <button className="discard-btn" onClick={handleDiscard}>DISCARD</button>
                         </Col>
                         <Col>
-                            <button className="save-btn" onClick={openSaveModal}>SAVE LESSON</button>
+                        <button className="save-btn" onClick={openSaveModal}>SAVE LESSON</button>
                         </Col>
                     </Row>
                 </>
@@ -460,15 +460,15 @@ function SaveLesson() {
 
 
             <Modal show={showSaveModal} onHide={closeSaveModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirm Save</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to save this lesson?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={closeSaveModal}>Cancel</Button>
-                    <Button variant="primary" onClick={() => { createLesson(); closeSaveModal(); }}>Save lesson</Button>
-                </Modal.Footer>
-            </Modal>
+    <Modal.Header closeButton>
+        <Modal.Title>Confirm Save</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>Are you sure you want to save this lesson?</Modal.Body>
+    <Modal.Footer>
+        <Button variant="secondary" onClick={closeSaveModal}>Cancel</Button>
+        <Button variant="primary" onClick={() => { createLesson(); closeSaveModal(); }}>Save lesson</Button>
+    </Modal.Footer>
+</Modal>
 
 
             <Modal show={showDiscardModal} onHide={cancelDiscard}>

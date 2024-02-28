@@ -167,9 +167,9 @@ function LookBack() {
       height: '100vh'
     }}>
 
-      <header>
+      
         <Title titolo="Look Back"></Title>
-      </header>
+      
       {/* <Container fluid className="top-bar">
         <Row>
           <h2>THE REAR MIRROR</h2>
@@ -250,9 +250,9 @@ function LookBack() {
                     lesson.to_evaluate === 1 ? (
                       <span>waiting for evaluation</span>
                     ) : (
-                      <Button variant="primary" onClick={() => handleAskToEvaluateClick(lesson)}>
-                        ask to evaluate
-                      </Button>
+                      <button className="save-btn1" onClick={() => handleAskToEvaluateClick(lesson)}>
+                        ASK TO EVALUATE
+                      </button>
                     )
                   )}
                 </div>
@@ -280,7 +280,7 @@ function LookBack() {
         </Row>
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>Enter Pin</Modal.Title>
+            <Modal.Title>Enter Teacher's Pin</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>

@@ -2,12 +2,13 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FaArrowLeft } from 'react-icons/fa';
 
 
-const Title = ({titolo}) => {
+const Title = ({ titolo }) => {
 
-  const navigate= useNavigate();
-  const location=useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
 
   const returnBack = () => {
@@ -18,17 +19,23 @@ const Title = ({titolo}) => {
   return (
 
     <header>
-      <button className="back-btn" onClick={returnBack}>
-        <FontAwesomeIcon icon={faChevronLeft} /> {" "}
-          Back
-    </button>
-			<h3 className="header-title">{titolo}</h3>
+      <div style={{ display: 'flex'}}>
+
+      <button style={{ backgroundColor: 'transparent', border: 'none' }}  onClick={returnBack}>
+        <FaArrowLeft color="white"/> {" "}
+      </button>
+      <h3 className="header-title">
+        <div style={{ display: 'flex', marginTop: '30px' }}>
+        {titolo}
+        </div>
+        </h3>
+      </div>
     </header>
-	
-   
-);
-    
-  
+
+
+  );
+
+
 }
 
 export default Title;
