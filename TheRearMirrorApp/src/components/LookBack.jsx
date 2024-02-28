@@ -1,5 +1,5 @@
 import MyNavbar from "./MyNavbar";
-import { Container, Row, Col, InputGroup, FormControl, Card, Button, Modal, Form } from 'react-bootstrap';
+import { Container, Row, Col, InputGroup, FormControl, Card, Button, Modal, Form, DropdownButton, Dropdown } from 'react-bootstrap';
 import Title from "./Title";
 import './LookBack.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,8 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import ReactDatePicker from 'react-datepicker';
-
-
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -23,6 +22,8 @@ function LookBack() {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [filteredLessons, setFilteredLessons] = useState([]); // Filtered list of lessons
+  const [showDiscardModal, setShowDiscardModal] = useState(false);
+  const [currentLesson, setCurrentLesson] = useState(null);
 
 
 
@@ -48,6 +49,17 @@ function LookBack() {
     fetchAllLessons();
   }, []);
 
+
+
+  const cancelDiscard = () => {
+    setShowDiscardModal(false);
+  };
+
+  const confirmDiscard = (lesson) => {
+    API.deleteLesson(lesson).catch(e => console.error('reset insertEval error:', e));
+    setShowDiscardModal(false);
+    window.location.reload();
+  };
 
   const handleDateChange = (date) => {
     setStartDate(date);
@@ -83,7 +95,7 @@ function LookBack() {
 
   const showAllLessons = () => {
     fetchAllLessons().then(() => {
-    setFilteredLessons(lessons);
+      setFilteredLessons(lessons);
     }
     );
   }
@@ -121,6 +133,8 @@ function LookBack() {
     }
   };
 
+
+
   const handlePinSubmit = () => {
     // Here you can get the pin value from the form and validate it
     // For example, let's just log it to the console for now
@@ -129,6 +143,14 @@ function LookBack() {
     navigate('/evaluation');
     // Close the modal after submitting
     setShowModal(false);
+  };
+
+
+  const handleDropdownSelect = (eventKey, index) => {
+    if (eventKey === 'delete') {
+      setCurrentLesson(filteredLessons[index]);
+      setShowDiscardModal(true);
+    }
   };
 
 
@@ -199,8 +221,21 @@ function LookBack() {
         <Row>
           {filteredLessons.map((lesson, index) => (
             <Card key={index} className="w-100">
-              <Card.Header style={{ fontWeight: 'bold' }}>LESSON {lesson.date}</Card.Header>
+              <Card.Header style={{ fontWeight: 'bold' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>LESSON {lesson.date}</span>
+                  <DropdownButton
+                    variant="secondary"
+                    title={<FontAwesomeIcon icon={faEllipsisV} />}
+                    id={`dropdown-button-${index}`}
+                    onSelect={(eventKey) => handleDropdownSelect(eventKey, index)}
+                  >
+                    <Dropdown.Item eventKey="delete">Delete Lesson</Dropdown.Item>
+                  </DropdownButton>
+                </div>
+              </Card.Header>
               <Card.Body className="d-flex align-items-center">
+
                 <div>
                   <Card.Text>{lesson.scenario1}</Card.Text>
                   <Card.Text>{lesson.scenario2}</Card.Text>
@@ -264,6 +299,20 @@ function LookBack() {
             </Button>
           </Modal.Footer>
         </Modal>
+
+
+        <Modal show={showDiscardModal} onHide={cancelDiscard}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete lesson</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Are you sure you want to delete this lesson?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
+            <Button variant="primary" onClick={() => confirmDiscard(currentLesson)}>Confirm</Button>
+          </Modal.Footer>
+        </Modal>
+
+
       </Container>
 
 

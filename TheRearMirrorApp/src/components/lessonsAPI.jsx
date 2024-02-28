@@ -41,8 +41,16 @@ async function saveLesson(lesson) {
     return fetch(URL + '/saveLesson', requestOptions);
 }
 
+async function deleteLesson(lesson){
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ date: lesson.date })
+    };
+    return fetch(URL + '/deleteLesson', requestOptions);
+  }
 
 
-const API = { getAllLessons, updateLesson, saveLesson,insertEval };
+const API = { getAllLessons, updateLesson, saveLesson,insertEval, deleteLesson };
 
 export default API;

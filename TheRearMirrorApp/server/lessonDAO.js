@@ -205,3 +205,19 @@ console.log(lesson)
       });
     });
   };
+
+
+  exports.deleteLesson = (requestBody) => {
+    return new Promise((resolve, reject) => {
+      const sql = 'DELETE FROM LESSONS WHERE lessonDate = ?';
+  
+      db.run(sql, [requestBody.date], function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve("lesson successfully deleted");
+      });
+    });
+  };
+  

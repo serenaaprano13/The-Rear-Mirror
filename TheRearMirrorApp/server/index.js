@@ -94,6 +94,14 @@ app.post('/api/saveLesson', async (req, res) => {
   );
 
 
+  app.delete('/api/deleteLesson', async (req, res) => {
+    await LessonDAO.deleteLesson(req.body).catch(err => res.status(500).json(err));
+    res.json();
+  });
+
+
  
+
+
 app.listen(PORT, 
     () => { console.log(`Server started on http://localhost:${PORT}/`) });
