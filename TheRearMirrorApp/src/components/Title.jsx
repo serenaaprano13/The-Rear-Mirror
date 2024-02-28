@@ -5,6 +5,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from 'react-icons/fa';
 
 
+
 const Title = ({ titolo }) => {
 
   const navigate = useNavigate();

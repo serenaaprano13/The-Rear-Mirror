@@ -109,9 +109,10 @@ export const Homepage = () => {
       onSelect={handleSelect}
       max-width="100%"
       height="auto"
+      
       >
     <Carousel.Item >
-    <Card className='summary'>
+    <Card className='summary' style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }} >
       <Card.Body >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}></div>
         <Card.Title className='summary-title'> YOUR LATEST PLANNING</Card.Title>
@@ -146,8 +147,8 @@ export const Homepage = () => {
 
 
 
-    <Carousel.Item >
-    <Card className='summary'>
+    <Carousel.Item  >
+    <Card className='summary' style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}>
       <Card.Body>
         <Card.Title className='summary-title'> YOUR LATEST LESSON</Card.Title>
         <Card.Text className='summary-text'>

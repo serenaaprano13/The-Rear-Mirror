@@ -356,7 +356,7 @@ function SaveLesson() {
 
 
                     <Form.Group  style={{marginLeft:'2px'}} className="form-group" controlId="lastestMistakes">
-                        <Form.Label className='custom-label'>YOUR RECENT MISTAKES</Form.Label>
+                        <Form.Label className='custom-label'>MISTAKES</Form.Label>
 
 
                         {recentMistakesError && <p>You can only select 3 items</p>}
@@ -378,6 +378,27 @@ function SaveLesson() {
                             hidePlaceholder={true}
                             showArrow={true}
                             keepSearchTerm={true}
+                            style={{
+                                chips: {
+                                  background: " #004E98", 
+                                  borderRadius: "20px",
+                                
+                              }, 
+                              searchBox: {
+                                border: "1px solid  #C0C0C0",
+                                borderRadius: "13px",
+                                boxShadow: "0 0 0 0",
+                                padding: "10px",
+                                fontSize: "16px",
+                                color: "#004E98",
+                                width: "100%",
+                                height: "80px",
+                                background: "white",
+                              
+                              },
+                            }
+                            }
+                              
 
 
                         />
@@ -407,6 +428,27 @@ function SaveLesson() {
                             hidePlaceholder={true}
                             showArrow={true}
                             keepSearchTerm={true}
+                            style={{
+                                chips: {
+                                  background: " #004E98", 
+                                  borderRadius: "20px",
+                                
+                              }, 
+                              searchBox: {
+                                border: "1px solid  #C0C0C0",
+                                borderRadius: "13px",
+                                boxShadow: "0 0 0 0",
+                                padding: "10px",
+                                fontSize: "16px",
+                                color: "#004E98",
+                                width: "100%",
+                                height: "80px",
+                                background: "white",
+                              
+                              },
+                            }
+                            }
+                              
 
                         />
 
