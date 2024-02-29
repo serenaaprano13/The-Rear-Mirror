@@ -14,6 +14,7 @@ import { PageNotFound } from './components/PageNotFound'
 import Evaluation from './components/Evaluation'
 import { LookBack } from './components/LookBack'
 import { SaveLesson } from './components/SaveLesson'
+import { SaveLesson1 } from './components/SaveLesson1'
 
 
 
@@ -29,6 +30,8 @@ function App() {
     <Route path='/lookback' element={<LookBack></LookBack>} />
     <Route path='/evaluating' element={<Evaluating></Evaluating>} />
     <Route path='/savelesson' element={<SaveLesson></SaveLesson>}/>
+    <Route path='/savelesson1' element={<SaveLesson1></SaveLesson1>}/>
+    
     <Route path='/summaryOfPlanning' element={<PlanningSummary></PlanningSummary>}/>
 
   </Routes>

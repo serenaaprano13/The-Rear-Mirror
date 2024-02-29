@@ -62,6 +62,9 @@ const PlanningForm = () => {
   }
 
 
+
+  
+
   const recentMistakeOption = [
      
      
@@ -221,7 +224,7 @@ const PlanningForm = () => {
         <Multiselect
           className="planningMultiSelect"
           options={recentMistakeOption} // Options to display in the dropdown
-         // selectedValues={selectedValue} // Preselected value to persist in dropdown
+          //selectedValues={initialValues} // Preselected value to persist in dropdown
           onSelect={handleSelectRecentMistakes} // Function will trigger on select event
           onRemove={selectedOptions => handleRemove(selectedOptions)} // Function will trigger on remove event
           displayValue="name" // Property name to display in the dropdown optionsù
@@ -233,6 +236,7 @@ const PlanningForm = () => {
           hidePlaceholder={true}
           showArrow={true}
           keepSearchTerm={true}
+          
           style={{
             chips: {
               background: " #004E98", 

@@ -109,7 +109,7 @@ function PlanningSummary() {
         
        
         </Card.Text>
-        <button className='lesson-performed'>LESSON PERFORMED</button>
+        <button className='lesson-performed' onClick={()=> navigate('/savelesson1')}>LESSON PERFORMED</button>
       </Card.Body>
 
     </Card>
