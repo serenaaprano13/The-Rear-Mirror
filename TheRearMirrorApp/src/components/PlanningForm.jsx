@@ -63,44 +63,19 @@ const PlanningForm = () => {
 
 
   const recentMistakeOption = [
-      {
-        name: "Parallel Parking",
-        showing: true,
-      },
-      {
-        name: "Three-Point Turn",
-        showing: true,
-      },
-      {
-        name: "Lane Change",
-        showing: true,
-      },
-      {
-        name: "Merge onto Highway",
-        showing: true,
-      },
+     
+     
       {
         name: "U-Turn",
         showing: true,
       },
-      {
-        name: "Stop",
-        showing: true,
-      },
-      {
-        name: "Roundabout",
-        showing: true,
-      },
+     
       {
         name: "S-Parking",
         showing: true,
       },
       {
         name: "Speed limit",
-        showing: true,
-      },
-      {
-        name: "Yield to Pedestrians",
         showing: true,
       },
       {
@@ -112,14 +87,6 @@ const PlanningForm = () => {
         showing: true,
       },
 
-      {
-        name: "Bad Weather",
-        showing: true,
-      },
-      {
-        name: "Night driving",
-        showing: true,
-      },
       {
         name: "Uphill start",
         showing: true,
@@ -128,14 +95,8 @@ const PlanningForm = () => {
 
 
     const untestedScenarioOption = [
-      {
-        name: "Parallel Parking",
-        showing: true,
-      },
-      {
-        name: "Three-Point Turn",
-        showing: true,
-      },
+    
+     
       {
         name: "Lane Change",
         showing: true,
@@ -144,38 +105,18 @@ const PlanningForm = () => {
         name: "Merge onto Highway",
         showing: true,
       },
-      {
-        name: "U-Turn",
-        showing: true,
-      },
-      {
-        name: "Stop",
-        showing: true,
-      },
+     
+    
       {
         name: "Roundabout",
         showing: true,
       },
-      {
-        name: "S-Parking",
-        showing: true,
-      },
-      {
-        name: "Speed limit",
-        showing: true,
-      },
+    
       {
         name: "Yield to Pedestrians",
         showing: true,
       },
-      {
-        name: "Emergency Stop",
-        showing: true,
-      },
-      {
-        name: "Obey Traffic Signals",
-        showing: true,
-      },
+     
 
       {
         name: "Bad Weather",
@@ -186,9 +127,24 @@ const PlanningForm = () => {
         showing: true,
       },
       {
-        name: "Uphill start",
+        name: "Stop", 
         showing: true,
-      },  
+      }, 
+      {
+        name: "Highway",
+        showing: true,
+      },
+      {
+        name:"Emergency maneuvers",
+        showing: true,
+      },
+      {
+        name:"Public transportation interaction",
+        showing: true,
+      }
+      
+      
+     
     ];
 
 

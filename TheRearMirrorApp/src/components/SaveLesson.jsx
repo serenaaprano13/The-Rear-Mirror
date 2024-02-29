@@ -139,14 +139,12 @@ function SaveLesson() {
             lesson.to_evaluate = false // to_evaluate
         lesson.distance = Number(sliderValue);
         lesson.route_1 = document.getElementById('form-group1').value;
-
-
+        
 
         // Do something with the lesson object (e.g., send it to a server or save it locally)
 
         //console.log("Valore passato a SaveLesson:");
         //console.log(JSON.stringify(lesson));
-
         closeSaveModal();
         await API.saveLesson(lesson)
             .then(() => {
@@ -156,7 +154,7 @@ function SaveLesson() {
                     onClose: () => navigate('/lookback')
                 });
             })
-
+    };
 
 
     const recentMistakeOption = [
@@ -319,11 +317,6 @@ function SaveLesson() {
             height: '100vh'
         }}>
 
-
-
-        
-
-=======
             
                 <Title titolo="Save lesson"></Title>
             
@@ -348,17 +341,13 @@ function SaveLesson() {
 
 
                 <div>
-
-                    <label className='custom-label' style={{ marginRight: '10px', marginTop: '10px' }}>DATE </label>
+                <label className='custom-label' style={{ marginRight: '10px', marginTop:'10px' }}>DATE </label>
                     <br></br>
-                    <div style={{ marginBottom: '10px', marginLeft: '20px' }}>
-                        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-                    </div>
-
-               
-
+                    <div style={{marginBottom:'10px', marginLeft:'20px'}}> 
+                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                 </div>
-            
+                </div>
+
 
                 <>
                     <Form.Group controlId="form-group1" className="mb-3">
@@ -375,9 +364,6 @@ function SaveLesson() {
                     </Form.Group>
 
 
-
-
-                  
 
 
 
@@ -407,7 +393,6 @@ function SaveLesson() {
                             keepSearchTerm={true}
                             style={{
                                 chips: {
-                            
                                   background: " #004E98", 
                                   borderRadius: "20px",
                                 
@@ -429,7 +414,6 @@ function SaveLesson() {
                               
 
 
-
                         />
 
 
@@ -440,7 +424,7 @@ function SaveLesson() {
                     {untestedScenariosError && <p>You can only select 3 items</p>}
 
 
-                    <Form.Group style={{ marginLeft: '2px' }} className="form-group" controlId="lastestMistakes">
+                    <Form.Group style={{marginLeft:'2px'}} className="form-group" controlId="lastestMistakes">
                         <Form.Label className='custom-label'>OTHER SCENARIOS</Form.Label>
                         <Multiselect
                             className="planningMultiSelect"
@@ -459,25 +443,25 @@ function SaveLesson() {
                             keepSearchTerm={true}
                             style={{
                                 chips: {
-                                    background: " #004E98",
-                                    borderRadius: "20px",
-
-                                },
-                                searchBox: {
-                                    border: "1px solid  #C0C0C0",
-                                    borderRadius: "13px",
-                                    boxShadow: "0 0 0 0",
-                                    padding: "10px",
-                                    fontSize: "16px",
-                                    color: "#004E98",
-                                    width: "100%",
-                                    height: "80px",
-                                    background: "white",
-
-                                },
+                                  background: " #004E98", 
+                                  borderRadius: "20px",
+                                
+                              }, 
+                              searchBox: {
+                                border: "1px solid  #C0C0C0",
+                                borderRadius: "13px",
+                                boxShadow: "0 0 0 0",
+                                padding: "10px",
+                                fontSize: "16px",
+                                color: "#004E98",
+                                width: "100%",
+                                height: "80px",
+                                background: "white",
+                              
+                              },
                             }
                             }
-
+                              
 
                         />
 
@@ -534,6 +518,7 @@ function SaveLesson() {
         </div>
     )
 }
-}
+
+
 
 export { SaveLesson };

@@ -171,9 +171,9 @@ function LessonElement(wrap, index) {
   const navigate = useNavigate();
   const handleEvaluate = (e, id) => {
     e.preventDefault();
+    navigate('/evaluating', { state: { lesson } });
 
-    setShowModalPin(true);
-
+    
   };
   const handleDropdownSelect = (eventKey) => {
     if (eventKey === 'delete') {
@@ -303,32 +303,8 @@ function LessonElement(wrap, index) {
 
         <br />
       </div>
-      <Modal show={showModalPin} onHide={() => setShowModalPin(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Enter Teacher's Pin</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formPin">
-              <Form.Label>Pin</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter pin"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModalPin(false)}>
-            Back
-          </Button>
-          <Button variant="primary" onClick={handlePinSubmit}>
-            Submit
-          </Button>
-        </Modal.Footer>
-      </Modal>
+
+      
     </div>
   }
 }

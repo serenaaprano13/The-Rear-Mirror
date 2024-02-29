@@ -160,7 +160,7 @@ export const Homepage = () => {
           <p>Parallel Parking</p>
           <p>U-Turn</p>
         </Card.Text>
-        <button className='lesson-performed'>LESSON PERFORMED</button>
+       
       </Card.Body>
     </Card>
     </Carousel.Item>
