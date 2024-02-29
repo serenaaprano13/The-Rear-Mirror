@@ -9,11 +9,8 @@
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "host": "vite --host"
-<<<<<<< HEAD
-=======
 
     
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
     },
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^6.5.1",
