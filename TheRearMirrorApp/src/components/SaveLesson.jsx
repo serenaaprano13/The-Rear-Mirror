@@ -140,7 +140,6 @@ function SaveLesson() {
         lesson.distance = Number(sliderValue);
         lesson.route_1 = document.getElementById('form-group1').value;
 
-        
 
 
         // Do something with the lesson object (e.g., send it to a server or save it locally)
@@ -148,6 +147,7 @@ function SaveLesson() {
         //console.log("Valore passato a SaveLesson:");
         //console.log(JSON.stringify(lesson));
 
+        closeSaveModal();
         await API.saveLesson(lesson)
             .then(() => {
                 toast.success("Lesson saved successfully", {
@@ -156,6 +156,7 @@ function SaveLesson() {
                     onClose: () => navigate('/lookback')
                 });
             })
+
 
 
     const recentMistakeOption = [
@@ -319,8 +320,13 @@ function SaveLesson() {
         }}>
 
 
-            <Title titolo="Save lesson"></Title>
 
+        
+
+=======
+            
+                <Title titolo="Save lesson"></Title>
+            
 
             {/* INSERISCI QUI IL TITOLO 
             <Container fluid className="top-bar">
@@ -349,14 +355,10 @@ function SaveLesson() {
                         <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                     </div>
 
-                <label className='custom-label' style={{ marginRight: '10px', marginTop:'10px' }}>DATE </label>
-                    <br></br>
-                    <div style={{marginBottom:'10px', marginLeft:'20px'}}> 
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+               
 
                 </div>
-                </div>
-
+            
 
                 <>
                     <Form.Group controlId="form-group1" className="mb-3">
@@ -372,6 +374,10 @@ function SaveLesson() {
                         </div>
                     </Form.Group>
 
+
+
+
+                  
 
 
 
@@ -401,24 +407,26 @@ function SaveLesson() {
                             keepSearchTerm={true}
                             style={{
                                 chips: {
-                                    background: " #004E98",
-                                    borderRadius: "20px",
-
-                                },
-                                searchBox: {
-                                    border: "1px solid  #C0C0C0",
-                                    borderRadius: "13px",
-                                    boxShadow: "0 0 0 0",
-                                    padding: "10px",
-                                    fontSize: "16px",
-                                    color: "#004E98",
-                                    width: "100%",
-                                    height: "80px",
-                                    background: "white",
-
-                                },
+                            
+                                  background: " #004E98", 
+                                  borderRadius: "20px",
+                                
+                              }, 
+                              searchBox: {
+                                border: "1px solid  #C0C0C0",
+                                borderRadius: "13px",
+                                boxShadow: "0 0 0 0",
+                                padding: "10px",
+                                fontSize: "16px",
+                                color: "#004E98",
+                                width: "100%",
+                                height: "80px",
+                                background: "white",
+                              
+                              },
                             }
                             }
+                              
 
 
 
@@ -504,7 +512,7 @@ function SaveLesson() {
                 <Modal.Body>Are you sure you want to save this lesson?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={closeSaveModal}>GO BACK</Button>
-                    <Button variant="primary" onClick={() => { createLesson(); closeSaveModal(); }}>SAVE LESSON</Button>
+                    <Button variant="primary" onClick={() => { createLesson() }}>SAVE LESSON</Button>
                 </Modal.Footer>
             </Modal>
 
