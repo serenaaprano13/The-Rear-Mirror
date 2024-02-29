@@ -19,6 +19,11 @@ import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
+
 import Button from 'react-bootstrap/Button';
 import API from "./lessonsAPI";
 
@@ -102,14 +107,21 @@ const Evaluating = () => {
 
   const handleSave = () => {
     if (rating > 0 && rating < 7) {
-      API.insertEval(lesson.date, rating).catch(e => console.error('insertEval error:', e));
-      navigate('/Evaluation');
+        API.insertEval(lesson.date, rating).catch(e => console.error('insertEval error:', e));
+        toast.success("Lesson evaluated successfully", {
+            position: "top-center",
+            autoClose: 1500
+        });
+        setTimeout(() => {
+            navigate('/Evaluation');
+        }, 1500);
+    } else {
+        console.log("RATING"+rating)
+        window.alert('You need to insert a Grade to proceed.');
     }
-    else {
-      console.log("RATING"+rating)
-      window.alert('You need to insert a Grade to proceed.');
-    }
-  };
+};
+
+
   const initialDistance = lesson.distance;
   console.log(initialDistance)
   const [date, setDate] = useState(new Date());
@@ -268,6 +280,8 @@ const Evaluating = () => {
           <Button variant="primary" onClick={confirmDiscard1}>DISCARD GRADE</Button>
         </Modal.Footer>
     </Modal>
+
+    <ToastContainer />
 
 
 
