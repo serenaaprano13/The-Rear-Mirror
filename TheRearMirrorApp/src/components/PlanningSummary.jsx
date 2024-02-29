@@ -79,7 +79,7 @@ function PlanningSummary() {
   return (
     <div>
     <Title titolo="Planning"></Title>
-    <Card className='summary'>
+    <Card className='summary' style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}>
       <Card.Body>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Card.Title className='summary-title'> YOUR LATEST PLANNING</Card.Title>

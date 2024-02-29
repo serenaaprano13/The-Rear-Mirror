@@ -246,21 +246,21 @@ const PlanningForm = () => {
     <Title titolo="Planning"></Title>
     <Form className="planning" onSubmit={handleSubmit}>
       <Form.Group className="form-group" controlId="plannedDistance">
-        <Form.Label className='custom-label'>PLANNED DISTANCE</Form.Label>{" "}
+        <Form.Label className='custom-label'>PLANNED DISTANCE (IN KM)</Form.Label>{" "}
       </Form.Group>
 
 
-      <Form.Group className='form-group-row'>
-      <RangeSlider
-            value={formState.distance}
-            onChange={handleDistanceChange}
-          />
-          <Form.Control className='form-control' value={formState.distance} onChange={handleDistanceChange} />
-          <span style={{ marginRight: '100px' }}>KM</span>
+      <Form.Group className='mb-3'>
+      <div style={{ display: 'flex', alignItems: 'center', marginLeft:'10px', marginRight:'15px' }}>
+        <Form.Control type="range" min="1" max="100" value={formState.distance} onChange={handleDistanceChange} style={{ marginRight: '10px', marginLeft:'10px' }} />
+            <span>{formState.distance}</span>
+      </div>
+
+     
       </Form.Group>
 
       <Form.Group className="form-group" controlId="lastestMistakes">
-        <Form.Label className='custom-label'>RECENT MISTAKES</Form.Label>
+        <Form.Label className='custom-label'>YOUR RECENT MISTAKES</Form.Label>
     
         <Multiselect
           className="planningMultiSelect"
@@ -277,6 +277,26 @@ const PlanningForm = () => {
           hidePlaceholder={true}
           showArrow={true}
           keepSearchTerm={true}
+          style={{
+            chips: {
+              background: " #004E98", 
+              borderRadius: "20px",
+            
+          }, 
+          searchBox: {
+            border: "1px solid  #C0C0C0",
+            borderRadius: "13px",
+            boxShadow: "0 0 0 0",
+            padding: "10px",
+            fontSize: "16px",
+            color: "#004E98",
+            width: "100%",
+            height: "80px",
+            background: "white",
+          
+          },
+        }
+        }
           
            
         />
@@ -299,6 +319,26 @@ const PlanningForm = () => {
           hidePlaceholder={true}
           showArrow={true} 
           keepSearchTerm={true}
+          style={{
+            chips: {
+              background: " #004E98", 
+              borderRadius: "20px",
+            
+          }, 
+          searchBox: {
+            border: "1px solid  #C0C0C0",
+            borderRadius: "13px",
+            boxShadow: "0 0 0 0",
+            padding: "10px",
+            fontSize: "16px",
+            color: "#004E98",
+            width: "100%",
+            height: "80px",
+            background: "white",
+          
+          },
+        }
+        }
           
         />
       </Form.Group>

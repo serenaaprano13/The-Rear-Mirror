@@ -230,7 +230,7 @@ const Evaluating = () => {
             </Col>
           </Row>
           <Form.Group className="d-flex justify-content-center ">
-          <button className="discard-btn" onClick={(event)=>handleDiscard1(event)}>DISCARD PLAN</button>{" "}
+          <button className="discard-btn" onClick={(event)=>handleDiscard1(event)}>DISCARD</button>{" "}
             <button className="save-btn" onClick={(event) => handleDiscard(event)}>SAVE GRADE</button>
           </Form.Group>
         </Container>

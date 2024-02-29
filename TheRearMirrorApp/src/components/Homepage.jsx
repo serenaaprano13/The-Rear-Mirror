@@ -10,6 +10,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import {useNavigate} from 'react-router-dom';
 
 
 
@@ -21,8 +22,9 @@ export const Homepage = () => {
 
   const [data, setData] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  
+  const [key, setKey] = useState(Math.random());
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
   const APIURL = 'http://localhost:3000/api'
 
   useEffect(() => {
@@ -73,6 +75,16 @@ export const Homepage = () => {
       navigate('/planning');
   }
 
+  const next = () => {
+    setIndex((index + 1) % 2);
+    setKey(Math.random()); // Change the key to force re-render
+  };
+  
+  const previous = () => {
+    setIndex((index - 1 + 2) % 2);
+    setKey(Math.random()); // Change the key to force re-render
+  };
+
 
   
 
@@ -83,19 +95,24 @@ export const Homepage = () => {
     <h1 className="title">The Rear Mirror</h1>
     <h2 className="subtitle">Looking Back to safely go forward</h2>
 
-    <div >
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <FaArrowLeft color="grey" onClick={previous} style={{ cursor: 'pointer', backgroundColor: 'transparent', border: 'none' }} />
+    
     <Carousel 
+      key={key}
       pause="hover" 
-      touch="TRUE"
+      touch={false}
+      controls={false}
       prevLabel= ''
       nextLabel= ''
       activeIndex={index}
       onSelect={handleSelect}
       max-width="100%"
       height="auto"
+      
       >
     <Carousel.Item >
-    <Card className='summary'>
+    <Card className='summary' style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }} >
       <Card.Body >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}></div>
         <Card.Title className='summary-title'> YOUR LATEST PLANNING</Card.Title>
@@ -130,8 +147,8 @@ export const Homepage = () => {
 
 
 
-    <Carousel.Item >
-    <Card className='summary'>
+    <Carousel.Item  >
+    <Card className='summary' style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}>
       <Card.Body>
         <Card.Title className='summary-title'> YOUR LATEST LESSON</Card.Title>
         <Card.Text className='summary-text'>
@@ -148,23 +165,12 @@ export const Homepage = () => {
     </Card>
     </Carousel.Item>
     </Carousel>
-    <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)'  }}>
-        {Array.from({ length: 2 }).map((_, idx) => (
-          <button
-            key={idx}
-            style={{
-              height: '10px',
-              width: '10px',
-              borderRadius: '50%',
-              background: idx === index ? '#FF6700' : 'gray',
-              margin: '0 5px',
-              border: 'none',
-              outline: 'none',
-            }}
-            onClick={() => setIndex(idx)}
-          />
-        ))}
-        </div>
+
+    <FaArrowRight color="grey" onClick={next} style={{ cursor: 'pointer', backgroundColor: 'transparent', border: 'none' }} />
+    
+   
+        
+      
     </div>
 
     <Modal show={showDeleteModal} onHide={cancelDelete}>
@@ -173,8 +179,8 @@ export const Homepage = () => {
       </Modal.Header>
         <Modal.Body>Are you sure you want to delete your planning?</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={cancelDelete}>Go back</Button>
-            <Button variant="primary" onClick={confirmDelete}>Delete planning</Button>
+            <Button variant="secondary" onClick={cancelDelete}>GO BACK</Button>
+            <Button variant="primary" onClick={confirmDelete}>DELETE PLANNING</Button>
           </Modal.Footer>
     </Modal> 
     </div>

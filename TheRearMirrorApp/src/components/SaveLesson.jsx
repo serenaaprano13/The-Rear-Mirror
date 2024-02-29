@@ -10,6 +10,10 @@ import RangeSlider from 'react-bootstrap-range-slider';
 import API from "./lessonsAPI";
 import Modal from 'react-bootstrap/Modal';
 import Multiselect from 'multiselect-react-dropdown';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 
 // Calcola la data corrente qui
@@ -53,7 +57,8 @@ function SaveLesson() {
 
     const openSaveModal = () => setShowSaveModal(true);
     const closeSaveModal = () => setShowSaveModal(false);
-    
+
+
 
 
 
@@ -132,16 +137,22 @@ function SaveLesson() {
             lesson.evaluated = -1, // rifEvaluation
             0, // distance
             lesson.to_evaluate = false // to_evaluate
-        lesson.distance = Number(sliderValue) + Number(sliderValue2) + Number(sliderValue3);
-        lesson.route_1 = document.getElementById('formBasicRoute').value
-        lesson.route_2 = document.getElementById('formBasicRoute2').value
-        lesson.route_3 = document.getElementById('formBasicRoute3').value
+        lesson.distance = Number(sliderValue);
+        lesson.route_1 = document.getElementById('form-group1').value;
+
 
         // Do something with the lesson object (e.g., send it to a server or save it locally)
 
         //console.log("Valore passato a SaveLesson:");
         //console.log(JSON.stringify(lesson));
-        await API.saveLesson(lesson).then(() => navigate('/'))
+        await API.saveLesson(lesson)
+            .then(() => {
+                toast.success("Lesson saved successfully", {
+                    position: "top-center",
+                    autoClose: 1500,
+                    onClose: () => navigate('/lookback')
+                });
+            })
     };
 
 
@@ -305,9 +316,9 @@ function SaveLesson() {
             height: '100vh'
         }}>
 
-            <header>
-                <Title titolo="Save lesson"></Title>
-            </header>
+
+            <Title titolo="Save lesson"></Title>
+
 
             {/* INSERISCI QUI IL TITOLO 
             <Container fluid className="top-bar">
@@ -329,58 +340,35 @@ function SaveLesson() {
 
 
                 <div>
-                    <label style={{ marginRight: '10px' }}>Date: </label>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                    <label className='custom-label' style={{ marginRight: '10px', marginTop: '10px' }}>DATE </label>
+                    <br></br>
+                    <div style={{ marginBottom: '10px', marginLeft: '20px' }}>
+                        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                    </div>
                 </div>
 
 
                 <>
-                    <Form.Group controlId="formBasicRoute" className="mb-3">
-                        <Form.Label>Route 1</Form.Label>
-                        <Form.Control as="textarea" rows={1} placeholder="Enter route 1" />
+                    <Form.Group controlId="form-group1" className="mb-3">
+                        <Form.Label className='custom-label'>ROUTE</Form.Label>
+                        <Form.Control as="textarea" rows={1} placeholder="Briefly describe your route" />
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicSlider" className="mb-3">
-                        <Form.Label>Route 1 distance (in km)</Form.Label>
+                    <Form.Group controlId="form-group2" className="mb-3">
+                        <Form.Label className='custom-label'>DISTANCE (IN KM)</Form.Label>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Form.Control type="range" min="1" max="10" value={sliderValue} onChange={e => setSliderValue(e.target.value)} style={{ marginRight: '10px' }} />
+                            <Form.Control type="range" min="1" max="100" value={sliderValue} onChange={e => setSliderValue(e.target.value)} style={{ marginRight: '10px' }} />
                             <span>{sliderValue}</span>
                         </div>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicRoute2" className="mb-3">
-                        <Form.Label>Route 2</Form.Label>
-                        <Form.Control as="textarea" rows={1} placeholder="Enter route 2" />
-                    </Form.Group>
-
-                    <Form.Group controlId="formBasicSlider" className="mb-3">
-                        <Form.Label>Route 2 distance (in km)</Form.Label>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Form.Control type="range" min="1" max="10" value={sliderValue2} onChange={e => setSliderValue2(e.target.value)} style={{ marginRight: '10px' }} />
-                            <span>{sliderValue2}</span>
-                        </div>
-                    </Form.Group>
-
-                    <Form.Group controlId="formBasicRoute3" className="mb-3">
-                        <Form.Label>Route 3</Form.Label>
-                        <Form.Control as="textarea" rows={1} placeholder="Enter route 3" />
-                    </Form.Group>
-
-                    <Form.Group controlId="formBasicSlider" className="mb-3">
-                        <Form.Label>Route 3 distance (in km)</Form.Label>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Form.Control type="range" min="1" max="10" value={sliderValue3} onChange={e => setSliderValue3(e.target.value)} style={{ marginRight: '10px' }} />
-                            <span>{sliderValue3}</span>
-                        </div>
-                    </Form.Group>
 
 
 
-                    
 
 
-                    <Form.Group className="form-group" controlId="lastestMistakes">
-                        <Form.Label className='custom-label'>YOUR RECENT MISTAKES</Form.Label>
+                    <Form.Group style={{ marginLeft: '2px' }} className="form-group" controlId="lastestMistakes">
+                        <Form.Label className='custom-label'>MISTAKES</Form.Label>
 
 
                         {recentMistakesError && <p>You can only select 3 items</p>}
@@ -402,6 +390,27 @@ function SaveLesson() {
                             hidePlaceholder={true}
                             showArrow={true}
                             keepSearchTerm={true}
+                            style={{
+                                chips: {
+                                    background: " #004E98",
+                                    borderRadius: "20px",
+
+                                },
+                                searchBox: {
+                                    border: "1px solid  #C0C0C0",
+                                    borderRadius: "13px",
+                                    boxShadow: "0 0 0 0",
+                                    padding: "10px",
+                                    fontSize: "16px",
+                                    color: "#004E98",
+                                    width: "100%",
+                                    height: "80px",
+                                    background: "white",
+
+                                },
+                            }
+                            }
+
 
 
                         />
@@ -414,7 +423,7 @@ function SaveLesson() {
                     {untestedScenariosError && <p>You can only select 3 items</p>}
 
 
-                    <Form.Group className="form-group" controlId="lastestMistakes">
+                    <Form.Group style={{ marginLeft: '2px' }} className="form-group" controlId="lastestMistakes">
                         <Form.Label className='custom-label'>OTHER SCENARIOS</Form.Label>
                         <Multiselect
                             className="planningMultiSelect"
@@ -431,6 +440,27 @@ function SaveLesson() {
                             hidePlaceholder={true}
                             showArrow={true}
                             keepSearchTerm={true}
+                            style={{
+                                chips: {
+                                    background: " #004E98",
+                                    borderRadius: "20px",
+
+                                },
+                                searchBox: {
+                                    border: "1px solid  #C0C0C0",
+                                    borderRadius: "13px",
+                                    boxShadow: "0 0 0 0",
+                                    padding: "10px",
+                                    fontSize: "16px",
+                                    color: "#004E98",
+                                    width: "100%",
+                                    height: "80px",
+                                    background: "white",
+
+                                },
+                            }
+                            }
+
 
                         />
 
@@ -439,14 +469,13 @@ function SaveLesson() {
 
 
 
-                    <Row className="mt-5">
-                        <Col>
-                            <button className="discard-btn" onClick={handleDiscard}>DISCARD</button>
-                        </Col>
-                        <Col>
+                    <Form.Group className="d-flex justify-content-center ">
+                        <button className="discard-btn" onClick={handleDiscard}>DISCARD</button>
+
+
                         <button className="save-btn" onClick={openSaveModal}>SAVE LESSON</button>
-                        </Col>
-                    </Row>
+                    </Form.Group>
+
                 </>
 
 
@@ -460,15 +489,15 @@ function SaveLesson() {
 
 
             <Modal show={showSaveModal} onHide={closeSaveModal}>
-    <Modal.Header closeButton>
-        <Modal.Title>Confirm Save</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>Are you sure you want to save this lesson?</Modal.Body>
-    <Modal.Footer>
-        <Button variant="secondary" onClick={closeSaveModal}>Cancel</Button>
-        <Button variant="primary" onClick={() => { createLesson(); closeSaveModal(); }}>Save lesson</Button>
-    </Modal.Footer>
-</Modal>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Save</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to save this lesson?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={closeSaveModal}>GO BACK</Button>
+                    <Button variant="primary" onClick={() => { createLesson(); closeSaveModal(); }}>SAVE LESSON</Button>
+                </Modal.Footer>
+            </Modal>
 
 
             <Modal show={showDiscardModal} onHide={cancelDiscard}>
@@ -477,11 +506,12 @@ function SaveLesson() {
                 </Modal.Header>
                 <Modal.Body>Are you sure you want to discard your changes and leave to Homepage?</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={cancelDiscard}>Cancel</Button>
-                    <Button variant="primary" onClick={confirmDiscard}>Discard lesson</Button>
+                    <Button variant="secondary" onClick={cancelDiscard}>GO BACK</Button>
+                    <Button variant="primary" onClick={confirmDiscard}>DISCARD LESSON</Button>
                 </Modal.Footer>
             </Modal>
 
+            <ToastContainer />
 
 
         </div>
