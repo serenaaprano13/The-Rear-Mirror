@@ -324,15 +324,9 @@ function SaveLesson() {
             height: '100vh'
         }}>
 
-<<<<<<< HEAD
 
             <Title titolo="Save lesson"></Title>
 
-=======
-            
-                <Title titolo="Save lesson"></Title>
-            
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
 
             {/* INSERISCI QUI IL TITOLO 
             <Container fluid className="top-bar">
@@ -354,7 +348,7 @@ function SaveLesson() {
 
 
                 <div>
-<<<<<<< HEAD
+
                     <label className='custom-label' style={{ marginRight: '10px', marginTop: '10px' }}>DATE </label>
                     <br></br>
                     <div style={{ marginBottom: '10px', marginLeft: '20px' }}>
@@ -365,7 +359,7 @@ function SaveLesson() {
                     <br></br>
                     <div style={{marginBottom:'10px', marginLeft:'20px'}}> 
                     <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
+
                 </div>
                 </div>
 
@@ -384,20 +378,11 @@ function SaveLesson() {
                         </div>
                     </Form.Group>
 
-<<<<<<< HEAD
-
-
-=======
-                  
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
 
 
 
-<<<<<<< HEAD
-                    <Form.Group style={{ marginLeft: '2px' }} className="form-group" controlId="lastestMistakes">
-=======
+
                     <Form.Group  style={{marginLeft:'2px'}} className="form-group" controlId="lastestMistakes">
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
                         <Form.Label className='custom-label'>MISTAKES</Form.Label>
 
 
@@ -422,7 +407,6 @@ function SaveLesson() {
                             keepSearchTerm={true}
                             style={{
                                 chips: {
-<<<<<<< HEAD
                                     background: " #004E98",
                                     borderRadius: "20px",
 
@@ -442,27 +426,6 @@ function SaveLesson() {
                             }
                             }
 
-=======
-                                  background: " #004E98", 
-                                  borderRadius: "20px",
-                                
-                              }, 
-                              searchBox: {
-                                border: "1px solid  #C0C0C0",
-                                borderRadius: "13px",
-                                boxShadow: "0 0 0 0",
-                                padding: "10px",
-                                fontSize: "16px",
-                                color: "#004E98",
-                                width: "100%",
-                                height: "80px",
-                                background: "white",
-                              
-                              },
-                            }
-                            }
-                              
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
 
 
                         />
@@ -475,11 +438,7 @@ function SaveLesson() {
                     {untestedScenariosError && <p>You can only select 3 items</p>}
 
 
-<<<<<<< HEAD
                     <Form.Group style={{ marginLeft: '2px' }} className="form-group" controlId="lastestMistakes">
-=======
-                    <Form.Group style={{marginLeft:'2px'}} className="form-group" controlId="lastestMistakes">
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
                         <Form.Label className='custom-label'>OTHER SCENARIOS</Form.Label>
                         <Multiselect
                             className="planningMultiSelect"
@@ -498,7 +457,6 @@ function SaveLesson() {
                             keepSearchTerm={true}
                             style={{
                                 chips: {
-<<<<<<< HEAD
                                     background: " #004E98",
                                     borderRadius: "20px",
 
@@ -518,27 +476,6 @@ function SaveLesson() {
                             }
                             }
 
-=======
-                                  background: " #004E98", 
-                                  borderRadius: "20px",
-                                
-                              }, 
-                              searchBox: {
-                                border: "1px solid  #C0C0C0",
-                                borderRadius: "13px",
-                                boxShadow: "0 0 0 0",
-                                padding: "10px",
-                                fontSize: "16px",
-                                color: "#004E98",
-                                width: "100%",
-                                height: "80px",
-                                background: "white",
-                              
-                              },
-                            }
-                            }
-                              
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
 
                         />
 
@@ -548,21 +485,12 @@ function SaveLesson() {
 
 
                     <Form.Group className="d-flex justify-content-center ">
-<<<<<<< HEAD
-                        <button className="discard-btn" onClick={handleDiscard}>DISCARD</button>
-
-
-                        <button className="save-btn" onClick={openSaveModal}>SAVE LESSON</button>
-                    </Form.Group>
-
-=======
                             <button className="discard-btn" onClick={handleDiscard}>DISCARD</button>
                         
                         
                         <button className="save-btn" onClick={openSaveModal}>SAVE LESSON</button>
                     </Form.Group>
                     
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
                 </>
 
 
@@ -576,7 +504,6 @@ function SaveLesson() {
 
 
             <Modal show={showSaveModal} onHide={closeSaveModal}>
-<<<<<<< HEAD
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Save</Modal.Title>
                 </Modal.Header>
@@ -586,17 +513,6 @@ function SaveLesson() {
                     <Button variant="primary" onClick={() => { createLesson(); closeSaveModal(); }}>SAVE LESSON</Button>
                 </Modal.Footer>
             </Modal>
-=======
-    <Modal.Header closeButton>
-        <Modal.Title>Confirm Save</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>Are you sure you want to save this lesson?</Modal.Body>
-    <Modal.Footer>
-        <Button variant="secondary" onClick={closeSaveModal}>GO BACK</Button>
-        <Button variant="primary" onClick={() => { createLesson(); closeSaveModal(); }}>SAVE LESSON</Button>
-    </Modal.Footer>
-</Modal>
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
 
 
             <Modal show={showDiscardModal} onHide={cancelDiscard}>
