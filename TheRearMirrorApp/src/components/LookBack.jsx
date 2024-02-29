@@ -144,23 +144,10 @@ function LookBack() {
       const updatedLessons = await API.getAllLessons().catch(e => console.error('getAllLessons error:', e));
       setLessons([...updatedLessons]);
       console.log("lezioni settate");
-
-      // Add the toast here
-      toast.success("Lesson sent to be evaluated", {
-          position: "top-center",
-          autoClose: 1500,
-          onClose: () => {
-              // Add your redirection code here, wrapped in a setTimeout
-              setTimeout(() => {
-                  // Replace this with your actual redirection code
-                  window.location.href = '/new-location';
-              }, 1500); // Wait for 2 seconds before redirecting
-          }
-      });
     } catch (error) {
       console.error("Error in handleAskToEvaluateClick:", error);
     }
-};
+  };
 
 
 

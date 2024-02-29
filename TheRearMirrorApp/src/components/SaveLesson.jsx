@@ -145,6 +145,7 @@ function SaveLesson() {
 
         //console.log("Valore passato a SaveLesson:");
         //console.log(JSON.stringify(lesson));
+        closeSaveModal();
         await API.saveLesson(lesson)
             .then(() => {
                 toast.success("Lesson saved successfully", {
@@ -495,7 +496,7 @@ function SaveLesson() {
                 <Modal.Body>Are you sure you want to save this lesson?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={closeSaveModal}>GO BACK</Button>
-                    <Button variant="primary" onClick={() => { createLesson(); closeSaveModal(); }}>SAVE LESSON</Button>
+                    <Button variant="primary" onClick={() => { createLesson() }}>SAVE LESSON</Button>
                 </Modal.Footer>
             </Modal>
 
