@@ -12,6 +12,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import ReactDatePicker from 'react-datepicker';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 
 
@@ -56,10 +60,22 @@ function LookBack() {
   };
 
   const confirmDiscard = (lesson) => {
-    API.deleteLesson(lesson).catch(e => console.error('reset insertEval error:', e));
-    setShowDiscardModal(false);
-    window.location.reload();
-  };
+    API.deleteLesson(lesson)
+        .then(() => {
+            toast.success("Lesson deleted successfully", {
+                position: "top-center",
+                autoClose: 1500,
+                onClose: () => {
+                    setShowDiscardModal(false);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500); // Wait for 2 seconds before reloading the page
+                }
+            });
+        })
+        .catch(e => console.error('reset insertEval error:', e));
+};
+
 
   const handleDateChange = (date) => {
     setStartDate(date);
@@ -128,10 +144,23 @@ function LookBack() {
       const updatedLessons = await API.getAllLessons().catch(e => console.error('getAllLessons error:', e));
       setLessons([...updatedLessons]);
       console.log("lezioni settate");
+
+      // Add the toast here
+      toast.success("Lesson sent to be evaluated", {
+          position: "top-center",
+          autoClose: 1500,
+          onClose: () => {
+              // Add your redirection code here, wrapped in a setTimeout
+              setTimeout(() => {
+                  // Replace this with your actual redirection code
+                  window.location.href = '/new-location';
+              }, 1500); // Wait for 2 seconds before redirecting
+          }
+      });
     } catch (error) {
       console.error("Error in handleAskToEvaluateClick:", error);
     }
-  };
+};
 
 
 
@@ -312,6 +341,7 @@ function LookBack() {
           </Modal.Footer>
         </Modal>
 
+        <ToastContainer />
 
       </Container>
 
