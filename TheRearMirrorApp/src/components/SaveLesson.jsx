@@ -348,7 +348,7 @@ function SaveLesson() {
                     <div style={{ marginBottom: '10px', marginLeft: '20px' }}>
                         <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                     </div>
-=======
+
                 <label className='custom-label' style={{ marginRight: '10px', marginTop:'10px' }}>DATE </label>
                     <br></br>
                     <div style={{marginBottom:'10px', marginLeft:'20px'}}> 
@@ -525,6 +525,7 @@ function SaveLesson() {
 
         </div>
     )
+}
 }
 
 export { SaveLesson };
