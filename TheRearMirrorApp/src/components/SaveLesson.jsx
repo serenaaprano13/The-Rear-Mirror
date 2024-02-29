@@ -139,17 +139,15 @@ function SaveLesson() {
             lesson.to_evaluate = false // to_evaluate
         lesson.distance = Number(sliderValue);
         lesson.route_1 = document.getElementById('form-group1').value;
-<<<<<<< HEAD
 
-=======
         
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
+
 
         // Do something with the lesson object (e.g., send it to a server or save it locally)
 
         //console.log("Valore passato a SaveLesson:");
         //console.log(JSON.stringify(lesson));
-<<<<<<< HEAD
+
         await API.saveLesson(lesson)
             .then(() => {
                 toast.success("Lesson saved successfully", {
@@ -158,10 +156,6 @@ function SaveLesson() {
                     onClose: () => navigate('/lookback')
                 });
             })
-=======
-        await API.saveLesson(lesson).then(() => navigate('/lookback'))
->>>>>>> 8347eeee6551980192d7fee438a45d963c09033f
-    };
 
 
     const recentMistakeOption = [
