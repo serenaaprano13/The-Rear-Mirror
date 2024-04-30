@@ -13,11 +13,11 @@ async function getAllLessons(date) {
 }
 
 
-async function updateLesson(date) {
+async function updateLesson(route_2) {
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date: date })
+        body: JSON.stringify({ route_2: route_2 })
     };
     return fetch(URL + '/updateLesson', requestOptions);
 }
@@ -45,7 +45,7 @@ async function deleteLesson(lesson){
     const requestOptions = {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ date: lesson.date })
+      body: JSON.stringify({ route_2: lesson.route_2 })
     };
     return fetch(URL + '/deleteLesson', requestOptions);
   }

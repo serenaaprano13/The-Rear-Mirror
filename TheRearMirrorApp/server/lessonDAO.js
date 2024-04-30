@@ -99,9 +99,9 @@ exports.getLessons = (date) => {
 
 exports.updateLesson = (requestBody) => {
     return new Promise((resolve, reject) => {
-      const sql = 'UPDATE LESSONS SET to_evaluate = 1 WHERE lessonDate = ?';
+      const sql = 'UPDATE LESSONS SET to_evaluate = 1 WHERE route_2 = ?';
   
-      db.run(sql, [requestBody.date], function (err) {
+      db.run(sql, [requestBody.route_2], function (err) {
         if (err) {
           reject(err);
           return;
@@ -199,6 +199,7 @@ console.log(lesson)
       db.run(sql, [lesson.evaluated, lesson.date, lesson.scenario1, lesson.scenario2, lesson.scenario3, lesson.grade, lesson.distance, lesson.to_evaluate, lesson.route_1, lesson.route_2, lesson.route_3, lesson.mistake_1, lesson.mistake_2, lesson.mistake_3], function (err) {
         if (err) {
           reject(err);
+          console.log(err);
           return;
         }
         resolve("lesson successfully added");
@@ -209,11 +210,14 @@ console.log(lesson)
 
   exports.deleteLesson = (requestBody) => {
     return new Promise((resolve, reject) => {
-      const sql = 'DELETE FROM LESSONS WHERE lessonDate = ?';
+      const sql = 'DELETE FROM LESSONS WHERE route_2 = ?';
   
-      db.run(sql, [requestBody.date], function (err) {
+      db.run(sql, [requestBody.route_2], function (err) {
+        console.log("sto per fare delete")
         if (err) {
+            console.log(err);
           reject(err);
+          
           return;
         }
         resolve("lesson successfully deleted");

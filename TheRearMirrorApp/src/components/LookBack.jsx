@@ -131,24 +131,27 @@ function LookBack() {
     setFilteredLessons(filteredLessons);
   }
 
-  const handleAskToEvaluateClick = (lesson) => {
-
+  const handleAskToEvaluateClick = async (lesson) => {
     setShowModal(true);
-    handleAskToEvaluateClick2(lesson);
+    await handleAskToEvaluateClick2(lesson);
+    console.log("ora navigo");
+    navigate('/evaluation'); // Add this line to navigate to the evaluation page
   };
-
+  
   const handleAskToEvaluateClick2 = async (lesson) => {
     console.log("handleEvaluateClick called with lesson:", lesson);
     try {
-      await API.updateLesson(lesson.date).catch(e => console.error('updateLesson error:', e));
+      await API.updateLesson(lesson.route_2).catch(e => console.error('updateLesson error:', e));
       const updatedLessons = await API.getAllLessons().catch(e => console.error('getAllLessons error:', e));
       setLessons([...updatedLessons]);
       console.log("lezioni settate");
+      return Promise.resolve(); // Add this line to return a promise
     } catch (error) {
       console.error("Error in handleAskToEvaluateClick:", error);
     }
+    console.log("ora navigo");
+    navigate('/evaluation');
   };
-
 
 
   const handlePinSubmit = () => {
@@ -266,7 +269,7 @@ function LookBack() {
                     lesson.to_evaluate === 1 ? (
                       <span>waiting for evaluation</span>
                     ) : (
-                      <button className="save-btn1" onClick={() => handleAskToEvaluateClick(lesson)}>
+                      <button className="save-btn1" onClick={() => {handleAskToEvaluateClick(lesson); navigate('/evaluation')}}>
                         ASK TO EVALUATE
                       </button>
                     )
@@ -294,27 +297,27 @@ function LookBack() {
         <Row>
           <MyNavbar />
         </Row>
-        <Modal show={showModal} onHide={() => setShowModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Enter Teacher's Pin</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group controlId="formPin">
-                <Form.Label>Pin</Form.Label>
-                <Form.Control type="password" placeholder="Enter pin" />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowModal(false)}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handlePinSubmit}>
-              Submit
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        {/* <Modal show={showModal} onHide={() => setShowModal(false)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Enter Teacher's Pin</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form>
+      <Form.Group controlId="formPin">
+        <Form.Label>Pin</Form.Label>
+        <Form.Control type="password" placeholder="Enter pin" />
+      </Form.Group>
+    </Form>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowModal(false)}>
+      Close
+    </Button>
+    <Button variant="primary" onClick={handlePinSubmit}>
+      Submit
+    </Button>
+  </Modal.Footer>
+</Modal> */}
 
 
         <Modal show={showDiscardModal} onHide={cancelDiscard}>

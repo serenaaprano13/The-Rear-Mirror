@@ -123,7 +123,7 @@ function SaveLesson() {
 
         // Create a Lesson object
         let currentDate = new Date();
-        let formattedDate = currentDate.toISOString().slice(0, 10); // This will give you the date in YYYY-MM-DD format
+        let formattedDate = startDate.toISOString().slice(0, 10); // This will give you the date in YYYY-MM-DD format
 
         const lesson = new Lesson();
         lesson.date = formattedDate, // Use the current date in YYYY-MM-DD format
@@ -133,12 +133,15 @@ function SaveLesson() {
             lesson.scenario1 = untestedScenarios[0]?.name || '',
             lesson.scenario2 = untestedScenarios[1]?.name || '',
             lesson.scenario3 = untestedScenarios[2]?.name || '',
+            lesson.date = formattedDate;
             lesson.grade = -1, // grade
             lesson.evaluated = -1, // rifEvaluation
             0, // distance
             lesson.to_evaluate = false // to_evaluate
         lesson.distance = Number(sliderValue);
         lesson.route_1 = document.getElementById('form-group1').value;
+        lesson.route_2 = currentDate.getTime(); // Intero unico basato sul timestamp corrente e un numero casuale
+
         
 
         // Do something with the lesson object (e.g., send it to a server or save it locally)

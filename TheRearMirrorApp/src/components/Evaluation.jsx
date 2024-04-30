@@ -50,18 +50,20 @@ const Evaluation = () => {
 
   const [isChecked, setIsChecked] = useState(true);
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-    if (isChecked === true) {
+    const newIsChecked = !isChecked;
+    setIsChecked(newIsChecked);
+    if (newIsChecked === true) {
       const filteredLessons = lessons.filter(lesson => {
-        if ((lesson.grade <= 0 && isChecked === true))
+        if (lesson.grade <= 0)
           return lesson;
-
       });
       setLessons(filteredLessons);
     }
     else
       fetchAllLessons();
   }
+
+
 
   const [startDate, setStartDate] = useState(null);
 
@@ -162,19 +164,36 @@ const Evaluation = () => {
 };
 
 
-function LessonElement(wrap, index) {
-  const lesson = wrap.lesson;
+function LessonElement({ lesson, index }) {
+  if (!lesson) {
+    return null;
+  }
+
   const id = parseInt(index, 10);
-
-  const grade = lesson.grade;
-
+  const grade = lesson.grade || 0;
   const navigate = useNavigate();
+  const [showPinModal, setShowPinModal] = useState(false);
+
+  useEffect(() => {
+    console.log('showPinModal changed:', showPinModal);
+  }, [showPinModal]);
+
   const handleEvaluate = (e, id) => {
     e.preventDefault();
-    navigate('/evaluating', { state: { lesson } });
-
-    
+    console.log('metto il pin');
+    setShowPinModal(true); // Mostra il modal del pin
+    console.log('pin mostrato');
+    console.log('showPinModal changed:', showPinModal);
   };
+
+
+  const [pin, setPin] = useState(''); // Aggiungi questo stato per il pin
+
+  const handlePinChange = (event) => {
+    setPin(event.target.value);
+  };
+
+
   const handleDropdownSelect = (eventKey) => {
     if (eventKey === 'delete') {
       // Handle delete logic here, e.g., call a delete function
@@ -194,10 +213,11 @@ function LessonElement(wrap, index) {
   };
 
 
-  const [password, setPassword] = useState('');
-  const [showModalPin, setShowModalPin] = useState(false);
-  const handlePinSubmit = () => {
-    if (password.trim() === '') {
+  const handlePinSubmit = (event) => {
+    event.preventDefault();
+    console.log('Pin submitted');
+    console.log('pin:', pin);
+    if (pin.trim() === '') {
       console.log('Password is empty!');
       alert("TheRearMirror:\nYour Password cannot be empty!")
     }
@@ -205,7 +225,7 @@ function LessonElement(wrap, index) {
       console.log("Pin submitted");
       localStorage.setItem('pinModalShown', 'true');
       // Close the modal after submitting
-      setShowModalPin(false);
+      setShowPinModal(false);
       navigate('/evaluating', { state: { lesson } });
     }
   };
@@ -268,44 +288,85 @@ function LessonElement(wrap, index) {
           <Button variant="primary" onClick={confirmDiscard}>CONFIRM DELETION</Button>
         </Modal.Footer>
       </Modal>
+
+  
+  <Modal show={showPinModal} onHide={() => setShowPinModal(false)}>
+    <Modal.Header closeButton>
+      <Modal.Title>Enter Pin</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+    <Form>
+  <Form.Group controlId="formPin">
+    <Form.Label>Pin</Form.Label>
+    <Form.Control type="password" placeholder="Enter pin" value={pin} onChange={handlePinChange} />
+  </Form.Group>
+</Form>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={() => setShowPinModal(false)}>Close</Button>
+      <Button variant="primary" onClick={handlePinSubmit}>Submit</Button>
+    </Modal.Footer>
+  </Modal>
+
+
+
+
     </div>
 
   }
   else {
-    return <div>
-      <div >
-        <Card key={index} className="w-100">
-          <Card.Header style={{ fontWeight: 'bold' }}>
-            <div className="d-flex align-items-center" style={{ display: "flex" }}>
-              LESSON {lesson.date}
-            </div>
-
-          </Card.Header>
-          <Card.Body className="d-flex align-items-center">
-            <div>
-              <Card.Text>{lesson.scenario1}</Card.Text>
-              <Card.Text>{lesson.scenario2}</Card.Text>
-              <Card.Text>{lesson.scenario3}</Card.Text>
-            </div>
-            <div className="ml-auto">
-              {lesson.grade !== -1 ? (
-                Array.from({ length: lesson.grade }).map((_, i) => (
-                  <FontAwesomeIcon key={i} icon={faStar} size="1x" />
-                ))
-              ) : (
-                <button className="save-btn" onClick={(event) => handleEvaluate(event, lesson)}>
-                  EVALUATE
-                </button>
-              )}
-            </div>
-          </Card.Body>
-        </Card>
-
-        <br />
+    return (
+      <div>
+        <div>
+          <Card key={index} className="w-100">
+            <Card.Header style={{ fontWeight: 'bold' }}>
+              <div className="d-flex align-items-center" style={{ display: "flex" }}>
+                LESSON {lesson.date || ''}
+              </div>
+            </Card.Header>
+            <Card.Body className="d-flex align-items-center">
+              <div>
+                <Card.Text>{lesson.scenario1 || ''}</Card.Text>
+                <Card.Text>{lesson.scenario2 || ''}</Card.Text>
+                <Card.Text>{lesson.scenario3 || ''}</Card.Text>
+              </div>
+              <div className="ml-auto">
+                {grade !== -1 ? (
+                  Array.from({ length: grade }).map((_, i) => (
+                    <FontAwesomeIcon key={i} icon={faStar} size="1x" />
+                  ))
+                ) : (
+                  <button className="save-btn" onClick={(event) => handleEvaluate(event, lesson)}>
+                    EVALUATE
+                  </button>
+                )}
+              </div>
+            </Card.Body>
+          </Card>
+  
+          <br />
+        </div>
+  
+        <Modal show={showPinModal} onHide={() => setShowPinModal(false)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Enter Pin</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form>
+      <Form.Group controlId="formPin">
+        <Form.Label>Pin</Form.Label>
+        <Form.Control type="password" placeholder="Enter pin" value={pin} onChange={handlePinChange} />
+      </Form.Group>
+    </Form>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowPinModal(false)}>Close</Button>
+    <Button variant="primary" onClick={handlePinSubmit}>Submit</Button>
+  </Modal.Footer>
+</Modal>
       </div>
-
-      
-    </div>
+    );
   }
 }
+
 export default Evaluation;
